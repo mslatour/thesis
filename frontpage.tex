@@ -1,0 +1,58 @@
+% Required for the settominwidth command
+\usepackage{pbox}
+% Required for conditionals
+\usepackage{ifthen}
+
+\def\MainTitle{Main Title}
+\def\SubTitle{Subtitle}
+\def\FrontPageImage{}
+\def\Author{Author}
+\newcommand*{\frontpage}[3]{\begingroup
+	% Center all text
+	\centering
+	% Define the main title with markup
+	\def\MainTitleMarkup{\textit{\Huge \MainTitle}}
+	% Define the subtitle with markup
+	\def\SubTitleMarkup{\textsc{\Large \SubTitle}}
+	% Calculate length main title
+	\newlength{\MainTitleLength}
+	\settominwidth{\MainTitleLength}{\MainTitleMarkup}
+	% Calculate lengthsubtitle
+	\newlength{\SubTitleLength}
+	\settominwidth{\SubTitleLength}{\SubTitleMarkup}
+	% Determine titlebox length: max(\MainTitleLength, \SubTitleLength)
+	\newlength{\TitleBoxLength}
+	\ifthenelse{% if the main title takes up more space than the sub title
+		\lengthtest{\MainTitleLength>\SubTitleLength}%
+	}{% then
+		\setlength{\TitleBoxLength}{\MainTitleLength}
+	}{% else
+		\setlength{\TitleBoxLength}{\SubTitleLength}
+	}
+	% Print top curly bracket
+	{%
+		\color{LightGoldenrod}
+		\resizebox*{\TitleBoxLength}{\baselineskip}{\rotatebox{90}{$\}$}}
+	}\\[\baselineskip] 
+	% Print title
+	\textcolor{Sienna}{\MainTitleMarkup}\\[\baselineskip] 
+	% Print subtitle
+	{\color{RosyBrown}\SubTitleMarkup}\\ 
+	% Print bottom curly bracket
+	{%
+		\color{LightGoldenrod}
+		\resizebox*{\TitleBoxLength}{\baselineskip}{\rotatebox{-90}{$\}$}}
+	}
+	% Whitespace between the title and the author name
+	\vfill
+	\ifthenelse{% if the frontpage image is empty
+		\equal{\FrontPageImage}{}
+	}{ % then 
+		\ClassWarning{Frontpage}{FrontPageImage is not defined!}
+	}{ % else
+		\includegraphics[width=\TitleBoxLength]{\FrontPageImage}
+	}
+	\vfill
+	% Print author
+	{\textsc{\Large{A Master thesis by}\\[\baselineskip]\huge{\Author}}}\\
+\endgroup}
