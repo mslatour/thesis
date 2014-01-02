@@ -22,7 +22,7 @@
 %\def\SubTitle{Curriculum sequencing using genetic algorithms with an increasing gene pool}
 \def\SubTitle{Genetic curriculum sequencing from a growing gene pool}
 \def\FrontPageImage{images/evolution.jpeg}
-\def\Author{M.S. Latour}
+\def\Author{Martin Sander Latour}
 
 \begin{document}
 %%%%%%%%%%%%%%%%
@@ -56,64 +56,27 @@
 % Main matter %
 %%%%%%%%%%%%%%%
 \chapter{Introduction}
-\section{Problem statement}
-There is a growing number of open educational resources (OERs) available for teachers around the world to reuse in their own learning modules. With this increasing number come various difficulties for teachers to find resources that are relevant for their educational purposes [3]. Additionaly it becomes more dificult to ensure the quality of these OERs [1]. Work has been done on improving the search of OERs, for an overview see [2]. All of these attempts however focus on the metadata provided with the OER. The assumption in this research appears to be that when an OER is relevant (i.e.: contains the right keywords and contextual information in the metadata), the OER is highly likely to be useful in a course. Teachers that search OERs get presented a list of ranked OERs based on their relevance score. This means, that it is left to the teacher to go through this list and select the OER that suits the students best. An activity that is going to be more time-intensive with the increasing number of relevant OERs. Furthermore whether an OER is suitable for a student depends largely on the OER’s effectiveness in increasing the student’s compentences, something which is not trivial for a teacher to predict. On top of that, students don’t all learn in the same way or have the same prior knowledge.
-
-The latter has also motivated various scientific communities to create more personalized learning experiences by means of technology. These communities include Intelligent Tuturing Systems, Adaptive Hypermedia Systems and Learning Analytics. A big part of the personalized learning experience comes down to connecting the learner with a new educational resource that is, according to some metric, the best next step for the learner to take. There are usually two flavors in the presentation of this new connection, either by automatic redirection in adaptive systems or by a list of recommendations. Either way, a system must first be able to find educational resources that are useful, by some notion, for a learner. Within the educational domain such recommendations are often based on a viewing history of learners that are somehow similar to the target learner. In some systems a more direct learner feedback is used in the shape of likes or ratings. In a sense these systems are all variations on the classic shopping case where products are recommended to a customer based on the purchases of similar customers. However, whether a learner visited or liked a certain educational resource (for whatever reason) is probably not very relevant information to determine the effectiveness of that resource to have that student learn something new.
-
-Both the world of open educational resources and the world of personalized learning experiences could benefit greatly of being able to automatically take the effectiveness of an educational resource into account. If OERs could automatically be rated on effectiveness for a specific student or student type it would first of all make it a lot easier for teachers to select material out of the large repository. Second of all it would open up the possibility to automatically find and potentially even remove OERs that are always less effective than other comparable OERs. For personalized education it would mean that recommendations could be made on emperical evidence that the recommendation is likely to be succesful. The benefit is amplified when the two worlds combine. It is to be expected that virtual learning environments will at some point be connected to large online repositories of OERs instead of being limited to offer only the teacher’s hand-picked resources. Which is even more vital when there is not a clear teacher role, as is sometimes the case in corperate education settings. This is however only possible when the learning environment is autonomously capable of picking the right resources for a student, since otherwise it will almost certain reduce the quality of the learning experience. This step becomes even more urgent with the increase of massive open online courses (MOOCs), which contain enormous amounts of students that spend most of their learning activites within the virtual learning environments.
-\section{Research questions}
-\section{Background}
-\subsection{Open Educational Resources}
-\subsection{Curriculum Sequencing}
-\subsection{Genetic Algorithms}
+\input{chapters/introduction.tex}
 \chapter{Related Work}
-\section{Recommender Systems}
-\section{Reinforcement Learners}
-\section{Adaptive Hypermedia Systems}
-\section{Genetic algorithms}
+\input{chapters/related_work.tex}
 \chapter{Modeling Approach}
-\section{Chromosomes and genes}
-\subsection{The resource gene}
-\subsection{The group gene}
-\subsection{The sequence chromosome}
-\section{Genetic alterations}
-\subsection{Combination}
-\subsection{Mutation}
-\section{Fitness function}
-\section{Selection algorithm}
-\subsection{Bootstrapping}
-\section{Initial population}
-\section{Termination criteria}
-\chapter{Comparison with other approaches}
-\section{Markov Decision Process Approach}
-\section{Knowledge Engineering Approach}
-\section{Function Approximation Approach}
+\input{chapters/modeling_approach.tex}
+\chapter{Comparison With Other Approaches}
+\input{chapters/comparison_with_other_approaches.tex}
 \chapter{The TutOER Software}
-\section{Interface}
-\section{User Flow}
-\section{Database Architecture}
-\section{Challenges}
-\section{Algorithms}
-\section{Implementation details}
-\subsection{Deployment}
-\subsection{Django framework}
-\subsection{Models}
-%\subsubsection{..}
-\subsection{Javascript API}
+\input{chapters/the_tutoer_software.tex}
 \chapter{Simulations}
-\section{Setup of the simulation}
+\input{chapters/simulations.tex}
 \chapter{Experimental setup}
-\section{Amazon Mechanical Turk}
+\input{chapters/experimental_setup.tex}
 \chapter{Results}
-\section{Simulations}
-\section{Emperical study}
+\input{chapters/results.tex}
 \chapter{Analysis}
-\section{Research question 1}
-\section{Research question 2}
-\section{Research question 3}
+\input{chapters/analysis.tex}
 \chapter{Discussion}
+\input{chapters/discussion.tex}
 \chapter{Conclusion}
+\input{chapters/conclusion.tex}
 \chapter{Future Work}
-
+\input{chapters/future_work.tex}
 \end{document}
