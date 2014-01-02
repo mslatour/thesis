@@ -1,7 +1,11 @@
-\documentclass{book}
+\documentclass{memoir}
 
 % Required to specify font color
 \usepackage[svgnames]{xcolor}
+
+% Required to make colored boxes
+\usepackage{framed, color}
+\definecolor{shadecolor}{rgb}{1.0, 0.95, 0.80}
 
 % Required for many graphical operations
 \usepackage{graphicx}
@@ -10,7 +14,57 @@
 \usepackage{microtype}
 
 % Alternative margins
-\usepackage[hmargin=2cm, vmargin=3cm]{geometry}
+\usepackage[hmargin=3cm, vmargin=3cm]{geometry}
+
+% Required for different BibTeX citations
+\usepackage[square]{natbib}
+
+% Required for clickable citations
+\usepackage{hyperref}
+
+%-----------------------------
+% Chapter style declarations
+%-----------------------------
+\usepackage{tikz}
+\makechapterstyle{box}{
+  \setlength\midchapskip{10pt}
+  \renewcommand*{\printchaptername}{}
+  \renewcommand*{\chapnumfont}{\normalfont\sffamily\huge\bfseries}
+  \renewcommand*{\printchapternum}{
+    \flushleft
+	\begin{tikzpicture}[scale=(0.6)]
+	  \draw[fill, color=black] (0,0) -- (2,0) -- (3,1) -- (2,2) -- (0,2) -- (0,0);
+	  \draw[color=black]
+		  (2.25,0) --
+		  (3.25,1) --
+		  (2.25,2) --
+		  (4.25,2) --
+		  (5.25,1) --
+		  (4.25,0) --
+		  (2.25,0);
+	  \draw[color=black]
+		  (4.5,0) --
+		  (5.5,1) --
+		  (4.5,2) --
+		  (6.5,2) --
+		  (7.5,1) --
+		  (6.5,0) --
+		  (4.5,0);
+      \draw[color=white] (1cm,1cm) node { \chapnumfont\thechapter };
+    \end{tikzpicture}
+  }
+  \renewcommand*{\chaptitlefont}{\normalfont\sffamily\Huge\bfseries}
+  \renewcommand*{\printchaptertitle}[1]{
+	\flushleft\chaptitlefont##1\\[\baselineskip]
+  }
+  \renewcommand\afterchapternum{%
+    \par\nobreak\vskip\midchapskip\hrule\vskip\midchapskip
+  }
+%  \renewcommand\afterchaptertitle{%
+%    \par\vskip\midchapskip\hrule\nobreak\vskip\afterchapskip
+%  }
+}
+\chapterstyle{box}
 
 %---------------------------
 %  Frontpage declarations
@@ -79,4 +133,13 @@
 \input{chapters/conclusion.tex}
 \chapter{Future Work}
 \input{chapters/future_work.tex}
+
+%%%%%%%%%%%%%%%
+% Back matter %
+%%%%%%%%%%%%%%%
+
+% Show bibliography
+\bibliographystyle{plainnat}
+\bibliography{literature}
+
 \end{document}
