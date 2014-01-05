@@ -1,13 +1,43 @@
+%%%%%%%%%%%%%%%%%%%%%
+% Chapter: Approach %
+%%%%%%%%%%%%%%%%%%%%%
 \begin{itemize}
-  \item refer to \citep{Eiben2007} for listing the important aspects of any evolutionary algorithm that need to be modeled: representation, fitness, population, parent selection, variation operators, survivor selection, initialization and termination conditions
+	\item Mention that for this thesis the genetic algorithm was chosen as
+		approach.
+	\item Mention that other approaches have been considered
+	\item Mention the different sections
+\end{itemize}
+\section{The Genetic Algorithm approach}
+\begin{figure}[ht!]
+	\begin{framed}
+		\begin{enumerate}
+			\item Initialization
+			\item Evaluation of each candidate
+			\item Repeat until termination condition is satisfied:
+				\begin{enumerate}
+					\item Parent selection
+					\item Recombination of parent pairs
+					\item Mutation of the resulting offspring
+					\item Evaluation of each candidate
+					\item Survivor selection
+				\end{enumerate}
+		\end{enumerate}
+	\end{framed}
+	\caption[The evolutionary algorithm]{The general scheme of an
+		Evolutionary Algorithm as presented in \citep{Eiben2007}}
+	\label{alg:ea_scheme}
+\end{figure}
+\begin{itemize}
+	\item refer to \ref{alg:ea_scheme}.
+	\item refer to \citep{Eiben2007} for listing the important aspects of any evolutionary algorithm that need to be modeled: representation, fitness, population, parent selection, variation operators, survivor selection, initialization and termination conditions
 \end{itemize}
 \section{Encoding}
-\subsection{The resource gene}
+\subsubsection{The resource gene}
 \begin{itemize}
 	\item Each LO is encoded as a single gene
 	\item The encoding is based on the unique identifier
 \end{itemize}
-\subsection{The group gene}
+\subsubsection{The group gene}
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[scale=0.5]{images/group_dimensions.pdf}
@@ -48,7 +78,7 @@
 		match maker. A chromosome containing a particular group gene can only
 		be presented to a student that falls in that category.
 \end{itemize}
-\subsection{The sequence chromosome}
+\subsubsection{The sequence chromosome}
 \begin{figure}[h!]
 	\centering
 	\includegraphics[scale=0.6]{images/concept_hierarchy2.pdf}
@@ -56,12 +86,12 @@
 	\label{fig:chromosome_components}
 \end{figure}
 \begin{itemize}
-	\item Refer to figure~\ref{fig:chromosome_components}.
+	\item Refer to Figure~\ref{fig:chromosome_components}.
 	\item The chromosome contains exactly one group gene
 	\item The chromosome contains one or more resource genes.
 	\item There should be a bias towards smaller chromosomes.
 \end{itemize}
-\section{Fitness function}
+\subsection{Fitness function}
 \begin{itemize}
 	\item The literature contains many different implementations of fitness
 		functions for the curriculum sequencing problem. 
@@ -100,13 +130,27 @@
 	\item More precisely the fitness function is the normalized learning gain
 		between the pre-test and post-test for a given knowledge component.
 \end{itemize}
-\section{Population}
-\section{Parent selection}
-\section{Variation operators}
-\subsection{Combination}
-\subsection{Mutation}
-\section{Survivor selection}
-\section{Initialization}
-\subsection{Bootstrapping}
-\section{Termination condition}
-\section{Genetic Algorithm}
+\subsection{Population}
+\subsection{Parent selection}
+\subsection{Variation operators}
+\subsubsection{Combination}
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=\linewidth]{images/crossover_operations.pdf}
+	\caption[Crossover operations]{Crossover operations}
+	\label{fig:crossover_operations}
+\end{figure}
+\begin{itemize}
+	\item Refer to Figure~\ref{fig:crossover_operations}
+\end{itemize}
+\subsubsection{Mutation}
+\subsection{Survivor selection}
+\subsection{Initialization}
+\subsubsection{Bootstrapping}
+\subsection{Termination condition}
+\section{Discussion}
+\subsection{Benefits of the approach}
+\subsection{Downsides of the approach}
+\subsection{Comparing with the Markov Decision Process Approach}
+\subsection{Comparing with the Knowledge Engineering Approach}
+\subsection{Comparing with the Function Approximation Approach}
