@@ -131,9 +131,35 @@
 		between the pre-test and post-test for a given knowledge component.
 \end{itemize}
 \subsection{Population}
+\begin{itemize}
+	\item A population of individual chromosomes evolves over generations
+	\item Requirements:
+		\begin{enumerate}
+			\item Each chromosome must be unique in the population, so unlike
+				most applications this is not a multi-set.
+		\end{enumerate}
+	\item After having evaluated each member of a generation, a new generation
+		is formed.
+	\item Certain chromosomes are kept as is, due to the implementation of elitism
+		[1 or 2 I think?]
+	\item The other chromosomes have a certain probability of surviving. (see
+		section~\ref{sec:approach_survivor_selection}.
+	\item From the surviving chromosomes, some parents are selected to produce
+		offspiring. See section~\ref{sec:approach_parent_selection}.
+	\item The offspring is produced according to a set of combination operators
+		on the chromosomes of each parent pair. The combination operators have
+		a certain probability to be picked. See
+		section~\ref{sec:approach_combination_operator}.
+	\item The new offspring and old survivors have a certain probability of
+		mutation occuring which results in a slightly different individual. See
+		section~\ref{sec:approach_mutation_operator}.
+	\item Point to a picture depicting the percentages of each population that
+		came from elitism, survival, cross-over, mutation.
+\end{itemize}
 \subsection{Parent selection}
-\subsection{Variation operators}
-\subsubsection{Combination}
+\label{sec:approach_parent_selection}
+\subsection{Combination operator}
+\label{sec:approach_combination_operator}
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=\linewidth]{images/crossover_operations.pdf}
@@ -141,10 +167,37 @@
 	\label{fig:crossover_operations}
 \end{figure}
 \begin{itemize}
-	\item Refer to Figure~\ref{fig:crossover_operations}
+	\item Refer to Figure~\ref{fig:crossover_operations} as a enumeration of
+		all possible crossover results for a given example of two parents
+	\item Describe the crossover operations formally
+	\item Describe the probability distribution
 \end{itemize}
-\subsubsection{Mutation}
+\subsection{Mutation operator}
+\label{sec:approach_mutation_operator}
+\begin{itemize}
+	\item Perhaps not real mutation, since that is often only referred to as a
+		completly random unbiased change. This can result in invalid outcomes.
+	\item The mutation, or otherwise unary, operator in this thesis
+		(uniformly?) selects a mutation from a set of possible changes that result
+		in valid and unique outcomes.
+	\item The mutation operators include:
+		\begin{enumerate}
+			\item Randomly swapping the group gene of the chromosome with a
+				different group gene from the pool. In such a way that the
+				resulting chromosome is not already present in the population.
+			\item Randomly swapping a resource gene of the chromosome with a
+				different resource gene from the pool. In such a way that the
+				resulting chromosome is not already present in the population.
+			\item Randomly swap the positions of two resource genes in the
+				chromosome. While still obaying the uniqueness condition of the
+				population.
+			\item Randomly removing one resource gene from the chromosome.
+			\item Randomly adding one resource gene from the pool to the
+				chromosome without introducing duplicates
+		\end{enumerate}
+\end{itemize}
 \subsection{Survivor selection}
+\label{sec:approach_survivor_selection}
 \subsection{Initialization}
 \subsubsection{Bootstrapping}
 \subsection{Termination condition}
