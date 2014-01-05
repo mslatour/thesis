@@ -1,15 +1,112 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Chapter: Modeling Approach %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Chromosomes and genes}
+\begin{itemize}
+  \item refer to \citep{Eiben2007} for listing the important aspects of any evolutionary algorithm that need to be modeled: representation, fitness, population, parent selection, variation operators, survivor selection, initialization and termination conditions
+\end{itemize}
+\section{Encoding}
 \subsection{The resource gene}
+\begin{itemize}
+	\item Each LO is encoded as a single gene
+	\item The encoding is based on the unique identifier
+\end{itemize}
 \subsection{The group gene}
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[scale=0.5]{images/group_dimensions.pdf}
+	\caption[Group characterization]{Students are characterized in four groups.
+		The horizontal axis represents the pre-test score, the vertical axis
+		the relevant prior experience.}
+	\label{fig:group_dimensions}
+\end{figure}
+\begin{itemize}
+	\item Each student is characterized by two dimensions
+		\begin{itemize}
+			\item score on the pre-test for this particular knowledge component
+			\item relevant experiences
+		\end{itemize}
+	\item Other things that could have been included are learning
+		style, gender and age. As is also common in most user models in
+		curriculum sequencing applications. However, in this thesis it
+		was decided not to include those. Partly because of the
+		difficult way some of the indicators can be retrieved or
+		checked automatically, as is for example difficult for learning
+		style. And partly because it would enlarge the state space even
+		more.
+	\item The two dimensions are discretized into two values, high and low.
+	\item This results in four categories:
+		\begin{description}
+			\item[A] This person has a lot of relevant experience but did not
+				score well on this particular knowledge component in the
+				pre-test.
+			\item[B] This person has a lot of relevant experience and also
+				scored high on the pre-test for this knowledge component.
+			\item[C] This person has neither much relevant experience nor
+				a high score on the pre-test for this knowledge component.
+			\item[D] This person does not have a lot of relevant experience,
+				but did score high on the pre-test on this knowledge component.
+		\end{description}
+	\item The four categories are also depicted in figure~\ref{fig:group_dimensions}.
+	\item These categories are encoded in a gene. This gene functions as a
+		match maker. A chromosome containing a particular group gene can only
+		be presented to a student that falls in that category.
+\end{itemize}
 \subsection{The sequence chromosome}
-\section{Genetic alterations}
+\begin{figure}[h!]
+	\centering
+	\includegraphics[scale=0.6]{images/concept_hierarchy2.pdf}
+	\caption[Components of the chromosome]{Components of the chromosome}
+	\label{fig:chromosome_components}
+\end{figure}
+\begin{itemize}
+	\item Refer to figure~\ref{fig:chromosome_components}.
+	\item The chromosome contains exactly one group gene
+	\item The chromosome contains one or more resource genes.
+	\item There should be a bias towards smaller chromosomes.
+\end{itemize}
+\section{Fitness function}
+\begin{itemize}
+	\item The literature contains many different implementations of fitness
+		functions for the curriculum sequencing problem. 
+	\item Some solutions include a term that expresses how well a particuluar
+		solution fits the pre-determined prerequisite structure of the learning
+		objects. Others include a term that expresses how smooth the transitions
+		are between learning objects in difficulty.
+	\item A big part of the prerequisite structure is already captured by the
+		given main curriculum in this thesis that provides the order of
+		knowledge components. The curriculum sequencing step takes place
+		in this thesis on a much smaller level where the different learning
+		objects all try to convey the same content, but do so in different
+		ways. In a way this means that this thesis implements a particular type
+		of curriculum sequencing that focuses on the presentation. Some objects
+		might contain an example or the formal description. Some might present
+		the knowledge in text, others are more visual. Yet it is not expected
+		to need only one learning object per student, if you would consider
+		the learning object term referring to the smallest unit of explanation.
+		Different students require a different mix of presentations at perhaps
+		even different orders. Furthermore, learning objects are often not
+		a perfect fit. They might explain too much or too little about some
+		context. On top of that, it is not that well indexed in terms of the
+		exact type of presentation that they have. Thus, what we want is a
+		sequence of imperfect learning objects that together maximize the
+		educational performance. We do not know what the order should be, given
+		that the order is a matter of pedagogy and not knowledge engineering.
+		And even if we were able to fully specify the right pedagogical order
+		for each type of student perfectly. We would still not have the
+		required information about these learning objects, or the information
+		might be wrong. In conclusion, we are learning a sequence of black
+		boxes of which we only know that they attempt to teach a particular
+		knowledge component, or so they say.
+	\item The only way we can measure the value of a particular sequence for a
+		group of students, and thereby assess its fitness, is to look at the
+		gain in knowledge as observed by the post-test.
+	\item More precisely the fitness function is the normalized learning gain
+		between the pre-test and post-test for a given knowledge component.
+\end{itemize}
+\section{Population}
+\section{Parent selection}
+\section{Variation operators}
 \subsection{Combination}
 \subsection{Mutation}
-\section{Fitness function}
-\section{Selection algorithm}
+\section{Survivor selection}
+\section{Initialization}
 \subsection{Bootstrapping}
-\section{Initial population}
-\section{Termination criteria}
+\section{Termination condition}
+\section{Genetic Algorithm}
