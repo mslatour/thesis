@@ -40,7 +40,7 @@
 \subsubsection{The group gene}
 \begin{figure}[ht!]
 	\centering
-	\includegraphics[scale=0.5]{images/group_dimensions.pdf}
+	\includegraphics[scale=0.7]{images/group_dimensions.pdf}
 	\caption[Group characterization]{Students are characterized in four groups.
 		The horizontal axis represents the pre-test score, the vertical axis
 		the relevant prior experience.}
@@ -93,6 +93,15 @@
 \end{itemize}
 \subsection{Fitness function}
 \begin{itemize}
+	\item evaluation function and fitness function are not by definition
+		interchangeable. The evaluation function, or objective function,
+		provides a measure of performance. The fitness function transforms this
+		into reproductive opportunities. Unline the evaluation function, the
+		fitness function is defined with respect to the fitness of the other
+		members in the population. From: \citet{Whitley1994}. (Paraphrase
+		this!) In other words, the fitness function is at least a normalized
+		version of the evaluation function obtained by dividing by the average
+		fitness value of the current population/generation.
 	\item The literature contains many different implementations of fitness
 		functions for the curriculum sequencing problem. 
 	\item Some solutions include a term that expresses how well a particuluar
@@ -129,14 +138,63 @@
 		gain in knowledge as observed by the post-test.
 	\item More precisely the fitness function is the normalized learning gain
 		between the pre-test and post-test for a given knowledge component.
+	\item The observed fitness is probably not the same each time a chromosome
+		is evaluated. This is due to the fact that students are not identical,
+		especially not given the coarse division into four groups. A solution
+		is to see the fitness as a stochastic variable that has some noise on
+		top of the ``true'' value. In order to obtain an estimate of this true
+		value, several approaches are possible. The most simple one is to take
+		multiple samples and average over them. However, in this case, taking
+		samples must be considered to be expensive. The approach taken must
+		therefor try to minimize the number of samples while maximizing the
+		certainty of the fitness value.
+	\item According to \citet{Jin2005}, fitness inheritence is a popular approach for evolutionary approximation. In fitness inheritence a child inherits some of the fitness information of its parents.
+		% From: A comprehensive survey of fitness approximation
+		%  in evolutionary computation. By: Y. Jin (2005)
+		% Chen J-H, Goldberg DE, Ho S-Y, Sastry K (2002) Fitness
+		%  inheritance in multi-objective optimization.
+		% Sastry K, Goldberg DE, Pelikan M (2001) Don’t evaluate,inherit.
+		% Smith R, Dike B, Stegmann S (1995) Fitness inheritance in
+		%  genetic algorithms
+		% Zhang X, Julstrom B, Cheng W (1997) Design of vector
+		%  quantization codebooks using a genetic algorithm
+	\item The following components can be put in the fitness function:
+		\begin{itemize}
+			\item linear combination of fitness values of the two parents that
+				had crossover applied to it. The weights could be determined on
+				the portion of the parent that ended up in the child and the
+				uncertainty of the fitness value of that parent.
+			\item the uncertainty of the fitness value based on how many times
+				it was observed, the variation of those observations and a
+				linear combination of the uncertainty values of the parents
+				plus some constant uncertainty bonus.
+			\item 
+		\end{itemize}
 \end{itemize}
 \subsection{Population}
 \begin{itemize}
 	\item A population of individual chromosomes evolves over generations
+	\item Size: 10?
 	\item Requirements:
 		\begin{enumerate}
 			\item Each chromosome must be unique in the population, so unlike
-				most applications this is not a multi-set.
+				most applications this is not a multi-set. Right?
+				I'm doubting about this now:
+				\begin{itemize}
+					\item The initial population size is probably bigger than
+						the gene pool of most knowledge components. That means
+						that probably the first population already has to be a
+						multiset, or it will be smaller than other generations.
+					\item The exploration vs exploitation tradeoff states that
+						you should also not focus too much on exploration. If
+						you would only go for unique chromosomes in each
+						generation than that would be mean that the best
+						solution is only presented to one student. The others
+						could get suboptimal solutions, even if we know that is
+						the case. Of course you need to explore, even
+						suboptimal solutions. But maybe this should be more
+						stochastic than deterministic.
+				\end{itemize}
 		\end{enumerate}
 	\item After having evaluated each member of a generation, a new generation
 		is formed.
@@ -154,16 +212,27 @@
 		mutation occuring which results in a slightly different individual. See
 		section~\ref{sec:approach_mutation_operator}.
 	\item Point to a picture depicting the percentages of each population that
-		came from elitism, survival, cross-over, mutation.
+		came from elitism, survival, cross-over, mutation. Vertical bar, split
+		up into several sections with different colors.
 \end{itemize}
 \subsection{Parent selection}
 \label{sec:approach_parent_selection}
+\begin{itemize}
+	\item Individuals are selected as parents with a probability proportional
+		to their fitness.
+\end{itemize}
 \subsection{Combination operator}
 \label{sec:approach_combination_operator}
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=\linewidth]{images/crossover_operations.pdf}
-	\caption[Crossover operations]{Crossover operations}
+	\caption[Crossover operations]{Crossover operations. \textbf{Note:} Image
+is still wrong. a) combination results in two children by combining parent 1
+with parent 2 and the other way around, b) it makes more sense to count from
+the beginning in one parent and from the end in the other than counting from
+the beginning in both. Now it is impossible to take the end of parent 2 and
+append it to parent 1 and c) maybe this is also not the best way to show,
+perhaps just display an example cut point and only the two resulting children}
 	\label{fig:crossover_operations}
 \end{figure}
 \begin{itemize}
@@ -198,12 +267,41 @@
 \end{itemize}
 \subsection{Survivor selection}
 \label{sec:approach_survivor_selection}
+\begin{itemize}
+	\item Factors that should influence the probability of a candidate to be a
+		survivor are:
+		\begin{itemize}
+			\item The observed fitness
+			\item The uncertainty of the fitness value. More uncertain values
+				should get more chance of being selected for a new generation
+			\item Some linear combination of the teacher ratings for each
+				individual learning objects.
+			\item Elitism: the best performing organisms are transfered to the next generation unaltered.
+		\end{itemize}
+\end{itemize}
 \subsection{Initialization}
+\begin{itemize}
+	\item We start with chromosomes of length 1
+	\item The population has 10 chromosomes in each generation
+	\item The initial population is not generated entirely randomly, see
+		section~\ref{sec:approach_bootstrapping}.
+\end{itemize}
 \subsubsection{Bootstrapping}
+\label{sec:approach_bootstrapping}
+\begin{itemize}
+	\item The selection is made from the gene pool based on a PDF that reflects
+		the teacher ratings
+	\item Not all learning objects have teacher ratings
+	\item Each rating is an average given the number of raters. This number of raters should have impact on the value of the rating.
+	\item Learning objects that don't have received a rating yet, are assumed
+		to have a neutral rating. So value 3 on a 5 point scale. Alternatively, if the number of raters is linked to the weight of the rating, the unrated learning objects should just experience no effect of any rating variable (weight equals zero).
+	\item Weighted ratings could work even better if the ratings are normalized with an average value of zero, resulting in a symmetrical scale of positive and negative values.
+\end{itemize}
 \subsection{Termination condition}
 \section{Discussion}
 \subsection{Benefits of the approach}
 \subsection{Downsides of the approach}
+% risk of Hamming walls
 \subsection{Comparing with the Markov Decision Process Approach}
 \subsection{Comparing with the Knowledge Engineering Approach}
 \subsection{Comparing with the Function Approximation Approach}
