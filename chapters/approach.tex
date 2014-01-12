@@ -2,12 +2,17 @@
 % Chapter: Approach %
 %%%%%%%%%%%%%%%%%%%%%
 \begin{itemize}
-	\item Mention that for this thesis the genetic algorithm was chosen as
-		approach.
-	\item Mention that other approaches have been considered
-	\item Mention the different sections
+	\item In this thesis the genetic algorithm was chosen as method to solve
+		the task.
+	\item Several other method categories are common in the literature and one
+		of those, using markov decision processes, is partially worked out by
+		the author of this thesis. A comparison of the chosen method with
+		these alternatives is given in section~\ref{approach_discussion}
+	\item First, section~\ref{approach_genetic_algorithm} describes how
+		the task was modelled to be applicable to a genetic algorithm.
 \end{itemize}
 \section{The Genetic Algorithm approach}
+\label{approach_genetic_algorithm}
 \begin{figure}[ht!]
 	\begin{framed}
 		\begin{enumerate}
@@ -298,8 +303,40 @@ perhaps just display an example cut point and only the two resulting children}
 	\item Weighted ratings could work even better if the ratings are normalized with an average value of zero, resulting in a symmetrical scale of positive and negative values.
 \end{itemize}
 \subsection{Termination condition}
+\begin{itemize}
+	\item We don't want the evolution to stop before all learning objects have
+		been given a chance to prove themselves.
+	\item One possible termination condition is that when there are no more
+		possible candidates to try, and the confidence of the fitness of these
+		candidates is high enough to be considered stable. The latter
+		requirement is yet to implement theoretically.
+	\item Given the growing nature of the gene pool in the presented
+		application, it might be possible that this situation never occurs
+		while the algorithm is running. Futhermore,	even if that would occur,
+		it is possible that after the termination of the program a new learning
+		object is added to the set. We don't want everything to start from
+		scratch again.
+	\item Therefore the algorithm is meant to converge, but never terminate.
+\end{itemize}
 \section{Discussion}
+\label{approach_discussion}
 \subsection{Benefits of the approach}
+\begin{itemize}
+	\item More natural fit to the problem of curriculum sequencing, given the
+		natural mapping of chromosomes and genes to the domain.
+	\item The method is good for changing environments (citation needed)
+	\item No need to explitely specify intermediate states
+	\item Domain allows for many enhancements of the canonical algorithm by
+		adding prior knowledge in the initialization and fitness function, by
+		propagating fitness information to next generations using fitness
+		inheritance, and restrict the crossover and mutation operations to
+		ensure only valid and interesting outcomes.
+	\item Search through the solution space is biased towards areas that seem
+		most promising, with a small but nonzero chance of exploring in other
+		areas.
+	\item This implicit exploration-exploitation trade-off can be enhanced by
+		incorperating uncertainty information
+\end{itemize}
 \subsection{Downsides of the approach}
 % risk of Hamming walls
 \subsection{Comparing with the Markov Decision Process Approach}
@@ -356,4 +393,3 @@ perhaps just display an example cut point and only the two resulting children}
 		  \end{enumerate}
 \end{itemize}
 \subsection{Comparing with the Knowledge Engineering Approach}
-\subsection{Comparing with the Function Approximation Approach}
