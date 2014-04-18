@@ -1,16 +1,15 @@
 %%%%%%%%%%%%%%%%%%%%%
 % Chapter: Approach %
 %%%%%%%%%%%%%%%%%%%%%
-\begin{itemize}
-	\item In this thesis the genetic algorithm was chosen as method to solve
-		the task.
-	\item Several other method categories are common in the literature and one
-		of those, using markov decision processes, is partially worked out by
-		the author of this thesis. A comparison of the chosen method with
-		these alternatives is given in section~\ref{approach_discussion}
-	\item First, section~\ref{approach_genetic_algorithm} describes how
-		the task was modelled to be applicable to a genetic algorithm.
-\end{itemize}
+\label{ch_approach}
+There are several ways to model the educational task described in
+section~\ref{ch_problem_domain}. The work presented in this thesis models the
+problem using genetic algoritms. Two other modeling choices that are common for
+this problem are markov decision processes and knowledge-based systems.
+Section~\ref{approach_discussion} discusses the disadvantages of using genetic
+algorithms as a model and compares it with the two alternative modeling
+choices. First, section~\ref{approach_genetic_algorithm} describes the details
+of the genetic algorithm modeling.
 \section{The Genetic Algorithm approach}
 \label{approach_genetic_algorithm}
 \begin{figure}[ht!]
@@ -36,13 +35,7 @@
 	\item refer to \ref{alg:ea_scheme}.
 	\item refer to \citep{Eiben2007} for listing the important aspects of any evolutionary algorithm that need to be modeled: representation, fitness, population, parent selection, variation operators, survivor selection, initialization and termination conditions
 \end{itemize}
-\subsection{Encoding}
-\subsubsection{The resource gene}
-\begin{itemize}
-	\item Each LO is encoded as a single gene
-	\item The encoding is based on the unique identifier
-\end{itemize}
-\subsubsection{The group gene}
+\subsection{Island model}
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[scale=0.7]{images/group_dimensions.pdf}
@@ -50,6 +43,12 @@
 		The horizontal axis represents the pre-test score, the vertical axis
 		the relevant prior experience.}
 	\label{fig:group_dimensions}
+\end{figure}
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.5\linewidth]{images/neighborhood_migration_topology.pdf}
+	\caption[Neighborhood Migration Topology]{}
+	\label{fig:migration_topology}
 \end{figure}
 \begin{itemize}
 	\item Each student is characterized by two dimensions
@@ -79,23 +78,88 @@
 				but did score high on the pre-test on this knowledge component.
 		\end{description}
 	\item The four categories are also depicted in figure~\ref{fig:group_dimensions}.
-	\item These categories are encoded in a gene. This gene functions as a
-		match maker. A chromosome containing a particular group gene can only
-		be presented to a student that falls in that category.
+	\item The curriculum sequencing problem is splitted up per student group,
+		while maintaining the ability for good solutions to be copied.
+		Analogous to a teachter that teaches in different grades, the algorithm
+		tries to optimize the learning material for each group separately. But
+		in that same analogy, if the teacher would see that a particular
+		approach would work really well for one group he might be inclined to
+		try it out on the other groups as well. The underlying assumption is
+		that there are some universal do's and don'ts for the explanation of
+		the same topics, some examples work better than others etc. The student
+		groups, although different on a few selected dimensions, are likely to
+		be similar on many other dimensions.
+	\item This results in solving separate tutoring problems that are not
+		independant, and thereby could benefit exchange of solutions.
+	\item Each distinct student group is modelled by an island, see
+		Figure~\ref{fig:migration_topology}
+	\item Each island has its own independant evolution
+	\item The genetic algorithm implementation is identical for each island
+	\item But because fitness is only observed by student experience and that
+		it depends on which type of student participates which island will
+		evaluate an individual, it is likely that the islands will have
+		different speeds of generation iterations.
+	\item Migration (ie. copy) can occur of the best individual of one island
+		to replace the worst individual of the next island.
+	\item Migration only takes place between adjacent islands, which is defined
+		as islands that only differ on one dimension and with one value step,
+		in other words a vector distance of 1.
+	\item When multiple adjacent islands exist to receive a best individual
+		from, only one will replace the worst one of the population. The
+		selection is done probabilistically based on the fitness functions of
+		each migration candidate.
+	\item Migration occurs after each generation
 \end{itemize}
-\subsubsection{The sequence chromosome}
-\begin{figure}[h!]
-	\centering
-	\includegraphics[scale=0.6]{images/concept_hierarchy2.pdf}
-	\caption[Components of the chromosome]{Components of the chromosome}
-	\label{fig:chromosome_components}
-\end{figure}
-\begin{itemize}
-	\item Refer to Figure~\ref{fig:chromosome_components}.
-	\item The chromosome contains exactly one group gene
-	\item The chromosome contains one or more resource genes.
-	\item There should be a bias towards smaller chromosomes.
-\end{itemize}
+\subsection{Encoding}
+Genetic algorithms evolve a population of individuals. An individual contains a
+chromosome that represents a candidate solution. A particular chromosome can be contained by
+multiple individuals, and as such a candidate solution can be present multiple
+times in one generation of the population. Chromosomes are a configuration of
+genes, where each gene represents a component of the candidate solution. In the
+analogy with natural evolution these genes typically represent certain traits
+of the animal, such as the length of wings or the color, that affect the change
+of survival and can be optimized by inheritence and natural selection.
+
+In this thesis, each educational resource is encoded as a single gene. A
+chromosome represents a particular sequence of resources. The order of these
+resources in the sequence matter, which is not often the case in genetic
+algorithm applications, as it determines in what order material is presented to
+the student. An individual denotes a particular teaching attempt where a particular
+sequence of the education resources is presented to a student.
+
+It is not known apriori what the length of the optimal sequence of material is,
+which means that chromosomes have variable length. For practical reasons this
+length will be bounded to a lower and upper limit in the application. 
+
+Instead of using the standard binary encoding (i.e. the binary representations
+of all genes concatenated into one string of bits), a chromosome is encoded as a list
+of gene identifiers (i.e. integers). There are two main arguments for this decision.
+First, the operations defined in sections~\ref{sec:approach_combination_operator}~and~\ref{sec:approach_mutation_operator}
+take the educational resource as smallest unit. In applications that use the
+standard binary encoding it is common to operate on a bit level, regardless of
+the start and finish of each gene representation. Second, the application
+created in this thesis which applies this genetic algorithm model is web-based
+and uses relational databases to store the chromosomes. The genetic operations
+are implemented to work with these database entities and consist largely of
+database queries. This combined with the fact that the chromosome has variable
+length requires a many-to-many relation between separate chromosome and gene
+entities. The alternative of storing a bit string for each chromosome defeats
+the purpose of having a database optimized for relational algebra.
+
+%There should be a bias towards smaller chromosomes.
+
+% TODO: update
+%\subsubsection{The sequence chromosome}
+%\begin{figure}[h!]
+%	\centering
+%	\includegraphics[scale=0.6]{images/concept_hierarchy2.pdf}
+%	\caption[Components of the chromosome]{Components of the chromosome}
+%	\label{fig:chromosome_components}
+%\end{figure}
+%\begin{itemize}
+%	\item Refer to Figure~\ref{fig:chromosome_components}.
+%	\item The chromosome contains exactly one group gene
+%\end{itemize}
 \subsection{Fitness function}
 \begin{itemize}
 	\item evaluation function and fitness function are not by definition
@@ -182,9 +246,8 @@
 	\item Size: 10?
 	\item Requirements:
 		\begin{enumerate}
-			\item Each chromosome must be unique in the population, so unlike
-				most applications this is not a multi-set. Right?
-				I'm doubting about this now:
+			\item Chromosomes need to necessarilly be unique in the
+				population. Reasons for not forcing uniqueness
 				\begin{itemize}
 					\item The initial population size is probably bigger than
 						the gene pool of most knowledge components. That means
@@ -244,6 +307,10 @@ perhaps just display an example cut point and only the two resulting children}
 	\item Refer to Figure~\ref{fig:crossover_operations} as a enumeration of
 		all possible crossover results for a given example of two parents
 	\item Describe the crossover operations formally
+		\begin{itemize}
+			\item Pick Parent 1 based on fitness PDF
+			\item Pick Parent 2 based on fitness PDF, other than Parent 1
+		\end{itemize}
 	\item Describe the probability distribution
 \end{itemize}
 \subsection{Mutation operator}
@@ -269,7 +336,7 @@ perhaps just display an example cut point and only the two resulting children}
 			\item Randomly adding one resource gene from the pool to the
 				chromosome without introducing duplicates
 		\end{enumerate}
-\end{itemize}
+\iend{itemize}
 \subsection{Survivor selection}
 \label{sec:approach_survivor_selection}
 \begin{itemize}
@@ -285,39 +352,60 @@ perhaps just display an example cut point and only the two resulting children}
 		\end{itemize}
 \end{itemize}
 \subsection{Initialization}
-\begin{itemize}
-	\item We start with chromosomes of length 1
-	\item The population has 10 chromosomes in each generation
-	\item The initial population is not generated entirely randomly, see
-		section~\ref{sec:approach_bootstrapping}.
-\end{itemize}
+The first generation of the population is initialized with a fixed number of
+individuals. Each individual contains a chromosome with exactly one gene. The
+individuals are generated according to the following steps:
+\begin{enumerate}
+	\item For all genes in pool:
+		\begin{enumerate}
+			\item If population is full, stop
+			\item Else, add an individual with the chromosome that contains only that gene.
+		\end{enumerate}
+	\item While there is room left in the population:
+		\begin{enumerate}
+			\item \label{init_sample_step}Select a gene according to some probability density function
+			\item Add an individual with the chromosome that contains only that
+				gene
+		\end{enumerate}
+\end{enumerate}
+The probability density function (PDF) refered to in
+step~\ref{init_sample_step} is a uniform distribution by default, but can also
+represent apriori values of resources as described in
+\ref{sec:approach_bootstrapping}.
 \subsubsection{Bootstrapping}
 \label{sec:approach_bootstrapping}
-\begin{itemize}
-	\item The selection is made from the gene pool based on a PDF that reflects
-		the teacher ratings
-	\item Not all learning objects have teacher ratings
-	\item Each rating is an average given the number of raters. This number of raters should have impact on the value of the rating.
-	\item Learning objects that don't have received a rating yet, are assumed
-		to have a neutral rating. So value 3 on a 5 point scale. Alternatively, if the number of raters is linked to the weight of the rating, the unrated learning objects should just experience no effect of any rating variable (weight equals zero).
-	\item Weighted ratings could work even better if the ratings are normalized with an average value of zero, resulting in a symmetrical scale of positive and negative values.
-\end{itemize}
+% Should this be mentioned, since it has not been used in the experiment?
+Some of the OER repositories allow for teachers to give ratings for educational
+material. These ratings could be used as an apriori probability that the
+material is good. However, only a part the collection of materials will be
+rated. Therefore, educational material that does not have a rating is assumed
+to be rated neutral (i.e. the middle of a five-point scale).
+% Each rating is an average given the number of raters. This number of raters should have impact on the value of the rating.
+% Weighted ratings could work even better if the ratings are normalized with an average value of zero, resulting in a symmetrical scale of positive and negative values.
 \subsection{Termination condition}
-\begin{itemize}
-	\item We don't want the evolution to stop before all learning objects have
-		been given a chance to prove themselves.
-	\item One possible termination condition is that when there are no more
-		possible candidates to try, and the confidence of the fitness of these
-		candidates is high enough to be considered stable. The latter
-		requirement is yet to implement theoretically.
-	\item Given the growing nature of the gene pool in the presented
-		application, it might be possible that this situation never occurs
-		while the algorithm is running. Futhermore,	even if that would occur,
-		it is possible that after the termination of the program a new learning
-		object is added to the set. We don't want everything to start from
-		scratch again.
-	\item Therefore the algorithm is meant to converge, but never terminate.
-\end{itemize}
+Given the inherent noise in the fitness values, the algorithm should not stop
+before the fitness of each possible\footnote{i.e. all possible sequences given
+the constraints on length and the uniqueness requirement} chromosome is determined
+with some certainty. That would seem to lead to a valid point of termination
+when all chromosomes are tried are evaluated with enough certainty. However,
+the pool of genes is assumed to grow (i.e. new educational resources are made
+available) and each time a new gene is introduced it theoretically needs to be
+tried out in every combination with the already existing genes before the valid
+termination point would be reached. This would mean that the algorithm would
+never terminate, as it should wait for new genes to arrive. If it is vital that
+the algorithm finishes, a practical approach could be to stop if the fitness of
+one or more individuals is within a small margin of the optimal value. Provided
+an optimal value can be defined.
+
+The application presented in this thesis does not require the genetic algorithm
+to terminate. The web-based variation to the algorithm described in
+section~\ref{sec:web-based_ga} ensures that computation only happens on a event
+basis. Furthermore, due to the nature of the application, it is not
+as interesting to have the best solution at the end as it is to select the best
+known solution at each point that an individual is tested. Naturally a
+exploration-explotation trade-off applies where occassionally individuals need
+to be tried out that could both be better or worse. So instead of termination,
+moving towards convergence is important.
 \section{Discussion}
 \label{approach_discussion}
 \subsection{Benefits of the approach}
