@@ -1,6 +1,25 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Chapter: Problem Domain %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{ch_problem_domain}
+% TODO: Completely restructure, give curriculum sequencing a much greater part
+\begin{itemize}
+	\item Introduce curriculum sequencing
+		\begin{itemize}
+			\item generate personalized learning path through content (cite
+				brusilovsky)
+			\item old feature, recent necessity due to hyperspace. OER
+				especially!
+		\end{itemize}
+	\item Typically fitting content to students, due to differences in student
+		ability or learning style. OER adds a challenge of also dealing with
+		bad content.
+	\item Furthermore several examples of curriculum sequencing in the
+		literature that apply evolutionary computing focus on creating a
+		content sequencing with a smooth built-up in dificulty. However, in OER
+		this difficulty is not necessarily known. And if it is, there is no
+		guarantee that it will be correct.
+\end{itemize}
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[scale=0.8]{images/concept_hierarchy.pdf}
@@ -15,5 +34,66 @@
 \section{Curriculum}
 \subsection{Knowledge Components}
 \section{Open Educational Resources}
+\begin{itemize}
+	\item What are open educational resources?
+	\item What makes OER different from other sources of educational material
+	\item What are the challenges?
+\end{itemize}
 \subsection{Meta data}
 \section{Pre-test / post-test} % domain-agnositic? what about prior math experience
+\section{Search space}
+\begin{itemize}
+	\item let R be number of resources for a topic
+	\item let A be the minimum number of resources in a sequence
+	\item let B be the maximum number of resources in a sequence
+	\item point to Equation~\eqref{eq:search_space_size}
+	\item point to Table~\ref{tab:search_space_sizes} for some example values
+\end{itemize}
+\begin{equation}
+	\label{eq:search_space_size}
+	|S| = \sum_{i=0}^{B-A} \frac{R!}{(R-B+i)!}, \quad A \le B \le R
+\end{equation}
+\begin{table}
+	\begin{minipage}{0.24\linewidth}
+	\centering
+	\begin{tabular}{l|l|l||l}
+		\textbf{R} & \textbf{A} & \textbf{B} & \textbf{$|S|$} \\\hline\hline
+		3 & 1 & 3 & 15 \\\hline
+		4 & 1 & 3 & 40 \\\hline
+		5 & 1 & 3 & 85 \\\hline
+	\end{tabular}
+	\end{minipage}
+	\begin{minipage}{0.24\linewidth}
+	\centering
+	\begin{tabular}{l|l|l||l}
+		\textbf{R} & \textbf{A} & \textbf{B} & \textbf{$|S|$} \\\hline\hline
+		5 & 1 & 4 & 205 \\\hline
+		5 & 1 & 5 & 325 \\\hline
+		5 & 2 & 5 & 320 \\\hline
+	\end{tabular}
+	\end{minipage}
+	\begin{minipage}{0.24\linewidth}
+	\centering
+	\begin{tabular}{l|l|l||l}
+		\textbf{R} & \textbf{A} & \textbf{B} & \textbf{$|S|$} \\\hline\hline
+		10 & 1 & 3 & 820 \\\hline
+		10 & 1 & 4 & 5860 \\\hline
+		10 & 2 & 4 & 5850 \\\hline
+	\end{tabular}
+	\end{minipage}
+	\begin{minipage}{0.26\linewidth}
+	\centering
+	\begin{tabular}{l|l|l||l}
+		\textbf{R} & \textbf{A} & \textbf{B} & \textbf{$|S|$} \\\hline\hline
+		10 & 3 & 5 & 36000 \\\hline
+		10 & 5 & 10 & 9.858.240 \\\hline
+		10 & 1 & 10 & 9.864.100 \\\hline
+	\end{tabular}
+	\end{minipage}
+	\caption[Search space size]{Search space sizes calculated for a few parameter values using
+		equation~\eqref{eq:search_space_size}. Parameters R, A and B represent
+	the number of resources, the minimum length of a sequence and the maximum
+length of a sequence respectively.}
+	\label{tab:search_space_sizes}
+\end{table}
+

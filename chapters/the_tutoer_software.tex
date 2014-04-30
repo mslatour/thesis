@@ -1,14 +1,316 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Chapter: The TutOER Software %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In order to test the approach described in Chapter~\ref{ch_approach} a
+web-based system called TutOER was built. The name is obviously a combination
+of the word \emph{tutor} and the abbreviation \emph{oer} for Open Educational
+Resources, which is exactly what the system is. TutOER is a web-based tutor
+that teaches a concept to students using OER as educational material. The
+software consists of connected modules, of which the two main ones are the
+Tutor Module and the Genetic Algorithm (GA) Module. The latter implements the genetic algorithm
+approach chosen in this thesis in order to assist the Tutor module in selecting
+educational material.
+
+The software is web-based for mainly two reasons. First, it will make
+it easier to have people interact with the system, which is important when
+one needs to collect large amounts of data. Second, given the inherit intention
+of OER to be distributable, most OER are created for a web environment. This
+chapter is structured as follows. Section~\ref{sec:software_interface} will
+describe the interface of the TutOER system. The Tutor Module is covered in
+Section~\ref{sec:software_tutor_module}. In
+Section~\ref{sec:software_ga_module}, the implementation of the genetic
+algorithm approach in the GA Module will be discussed.
+Section~\ref{sec:software_monitor_module} describes the Monitor Module, which
+allows for the analysis of the live system. The Logging Module is discussed in
+Section~\ref{sec:software_logging_module}. Section~\ref{sec:software_database}
+discusses the database of the system.
+%Write simulation module
 \section{Interface}
-\section{User Flow}
+\label{sec:software_interface}
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/screen_app_resource.png}
+	\caption[Application screenshot - Resource]{Screenshot of the application
+	presenting an education resource.}
+	\label{fig:screen_app_resource}
+\end{figure}
+The TutOER software provides an online interface for
+students\footnote{The term students is used in the broadest sense, anyone who
+wants to learn something} which presents the educational material and
+assessments for each knowledge component to the student. The interface can be
+seen in Figure~\ref{fig:screen_app_resource} and consist of three boxes.The
+top box indicates how far the student is in the course, which is based on
+the knowledge component the student is currently in. The middle box contains
+either the educational resource or the test questions.
+The middle box also always contains a button through which the user can advance
+to the next page. Section~\ref{sec:software_user_flow} describes the user flow
+through the system, which determines the result of clicking the button. The
+educational content is displayed in an iframe, which means that the content
+could also be an independant online resource. Most open educational resources
+are of that nature at the moment. That being said, the experiments described in
+Chapter~\ref{ch:experimental_setup} only utilize material that was made by the
+author and specifically designed to fit within the layout of the TutOER
+interface.
+\section{Tutor Module}
+\label{sec:software_tutor_module}
+%TODO: Explain test functionalities
+The tutor module contains all program logic and database models related to the
+educational task. It handles all interactions with the student and connects
+with the genetic algorithm module. This module is responsible for implementing
+the user flow, through which the student is guided towards the end of the
+course. This flow is described in Section~\ref{sec:software_user_flow}.
+\subsection{User Flow}
+\label{sec:software_user_flow}
+The software enforces a specific flow through the system on the student. This
+flow is divided up in phases. The path between the phases is shown in
+Figure~\ref{fig:userflow}. The button described in
+Section~\ref{sec:software_interface} almost always triggers a change in phase,
+as denoted by the arrows in the figure. The rest of this section explains the
+different phases and the exact effect of clicking on that button in each phase.
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/userflow.pdf}
+	\caption[User flow diagram]{Diagram depicting the phases that a user goes
+	through and the path between them.}
+	\label{fig:userflow}
+\end{figure}
+\paragraph{New} A student that is new to the system is shown an explanation of
+the course. Provided a student does not clear the stored cookie in the browser
+or switches browsers altogether, this phase only occurs once in the interaction
+between the student and the software. A button is shown to start the course,
+which would put the student in the introduction phase.
+\paragraph{Introduction} The introduction phase presents the student with the
+description of the current knowledge component. The knowledge component is
+either the first one, or the knowledge component set in later phases. The
+introduction phase is encountered for each knowledge component, provided the
+student finishes the course. A button is shown to move to the pre-test phase.
+\paragraph{Pre-test} In the pre-test phase the knowledge of the student on the
+current knowledge component is assessed. It shows all the questions at the same
+time underneath each other on one page. The student is not forced to answer the
+questions by form validation or otherwise which refuses to submit a test
+without an answer for each question. The button shown at the buttom submits the
+answers given to be graded. Based on the score, the student will either move on
+to the sequence phase or, if the score is perfect, the student will skip the
+current knowledge component. If the knowledge component is skipped, the student
+will either be sent to the introduction phase of the next knowledge component
+or, if this was the last knowledge component, move forward to the exam phase.
+\paragraph{Sequence} The student in the sequence phase is presented the
+sequence of educational material that has been selected by the
+system\footnote{See section~\ref{sec:approach_ucb}.} Sequences can contain more
+than one educational resource. In that case, only one resource will be shown at
+a time, starting with the first of the sequence. A button is displayed which
+will bring the student to the next sequence, if there is one. If the student
+has reached the end of the sequence, the button will sent the student to the
+post-test phase.
+\paragraph{Post-test} The post-test phase displays the questions of the
+post-test for the current knowledge component. The appearance, the questions
+and the button function is identical to the situation in the pre-test phase.
+When the answers are graded, the normalized learning gain is calculated to
+feed back into the genetic algorithm as fitness value. If there is a next
+knowledge component in the course, the student is sent to the introduction
+phase of that knowledge component. If this was the last knowledge component,
+the student is sent to the exam phase.
+\paragraph{Exam} When the student has passed through all phases of all
+knowledge components (or skipped them), he or she is sent to the exam phase. In
+this phase an exam is presented to the student that needs to be completed
+before the student can move on. In the experiments performed in this thesis the
+exam consisted of five Nim game scenarios of increasingly difficulty that the
+student had to play out until either the student or the AI opponent won. The
+exam grade is given by the percentage of won Nim games. This grade is not used
+in any way by the genetic algorithm, but merely provides a way to evaluate the
+level of the student after having interacted with the system. When the exam has
+been submitted, the student is sent to the done phase.
+\paragraph{Done} When all other phased have been completed, a student enters
+the last phase. Here a questionaire is presented to the student, which is
+optional to fill in. In the experiment there are two types of participants, one
+group is coming via Amazon Mechanical Turk and the other through a different
+source. The group from Mechinal Turk is shown a button to return to the
+Mechinal Turk website to collect their reward, while at the same time
+submitting the answers to the questionaire, regardless of whether they are
+empty. The other group is shown a button to submit their questionaire answers,
+but there is no side-effect. The student remains in this phase and has finished
+his or her participation. This is also explained to the student.
+
+\section{GA Module}
+\label{sec:software_ga_module}
+The genetic algorithm (GA) module is responsible for selecting the sequence of
+educational material to be presented to a student. This module is separate from
+the tutor module in order to be replaceable by a different approach, as was
+already needed earlier in the thesis process when this module replaced its
+predecessor that applied a Markov Decision Process. The module implements the
+approach described in Chapter~\ref{ch_approach}, but several adjustments were
+made to the standard genetic algorithm in order to make it work in a web-based
+environment. These adaptations resulted in the web-based genetic algorithm as
+described in Section~\ref{sec:web-based_ga}.
+\subsection{Web-based genetic algorithm}
+\label{sec:web-based_ga}
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.9\linewidth]{images/web-based_genetic_algorithm.pdf}
+	\caption{Schema of client-server interaction in a web-based adaption of the
+	genetic algorithm loop}
+	\label{fig:web-based_ga}
+\end{figure}
+% TODO: Create image to show the non-web version of the Tutor - GA interaction.
+% Something with a loop
+The implementation of the genetic algorithm had to be adjusted in order to be
+applicable in a web context. In particular, the asynchronous nature of the HTTP
+protocol requires an adapted step-wise version of the straightforward implementation
+using loop constructs.The reader can compare this situation with that of a parallel
+implementation where fitness evaluations are run in parallel threads, where in
+this analogy the students play the role of the parallel threads. In this parallel
+case, it is already necessary to deal with fitness values being sent back from the
+threads in a different order than the threads were started in. A difference between
+the analogy and the actual situation is that the students are not guaranteed to
+provide a fitness value, since they can decide to close the website. That
+difference is important because it complicates the decision on when enough
+sequences have been evaluated, since you don't know whether a sequence you
+assigned to a student for evaluation will actually be evaluated by that
+student or whether the system needs to assign it to another student.
+
+The web-based genetic algorithm is best described by its interactions with one
+student. The entire list of interactions between the student's browser and the
+TutOER software is given by the phases described in Section~\ref{sec:software_user_flow}.
+Only the pre-test, sequence and post-test phases are of interest for the web-based
+genetic algorithm. Figure~\ref{fig:web-based_ga} shows the relevant parts
+of the client-server interaction between the student's browser and the TutOER
+software. Note however that these interactions are likely to be interrupted by
+interactions with other students. The figure also shows the communication between
+the tutor module and the genetic algoThere are six components in the diagram that are
+numbered. The rest of the section describes these components in more detail.
+
+\begin{description}
+	\item[1: Initialize population] Before any interaction occurs with students,
+		the population of the genetic algorithm is initialized. This is done for
+		all populations that are required later on and do not require a
+		trigger from the client. As such it is not an interaction, but it has
+		been added to this list for completeness.
+	\item[2: Group assignment] The pre-test grade is used to determine
+		which student group the student will be assigned to. Each student
+		group and knowledge component combination is captured in a separate
+		population in the genetic algorithm. The assignment of the student to a
+		student group, within the context of a knowledge component, determines
+		the population from which an individual will be selected to be
+		evaluated.
+	\item[3: Loop condition check] In a parallel implementation you would start
+		each evaluation thread in a loop, iterating for the desired amount of
+		episodes. Translating that to this situation would mean that the system
+		somehow activates the student to evaluate it. In a web-based
+		implementation, everything is client-driven. Nonetheless, the genetic
+		algorithm still consist of an, at least implicit, loop for each desired
+		episode. This component is designed to bring the two together. It
+		checks how many evaluation episodes have been stored in the current
+		generation and compares that to the desired total number of episodes.
+		If the total has not been reached yet, the UCB-select component is
+		executed. If enough evaluations have been collected however, the
+		implicit loop has reached its termination condition. This means the
+		population must evolve to a new generation, which happens in the
+		regerate component.
+	\item[4: UCB-select] For the largest part this component is identical to
+		what it would be in any other implementation. It uses the UCB-1 formula
+		to select which sequence of educational resources it wishes to evaluate,
+		while balancing exploration and explotation. Because the evaluation is done
+		asynchronously, takes up significant time and is client-driven,
+		it is necessary to keep track of which sequences have already been
+		selected by UCB and assigned to a student. This in order to prevent
+		UCB from unintendedly assigning the same sequence to many students,
+		simply because the evaluation results have not come back yet. Therefore
+		sequences are locked when they are assigned to a student and UCB can
+		only choose from the sequences that are not locked. This is probably
+		similar to what you would do in a parallel implementation.
+
+		However, unlike in a typical parallel implementation, it is not at all
+		guaranteed that a student will actually study the entire sequence
+		and submit the post-test afterwards. When a student decides to stop
+		participating for whatever reason, the sequence that was assigned to
+		the student would be forever locked. That could result in a situation
+		where there are not enough evaluations stored to proceed to a next
+		generation, but since all sequences are locked UCB has no way of
+		assigning sequences to students. This solved as follows. First, UCB
+		attempts to select a sequence that is not locked. Second, if that is no
+		longer possible, the oldest lock is discarded. Third, the method is
+		tried again. In the worst case scenario, this would mean that the
+		system wrongly decides to assign the sequence to another student. With
+		the consequence that a sequence is evaluated more often than UCB chose
+		to.
+
+		A side-effect of this is that an evaluation result could actually
+		be submitted to the genetic algorithm when it already moved to a new
+		generation. The result of this is stored in connection to the new
+		generation, which means that effectively a sequence that was not part
+		of the new generation could still be evaluated. The sequence could not
+		be selected as one of the survivors at the next generation switch, but
+		its fitness value is still stored and can be used whenever the sequence
+		reappears due to combination or mutation. This seemed to be the best
+		solution.
+	\item[5: Regenerate] When enough evaluations have been gathered, this
+		component executes the generation switch for the current population as
+		described in Section~\ref{sec:approach_generation_switch}. The Django
+		web framework that was used to implement the TutOER software should
+		ensure that during this process the database tables were locked,
+		preventing synchronization issues. This was however not tested. After a
+		the new generation has been formed, the loop condition check component
+		is retried again.
+	\item[6: Store evaluation] When a post-test is graded and the normalized
+		learning gain is calculated, the resulting fitness value is stored for
+		the sequence that was evaluated in the context of the current
+		generation. This could be a different generation than the one the
+		sequence was selected from.
+\end{description}
+\section{Monitor Module}
+\label{sec:software_monitor_module}
+The monitor module provides a real-time insight in the relevant processes,
+events and data stored in the database. This module has only been used to
+monitor the experiment while it was running. It contains the following views.
+\begin{description}
+	\item[Log] A long list of logged events, as described in
+		Section~\ref{sec:software_logging_module}.
+	\item[Student] A list of the logged events related to a particular student
+		and an overview of the test scores, assigned student group and
+		presented sequence for each knowledge component the student
+		participated in so far.
+	\item[Population] A list of the individuals in each generation for a
+		specific population, including observed fitness values, and a graph
+		displaying the cumulative regret for that population.
+\end{description}
+\section{Logging Module}
+\label{sec:software_logging_module}
+All logging of events is done by the logging module. This module is tighly
+connected to the tutor and genetic algorithm modules and provides input to
+the monitor module. The tutor and genetic algorithm modules send out signals
+when certain events occur, these signals are picked up by the logging module
+and stored in the database as log entries. These log entries are then presented
+again by the monitor module. The purpose of the logging activities is to aid
+monitoring and analysis of what goes on within the TutOER software and its
+modules. The following events are stored in the log entry table.
+\begin{description}
+	\item[Error] Any unexpected errors that were caught in the system are
+		logged by the module.
+	\item[New participant from external source] The module logs each new
+		participant that came from an external source. In particularly it
+		stores the identifiers of people participating via Amazon
+		Mechanical Turk, in order to be able to reconstruct the connection
+		between the student object in the database and the Mechanical Turk
+		user in case something went wrong. This was especially applicable
+		during the experiment period.
+	\item[Change in student state] When a student object is created in the
+		system en each time the student enters a new phase in the user
+		flow, the module logs this.
+	\item[Trial created] A trial is the particular instance of the tutor
+		teaching actions for a specific knowledge component and a specific
+		student. The trial object contains the pre-test and post-test
+		results and the sequence that was presented to the student. The
+		module logs when this object is created it.
+	\item[New generation in population] Each time a population moves to a
+		new generation, this is logged by the module.
+	\item[New immigrant in the population] The module logs each time an
+		individual immigrates in a population. The individual that the
+		immigrant replaced is also stored in the log entry.
+\end{description}
 \section{Database Architecture}
-\section{Challenges}
-\section{Algorithms}
+\label{sec:software_database}
+The database architecture is depicted in an entity relationship diagram in
+Appendix~\ref{ax_database}.
 \section{Implementation details}
 \subsection{Deployment}
 \subsection{Django framework}
-\subsection{Models}
-%\subsubsection{..}
-\subsection{Javascript API}

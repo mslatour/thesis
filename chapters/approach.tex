@@ -10,46 +10,8 @@ Section~\ref{approach_discussion} discusses the disadvantages of using genetic
 algorithms as a model and compares it with the two alternative modeling
 choices. First, section~\ref{approach_genetic_algorithm} describes the details
 of the genetic algorithm modeling.
-\section{The Genetic Algorithm approach}
-\label{approach_genetic_algorithm}
-\begin{figure}[ht!]
-	\begin{framed}
-		\begin{enumerate}
-			\item Initialization
-			\item Evaluation of each candidate
-			\item Repeat until termination condition is satisfied:
-				\begin{enumerate}
-					\item Parent selection
-					\item Recombination of parent pairs
-					\item Mutation of the resulting offspring
-					\item Evaluation of each candidate
-					\item Survivor selection
-				\end{enumerate}
-		\end{enumerate}
-	\end{framed}
-	\caption[The evolutionary algorithm]{The general scheme of an
-		Evolutionary Algorithm as presented in \citep{Eiben2007}}
-	\label{alg:ea_scheme}
-\end{figure}
-\begin{itemize}
-	\item refer to \ref{alg:ea_scheme}.
-	\item refer to \citep{Eiben2007} for listing the important aspects of any evolutionary algorithm that need to be modeled: representation, fitness, population, parent selection, variation operators, survivor selection, initialization and termination conditions
-\end{itemize}
-\subsection{Island model}
-\begin{figure}[ht!]
-	\centering
-	\includegraphics[scale=0.7]{images/group_dimensions.pdf}
-	\caption[Group characterization]{Students are characterized in four groups.
-		The horizontal axis represents the pre-test score, the vertical axis
-		the relevant prior experience.}
-	\label{fig:group_dimensions}
-\end{figure}
-\begin{figure}[ht!]
-	\centering
-	\includegraphics[width=0.5\linewidth]{images/neighborhood_migration_topology.pdf}
-	\caption[Neighborhood Migration Topology]{}
-	\label{fig:migration_topology}
-\end{figure}
+
+\section{Student Groups}
 \begin{itemize}
 	\item Each student is characterized by two dimensions
 		\begin{itemize}
@@ -77,7 +39,6 @@ of the genetic algorithm modeling.
 			\item[D] This person does not have a lot of relevant experience,
 				but did score high on the pre-test on this knowledge component.
 		\end{description}
-	\item The four categories are also depicted in figure~\ref{fig:group_dimensions}.
 	\item The curriculum sequencing problem is splitted up per student group,
 		while maintaining the ability for good solutions to be copied.
 		Analogous to a teachter that teaches in different grades, the algorithm
@@ -89,28 +50,12 @@ of the genetic algorithm modeling.
 		the same topics, some examples work better than others etc. The student
 		groups, although different on a few selected dimensions, are likely to
 		be similar on many other dimensions.
-	\item This results in solving separate tutoring problems that are not
-		independant, and thereby could benefit exchange of solutions.
-	\item Each distinct student group is modelled by an island, see
-		Figure~\ref{fig:migration_topology}
-	\item Each island has its own independant evolution
-	\item The genetic algorithm implementation is identical for each island
-	\item But because fitness is only observed by student experience and that
-		it depends on which type of student participates which island will
-		evaluate an individual, it is likely that the islands will have
-		different speeds of generation iterations.
-	\item Migration (ie. copy) can occur of the best individual of one island
-		to replace the worst individual of the next island.
-	\item Migration only takes place between adjacent islands, which is defined
-		as islands that only differ on one dimension and with one value step,
-		in other words a vector distance of 1.
-	\item When multiple adjacent islands exist to receive a best individual
-		from, only one will replace the worst one of the population. The
-		selection is done probabilistically based on the fitness functions of
-		each migration candidate.
-	\item Migration occurs after each generation
 \end{itemize}
-\subsection{Encoding}
+
+\section{The Genetic Algorithm approach}
+%%%
+% General introduction
+%%%
 Genetic algorithms evolve a population of individuals. An individual contains a
 chromosome that represents a candidate solution. A particular chromosome can be contained by
 multiple individuals, and as such a candidate solution can be present multiple
@@ -120,12 +65,45 @@ analogy with natural evolution these genes typically represent certain traits
 of the animal, such as the length of wings or the color, that affect the change
 of survival and can be optimized by inheritence and natural selection.
 
+\label{approach_genetic_algorithm}
+\begin{figure}[ht!]
+	\begin{framed}
+		\begin{enumerate}
+			\item Initialization
+			\item Evaluation of each candidate
+			\item Repeat until termination condition is satisfied:
+				\begin{enumerate}
+					\item Parent selection
+					\item Recombination of parent pairs
+					\item Mutation of the resulting offspring
+					\item Evaluation of each candidate
+					\item Survivor selection
+				\end{enumerate}
+		\end{enumerate}
+	\end{framed}
+	\caption[The evolutionary algorithm]{The general scheme of an
+		Evolutionary Algorithm as presented in \citep{Eiben2007}}
+	\label{alg:ea_scheme}
+\end{figure}
+\begin{itemize}
+	\item refer to \ref{alg:ea_scheme}.
+	\item refer to \citep{Eiben2007} for listing the important aspects of any evolutionary algorithm that need to be modeled: representation, fitness, population, parent selection, variation operators, survivor selection, initialization and termination conditions
+\end{itemize}
+
+%%%%
+% Representation/Domain modeling
+%%%
+\subsection{Representation of the domain}
+\label{sec:approach_representation}
 In this thesis, each educational resource is encoded as a single gene. A
 chromosome represents a particular sequence of resources. The order of these
 resources in the sequence matter, which is not often the case in genetic
 algorithm applications, as it determines in what order material is presented to
 the student. An individual denotes a particular teaching attempt where a particular
-sequence of the education resources is presented to a student.
+sequence of the education resources is presented to a student. Each knowledge
+component and student group combination is represented by a separate
+population. These populations are however not entirely independent, see
+section~\ref{sec:approach_island_model}.
 
 It is not known apriori what the length of the optimal sequence of material is,
 which means that chromosomes have variable length. For practical reasons this
@@ -145,212 +123,11 @@ database queries. This combined with the fact that the chromosome has variable
 length requires a many-to-many relation between separate chromosome and gene
 entities. The alternative of storing a bit string for each chromosome defeats
 the purpose of having a database optimized for relational algebra.
+% TODO: There should be a bias towards smaller chromosomes.
 
-%There should be a bias towards smaller chromosomes.
-
-% TODO: update
-%\subsubsection{The sequence chromosome}
-%\begin{figure}[h!]
-%	\centering
-%	\includegraphics[scale=0.6]{images/concept_hierarchy2.pdf}
-%	\caption[Components of the chromosome]{Components of the chromosome}
-%	\label{fig:chromosome_components}
-%\end{figure}
-%\begin{itemize}
-%	\item Refer to Figure~\ref{fig:chromosome_components}.
-%	\item The chromosome contains exactly one group gene
-%\end{itemize}
-\subsection{Fitness function}
-\begin{itemize}
-	\item evaluation function and fitness function are not by definition
-		interchangeable. The evaluation function, or objective function,
-		provides a measure of performance. The fitness function transforms this
-		into reproductive opportunities. Unline the evaluation function, the
-		fitness function is defined with respect to the fitness of the other
-		members in the population. From: \citet{Whitley1994}. (Paraphrase
-		this!) In other words, the fitness function is at least a normalized
-		version of the evaluation function obtained by dividing by the average
-		fitness value of the current population/generation.
-	\item The literature contains many different implementations of fitness
-		functions for the curriculum sequencing problem. 
-	\item Some solutions include a term that expresses how well a particuluar
-		solution fits the pre-determined prerequisite structure of the learning
-		objects. Others include a term that expresses how smooth the transitions
-		are between learning objects in difficulty.
-	\item A big part of the prerequisite structure is already captured by the
-		given main curriculum in this thesis that provides the order of
-		knowledge components. The curriculum sequencing step takes place
-		in this thesis on a much smaller level where the different learning
-		objects all try to convey the same content, but do so in different
-		ways. In a way this means that this thesis implements a particular type
-		of curriculum sequencing that focuses on the presentation. Some objects
-		might contain an example or the formal description. Some might present
-		the knowledge in text, others are more visual. Yet it is not expected
-		to need only one learning object per student, if you would consider
-		the learning object term referring to the smallest unit of explanation.
-		Different students require a different mix of presentations at perhaps
-		even different orders. Furthermore, learning objects are often not
-		a perfect fit. They might explain too much or too little about some
-		context. On top of that, it is not that well indexed in terms of the
-		exact type of presentation that they have. Thus, what we want is a
-		sequence of imperfect learning objects that together maximize the
-		educational performance. We do not know what the order should be, given
-		that the order is a matter of pedagogy and not knowledge engineering.
-		And even if we were able to fully specify the right pedagogical order
-		for each type of student perfectly. We would still not have the
-		required information about these learning objects, or the information
-		might be wrong. In conclusion, we are learning a sequence of black
-		boxes of which we only know that they attempt to teach a particular
-		knowledge component, or so they say.
-	\item The only way we can measure the value of a particular sequence for a
-		group of students, and thereby assess its fitness, is to look at the
-		gain in knowledge as observed by the post-test.
-	\item More precisely the fitness function is the normalized learning gain
-		between the pre-test and post-test for a given knowledge component.
-	\item The observed fitness is probably not the same each time a chromosome
-		is evaluated. This is due to the fact that students are not identical,
-		especially not given the coarse division into four groups. A solution
-		is to see the fitness as a stochastic variable that has some noise on
-		top of the ``true'' value. In order to obtain an estimate of this true
-		value, several approaches are possible. The most simple one is to take
-		multiple samples and average over them. However, in this case, taking
-		samples must be considered to be expensive. The approach taken must
-		therefor try to minimize the number of samples while maximizing the
-		certainty of the fitness value.
-	\item According to \citet{Jin2005}, fitness inheritence is a popular approach for evolutionary approximation. In fitness inheritence a child inherits some of the fitness information of its parents.
-		% From: A comprehensive survey of fitness approximation
-		%  in evolutionary computation. By: Y. Jin (2005)
-		% Chen J-H, Goldberg DE, Ho S-Y, Sastry K (2002) Fitness
-		%  inheritance in multi-objective optimization.
-		% Sastry K, Goldberg DE, Pelikan M (2001) Don’t evaluate,inherit.
-		% Smith R, Dike B, Stegmann S (1995) Fitness inheritance in
-		%  genetic algorithms
-		% Zhang X, Julstrom B, Cheng W (1997) Design of vector
-		%  quantization codebooks using a genetic algorithm
-	\item The following components can be put in the fitness function:
-		\begin{itemize}
-			\item linear combination of fitness values of the two parents that
-				had crossover applied to it. The weights could be determined on
-				the portion of the parent that ended up in the child and the
-				uncertainty of the fitness value of that parent.
-			\item the uncertainty of the fitness value based on how many times
-				it was observed, the variation of those observations and a
-				linear combination of the uncertainty values of the parents
-				plus some constant uncertainty bonus.
-			\item 
-		\end{itemize}
-\end{itemize}
-\subsection{Population}
-\begin{itemize}
-	\item A population of individual chromosomes evolves over generations
-	\item Size: 10?
-	\item Requirements:
-		\begin{enumerate}
-			\item Chromosomes need to necessarilly be unique in the
-				population. Reasons for not forcing uniqueness
-				\begin{itemize}
-					\item The initial population size is probably bigger than
-						the gene pool of most knowledge components. That means
-						that probably the first population already has to be a
-						multiset, or it will be smaller than other generations.
-					\item The exploration vs exploitation tradeoff states that
-						you should also not focus too much on exploration. If
-						you would only go for unique chromosomes in each
-						generation than that would be mean that the best
-						solution is only presented to one student. The others
-						could get suboptimal solutions, even if we know that is
-						the case. Of course you need to explore, even
-						suboptimal solutions. But maybe this should be more
-						stochastic than deterministic.
-				\end{itemize}
-		\end{enumerate}
-	\item After having evaluated each member of a generation, a new generation
-		is formed.
-	\item Certain chromosomes are kept as is, due to the implementation of elitism
-		[1 or 2 I think?]
-	\item The other chromosomes have a certain probability of surviving. (see
-		section~\ref{sec:approach_survivor_selection}.
-	\item From the surviving chromosomes, some parents are selected to produce
-		offspiring. See section~\ref{sec:approach_parent_selection}.
-	\item The offspring is produced according to a set of combination operators
-		on the chromosomes of each parent pair. The combination operators have
-		a certain probability to be picked. See
-		section~\ref{sec:approach_combination_operator}.
-	\item The new offspring and old survivors have a certain probability of
-		mutation occuring which results in a slightly different individual. See
-		section~\ref{sec:approach_mutation_operator}.
-	\item Point to a picture depicting the percentages of each population that
-		came from elitism, survival, cross-over, mutation. Vertical bar, split
-		up into several sections with different colors.
-\end{itemize}
-\subsection{Parent selection}
-\label{sec:approach_parent_selection}
-\begin{itemize}
-	\item Individuals are selected as parents with a probability proportional
-		to their fitness.
-\end{itemize}
-\subsection{Combination operator}
-\label{sec:approach_combination_operator}
-\begin{figure}[ht!]
-	\centering
-	\includegraphics[width=\linewidth]{images/crossover_operations.pdf}
-	\caption[Crossover operations]{Crossover operations. \textbf{Note:} Image
-is still wrong. a) combination results in two children by combining parent 1
-with parent 2 and the other way around, b) it makes more sense to count from
-the beginning in one parent and from the end in the other than counting from
-the beginning in both. Now it is impossible to take the end of parent 2 and
-append it to parent 1 and c) maybe this is also not the best way to show,
-perhaps just display an example cut point and only the two resulting children}
-	\label{fig:crossover_operations}
-\end{figure}
-\begin{itemize}
-	\item Refer to Figure~\ref{fig:crossover_operations} as a enumeration of
-		all possible crossover results for a given example of two parents
-	\item Describe the crossover operations formally
-		\begin{itemize}
-			\item Pick Parent 1 based on fitness PDF
-			\item Pick Parent 2 based on fitness PDF, other than Parent 1
-		\end{itemize}
-	\item Describe the probability distribution
-\end{itemize}
-\subsection{Mutation operator}
-\label{sec:approach_mutation_operator}
-\begin{itemize}
-	\item Perhaps not real mutation, since that is often only referred to as a
-		completly random unbiased change. This can result in invalid outcomes.
-	\item The mutation, or otherwise unary, operator in this thesis
-		(uniformly?) selects a mutation from a set of possible changes that result
-		in valid and unique outcomes.
-	\item The mutation operators include:
-		\begin{enumerate}
-			\item Randomly swapping the group gene of the chromosome with a
-				different group gene from the pool. In such a way that the
-				resulting chromosome is not already present in the population.
-			\item Randomly swapping a resource gene of the chromosome with a
-				different resource gene from the pool. In such a way that the
-				resulting chromosome is not already present in the population.
-			\item Randomly swap the positions of two resource genes in the
-				chromosome. While still obaying the uniqueness condition of the
-				population.
-			\item Randomly removing one resource gene from the chromosome.
-			\item Randomly adding one resource gene from the pool to the
-				chromosome without introducing duplicates
-		\end{enumerate}
-\iend{itemize}
-\subsection{Survivor selection}
-\label{sec:approach_survivor_selection}
-\begin{itemize}
-	\item Factors that should influence the probability of a candidate to be a
-		survivor are:
-		\begin{itemize}
-			\item The observed fitness
-			\item The uncertainty of the fitness value. More uncertain values
-				should get more chance of being selected for a new generation
-			\item Some linear combination of the teacher ratings for each
-				individual learning objects.
-			\item Elitism: the best performing organisms are transfered to the next generation unaltered.
-		\end{itemize}
-\end{itemize}
+%%%
+% Initialization
+%%%
 \subsection{Initialization}
 The first generation of the population is initialized with a fixed number of
 individuals. Each individual contains a chromosome with exactly one gene. The
@@ -382,7 +159,11 @@ rated. Therefore, educational material that does not have a rating is assumed
 to be rated neutral (i.e. the middle of a five-point scale).
 % Each rating is an average given the number of raters. This number of raters should have impact on the value of the rating.
 % Weighted ratings could work even better if the ratings are normalized with an average value of zero, resulting in a symmetrical scale of positive and negative values.
-\subsection{Termination condition}
+
+%%%
+% Termination
+%%%
+\subsection{Termination}
 Given the inherent noise in the fitness values, the algorithm should not stop
 before the fitness of each possible\footnote{i.e. all possible sequences given
 the constraints on length and the uniqueness requirement} chromosome is determined
@@ -406,6 +187,252 @@ known solution at each point that an individual is tested. Naturally a
 exploration-explotation trade-off applies where occassionally individuals need
 to be tried out that could both be better or worse. So instead of termination,
 moving towards convergence is important.
+
+%%%
+% Candidate evaluation
+%%%
+\subsection{Candidate evaluation}
+%%%
+% 	Fitness function
+%%%
+\subsubsection{Fitness function}
+% From: A comprehensive survey of fitness approximation
+%  in evolutionary computation. By: Y. Jin (2005)
+% Chen J-H, Goldberg DE, Ho S-Y, Sastry K (2002) Fitness
+%  inheritance in multi-objective optimization.
+% Sastry K, Goldberg DE, Pelikan M (2001) Don’t evaluate,inherit.
+% Smith R, Dike B, Stegmann S (1995) Fitness inheritance in
+%  genetic algorithms
+% Zhang X, Julstrom B, Cheng W (1997) Design of vector
+%  quantization codebooks using a genetic algorithm
+There are many different implementations of fitness functions for the
+curriculum sequencing problem. Some solutions include a term that expresses how
+well a particuluar solution fits the pre-determined prerequisite structure of
+the learning objects. Others include a term that expresses how smooth the
+transitions are between learning objects in difficulty.
+
+A big part of the prerequisite structure is already captured by the
+given main curriculum in this thesis that provides the order of
+knowledge components. The curriculum sequencing step takes place
+in this thesis on a much smaller level where the different learning
+objects all try to convey the same content, but do so in different
+ways. In a way this means that this thesis implements a particular type
+of curriculum sequencing that focuses on the presentation. Some objects
+might contain an example or the formal description. Some might present
+the knowledge in text, others are more visual. Yet it is not expected
+to need only one learning object per student, if you would consider
+the learning object term referring to the smallest unit of explanation.
+Different students require a different mix of presentations at perhaps
+even different orders. Furthermore, learning objects are often not
+a perfect fit. They might explain too much or too little about some
+context. On top of that, it is not that well indexed in terms of the
+exact type of presentation that they have. Thus, what we want is a
+sequence of imperfect learning objects that together maximize the
+educational performance. We do not know what the order should be, given
+that the order is a matter of pedagogy and not knowledge engineering.
+And even if we were able to fully specify the right pedagogical order
+for each type of student perfectly. We would still not have the
+required information about these learning objects, or the information
+might be wrong. In conclusion, we are learning a sequence of black
+boxes of which we only know that they attempt to teach a particular
+knowledge component, or so they say.
+
+The only way we can measure the value of a particular sequence for a
+group of students, and thereby assess its fitness, is to look at the
+gain in knowledge as observed by the post-test.
+
+More precisely the fitness function used in this thesis is the normalized
+learning gain between the pre-test and post-test for a given knowledge component,
+given by $\frac{C_{post} - C_{pre}}{100-C_{pre}}$ where $C_{pre}$ and $C_{post}$
+represent the percentage of correct answers on the pre-test and post-test
+respectively of the student.
+
+The observed fitness is probably not the same each time a chromosome
+is evaluated. This is due to the fact that students are not identical,
+especially not given the coarse division into student groups. A solution
+is to see the fitness as a stochastic variable that has some noise on
+top of the ``true'' value. In order to obtain an estimate of this true
+value, several approaches are possible. The most simple one is to take
+multiple samples and average over them. However, in this case, taking
+samples must be considered to be expensive. The approach taken must
+therefor try to minimize the number of samples while maximizing the
+certainty of the fitness value. Which is why Upper Confidence Bound selection
+was applied in this thesis, as described in section~\ref{sec:approach_ucb}.
+
+%%%
+%   UCB-1 selection
+%%%
+\subsubsection{UCB Selection}
+\label{sec:approach_ucb}
+
+%%%
+% Generation switch
+%%%
+\subsection{Generation switch}
+\label{sec:approach_generation_switch}
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[width=\linewidth]{images/generation_switch.png}
+	\caption[Generation switch]{The operations and intermediate phases during a generation switch. Illustration was taken from \cite{Whitley1994}.}
+	\label{fig:generation_switch}
+\end{figure}
+This thesis implements generational replacement with elite preservation, which
+are commonly used strategies for survivor selection in the curriculum
+sequencing domain \cite{AlMuhaideb2011}.
+Elite preservation means that the best performing individuals from the current
+generation will transfered directly to the new generation, without any
+alteration. Elitism has the purpose of ensuring that cross-over or mutation
+operators cannot push the evolution away from what was most promising.
+Only when better candidates are found will the elite individual not necessarilly survive.
+
+Generational replacement refers to the strategy where the number of individuals
+in the new generation remains the same as in the current generation. The
+individuals in the new generation are different individuals\footnote{The new
+generation  could still contain the same chromosomes.} than those in the
+current generation, with the exception of the elite individuals.
+
+The individuals of the new generation are created in two steps, as is depicted
+by Figure~\ref{fig:generation_switch}. First surivors are selected from the
+current generation and put in an intermediate generation, which is described in
+Section~\ref{sec:approach_survivor_selection}. The survivors are then grouped
+into parent pairs, as discussed in
+Section~\ref{sec:approach_parent_selection}.
+Section~\ref{sec:approach_combination_operator} describes how these parents
+then produce offspring by combining the chromosomes of both parents. In
+Section~\ref{sec:approach_mutation_operator} the mutation operations that
+can occur are described.
+
+%%%
+% 	Survivor selection
+%%%
+\subsubsection{Survivor selection}
+\label{sec:approach_survivor_selection}
+In this thesis, survivors are selected from the current generation using the
+roulette wheel selection. In this selection strategy, each individual from the
+current generation is assigned a portion of a roulette wheel, proportionate to
+the normalized fitness of the individual in the current generation. A survivor
+is then sampled by uniformly picking a position on the wheel and selecting the
+the individual to who that spot on the wheel was assigned to. This is analogous
+to spinning the roulette wheel perfectly. The higher the fitness of the
+individual, the bigger the area on the roulette wheel and thereby also the more
+likely the individual will survive. A individual can be selected multiple
+times, with the consequence that some individuals might not survive.
+
+Due to the normalization of the fitness values, the roulette wheel selection
+is implemented in three steps. First, take a random number between zero and one.
+Second, loop through all individuals until the cumulative fitness is bigger
+than the random number. Third, the last individual in the loop is selected as
+survivor.
+
+%%%
+%  	Parent selection
+%%%
+\subsubsection{Parent selection}
+\label{sec:approach_parent_selection}
+Pairs of individuals are taken from the list of survivors, excluding the elite
+individuals, from top to bottom. That means that parents are matched based on
+the order that they were selected in the roulette wheel selection described in
+Section~\ref{sec:approach_survivor_selection}. The pairing is also shown in
+Figure~\ref{fig:generation_switch}. Each parent pair results in offspring
+based on the crossover operations described in
+Section~\ref{sec:approach_combination_operator}. If the number of survivors is
+odd, there will be one suvivor remaining after all pairs have been formed.
+This remaining survivor's chromosome is added to the new generation
+as its own offspring.
+
+%%%
+%  	Crossover operation
+%%%
+\subsubsection{Combination operator}
+\label{sec:approach_combination_operator}
+When two parents are matched to create offspring, their chromosome's are
+combined using a crossover operation. The resulting chromosome is placed in a
+new individual. There are two crossover operations implemented for this thesis:
+\emph{one-point crossover} and \emph{append crossover}.
+
+\paragraph{One-point crossover} The one-point crossover operation is typically
+implemented by picking one point for both parents to split, after which the
+four halfs are recombined into two new children. The individuals in this
+thesis, however, can vary in length. That means that crossover points could be
+selected that do not exist in both parents. Naturally one could restrict the
+set of valid crossover points to be within the boundaries of both chromosomes.
+However, that would also limit valid chromosomes, even though they can be
+achieved by combining both parent chromosomes.
+
+In this thesis, the one-point crossover operator is implemented differently.
+Instead of picking one point for both parents at once, one crossover point in
+each parent is randomly picked independent from the other. These two crossover
+points then split up both parents in two pieces each, allowing for the
+formation of two new children after recombination. The implementation ensures
+that only valid children are the result of the operation. When no valid
+children can be created, the one-point crossover is skipped and the append
+crossover is attempted.
+
+\paragraph{Append crossover} The append crossover was designed for the edge
+case where two parents cannot be split up and recombined into two new valid
+children. For example when one or both parents have a chromosome with one gene,
+which is impossible to split up. The append crossover operator simply appends
+one parent after the other. The two ways to do this result in two children.
+
+%%%
+%  	Mutation operation
+%%%
+\subsubsection{Mutation operator}
+\label{sec:approach_mutation_operator}
+Most of the mechanism in genetic algorithms ensures that individuals in each
+generation are samples from increasingly smaller areas in the solution
+hyperspace. This has the effect that large parts of that hyperspace is never
+evaluated. To prevent that from limiting the genetic algorithm to local optima,
+the mutation operator is used. After the chromosomes in the offspring are
+determined using the crossover operation, each child's chromosome has a small
+chance of mutation. In this thesis three different mutation operators have been
+applied: \emph{swap mutation}, \emph{addition mutation}, \emph{deletion mutation}.
+
+\paragraph{Swap mutation} The swap mutation operation randomly picks two
+distinct genes in a chromosome that are swapped. The chromosome needs to
+contain at least two genes in order to be applied to this mutation. If this is
+not the case, a different mutation is attempted.
+
+\paragraph{Addition mutation} The chromosome applied to the addition mutation
+operator will be appended with a new gene from the gene pool. The gene that is
+added must not already exist in the chromosome. If no gene can be selected from
+the pool that satisfies this constraint, a different mutation is attempted.
+
+\paragraph{Deletion mutation} The deletion mutation operation deletes a random
+gene from the chromosome, resulting in a shift in position of the genes after
+it. The resulting chromosome must have at least one gene left. If this is not
+possible, a different mutation is attempted.
+
+%%%
+% Island model
+%%%
+\subsection{Island model}
+\label{sec:approach_island_model}
+As described in section~\ref{sec:approach_representation}, the curriculum
+sequencing problem is done per knowledge component and per student group. These
+are represented as separate populations. However, the populations that
+represent the same knowledge component but different student groups actually
+co-evolve. The island model was used to model exchange of information between
+related populations. After each generation of a population, the best
+individuals from the other related populations can migrate towards this
+population, replacing the worst individual. The migrated individuals are
+copies, and do not change the occurence of the migrated chromosomes in the
+originating populations.
+
+Important to note is that all other actions of the genetic algorithm in eahc
+population are still independant, meaning that the populations can also evolve
+at different speeds. One reason for this would be that the distributions of
+students in each student group will not be uniform. That has the consequence
+that a population that evolves really slowly will continue to migrate the same
+individual towards the other population. Even if it turned out not to work
+well.
+
+The idea behind applying the Island model on this task is that what seems to work
+extremely well for one student group, might also be close to a good solution in
+other student groups. If there are more student groups than two, there are more
+migration candidates than slots. In that case, the choice is made using
+roulette wheel selection based on the fitness values of each migration
+candidate.
 \section{Discussion}
 \label{approach_discussion}
 \subsection{Benefits of the approach}

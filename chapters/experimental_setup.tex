@@ -1,4 +1,125 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Chapter: Experimental setup %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{GA Parameters}
+\begin{description}
+	\item[Number of episodes] 4
+	\item[Number of individuals in population] 4
+	\item[Number of elite individuals] 2
+	\item[Probability of mutation] 0.05
+	\item[Minimum length of chromosome] 1
+	\item[Maximum length of chromosome] 3
+\end{description}
+\section{Student groups}
+In order to reduce the number of required data points, the students were split
+up in only two different student groups per knowledge component. The splitting
+criteria was based on the achieved pre-test score. If a student scored more
+than 50\% then he or she was assigned to the High group of that knowledge
+component, else he or she was assigned to the Low group of that knowledge
+component. This resulted in the following groups.\\\\
+\begin{tabular}{l|l||l}
+	\textbf{Knowledge Component} & \textbf{Pre-test score}    & \textbf{Group} \\\hline\hline
+	Rules of the game	& $\leq 50\%$		& Rules Low \\\hline
+	Rules of the game	& $> 50\%$			& Rules High \\\hline
+	Intuition			& $\leq 50\%$		& Intuition Low \\\hline
+	Intuition			& $> 50\%$			& Intuition High \\\hline
+	Binary Numbers		& $\leq 50\%$		& Binary Low \\\hline
+	Binary Numbers		& $> 50\%$			& Binary High \\\hline
+	Nim-Sum				& $\leq 50\%$		& NimSum Low \\\hline
+	Nim-Sum				& $> 50\%$			& NimSum High \\\hline
+\end{tabular}
+\section{Educational material}
+% TODO: Describe initial page of curriculum with explanation of the experiment
+Participants in the experiment went through a curriculum about the game of Nim.
+Nim is a mathematical game where two players alternate turns in taking away at
+least one object from exactly one of stacks of objects on the table. The
+experiment only looks at the normal version of the Nim game, where the person
+that takes the last object of the table wins. In the mis\`{e}re version of the
+game, this person would have lost. Nim is a zero-sum game and is part of a
+large collection of related games which have mathematically grounded
+strategies. Nim's winning strategy, provided you are in a winnable position,
+involves applying the nim-sum operator. % Explain the nim-sum operator
+
+The Nim curriculum is divided into four knowledge components. First, the rules
+of the game are explained. Second, some intuition about good strategies is formed.
+Third, binary numbers are covered. Fourth, the binary nim-sum operation is
+explained. For each of these knowledge component, four educational resources
+were created from scratch or composed of explanations found on the internet.
+For the genetic algorithm to have a chance of learning something, it is
+important that the collection of resources contains both good and bad material.
+The resources for each knowledge component are described in
+Appendix~\ref{ax_resources}, the rest of this section will describe
+each knowledge component.
+\subsection{Rules of the game}
+\subsection{Intuition}
+\subsection{Binary Numbers}
+\subsection{Nim-Sum}
+% explain nim-sum with pair cancelling, explain that there is also an XOR
+% method to this and that pair cancelling is the more human friendly way
+\section{Pre-test \& post-test}
+In this experiment, each knowledege component has the same questions for both
+the pre-test and post-test. Given the low threshold for participants to stop
+participating in the experiment it was necessary to keep the time needed to
+fill in the questions limited. This resulted in three multiple-choice
+questions for each knowledge component. All questions have at least the option that
+indicates that the user doesn't know the answer. This is still counted as a
+wrong answer, but is more informative for later analysis than a random guess
+which could be right by accident. The questions for each knowledge component
+are listed in Appendix~\ref{ax_questions}.
+
+\section{Exam}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/screen_exam.png}
+    \caption{Screenshot of the exam setup with five nim game scenarios}
+    \label{fig:screen_exam}
+\end{figure}
+After having completed all knowledge components, a student is presented a final
+exam. The purpose of this exam is to have an opportunity to compare students at
+the beginning of the experiment with those at the end. The exam questions are
+nim game scenarios that the student has to play. The game interface is
+described in Section~\ref{sec:apx_nimjs}. If the student wins, the
+question is answered correctly. If the computer wins, the question is counted
+as wrong. The exam grade is calculated as the percentage of won games. The result
+of each game is displayed in a progress bar, as can be seen in
+Figure~\ref{fig:screen_exam}. The exam is introduced with the following explanation.
+\begin{framed}\noindent
+	You will be playing 5 nim games of varying difficulty. This is your
+	opportunity to show your learned skills. The orange rectangles represent
+	stacks of objects. The number of objects on the stack is shown by the white
+	number in the stack. You can take objects off a stack by clicking on it.
+	You will then be asked how many objects you want to take. After you have
+	made a move, your artificial counter player will make one as well. The game
+	ends when either of you won.
+	After you have played all 5 nim games you are finished.
+\end{framed}
+\noindent The nim game scenarios are not randomly generated and are increasing in
+difficulty. The following list enumerates the game configurations for each
+question.
+\begin{enumerate}
+	\item Two stacks consisting of one and two objects.
+	\item Three stacks with two, three and two objects.
+	\item Three stacks containing four, five and six objects.
+	\item Four stacks consisting of one, three, four and five objects.
+	\item Four stacks with ten, four, six and nine objects.
+\end{enumerate}
+\section{Questionaire}
+At the end of the course, after all knowledge components and the exam have been
+completed by the student. A small optional questionaire is presented to the
+student. The questionaire consisted of three questions.
+\begin{enumerate}
+	\item How good were you at Nim before these lessons?
+		\begin{itemize}
+			\item I could not play it at all.
+			\item I could play it a little bit.
+			\item I could play it very well.
+		\end{itemize}
+	\item How good do you think you are after these lessons?
+		\begin{itemize}
+			\item I cannot play it at all.
+			\item I can play it a little bit.
+			\item I can play it very well.
+		\end{itemize}
+	\item Do you have any last comments you whish to make?
+\end{enumerate}
 \section{Amazon Mechanical Turk}

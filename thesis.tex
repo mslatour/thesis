@@ -10,6 +10,9 @@
 % Required for pseudo algorithm listings
 \usepackage{algpseudocode}
 
+% Required for mathematical extensions
+\usepackage{amsmath}
+
 % Required for many graphical operations
 \usepackage{graphicx}
 
@@ -24,6 +27,9 @@
 
 % Required for clickable citations
 \usepackage{hyperref}
+
+% Required for proper handling or URL's
+\usepackage{url}
 
 % Set numbering up till subsubsection level
 \setcounter{secnumdepth}{3}
@@ -133,6 +139,7 @@
 \chapter{Simulations}
 \input{chapters/simulations.tex}
 \chapter{Experimental setup}
+\label{ch:experimental_setup}
 \input{chapters/experimental_setup.tex}
 \chapter{Results}
 \input{chapters/results.tex}
@@ -145,6 +152,17 @@
 \chapter{Future Work}
 \input{chapters/future_work.tex}
 
+\appendix
+\chapter{Database}
+\label{ax_database}
+\input{chapters/appendix_database.tex}
+\chapter{Nim Course Material}
+\label{ax_resources}
+\input{chapters/appendix_resources.tex}
+\chapter{Nim Test Questions}
+\label{ax_questions}
+\input{chapters/appendix_questions.tex}
+
 %%%%%%%%%%%%%%%
 % Back matter %
 %%%%%%%%%%%%%%%
@@ -152,5 +170,4 @@
 % Show bibliography
 \bibliographystyle{plainnat}
 \bibliography{literature}
-
 \end{document}
