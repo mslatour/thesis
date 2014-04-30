@@ -1,0 +1,315 @@
+\section{Interactive Nim Exercises}
+\label{sec:apx_nimjs}
+Resources can contain a script that allows the student to play the nim
+game. The interface depicts each stack as an orange box of which the height is linked to the number of objects on that stack. The student can click on one of these
+orange boxes to be prompted for the number of objects to remove. Only valid
+input is allowed in this prompt, meaning that a student is also not capable of
+taking nothing or even taking more objects than exist on the stack. The
+visualisation for the nim game with stacks of two, one and two objects is as
+follows.\\\\
+\includegraphics[width=0.5\linewidth]{images/screen_nim_game_interface.png}\\
+After the student made a move, a computer player automatically makes a counter move.
+This continues until one of the two players won. The computer player will
+always attempt to make the optimal move using the nim-sum operator. If there
+are multiple moves possible given the winning strategy, the computer player
+picks the first. When faced with an unwinnable situation, the computer selects
+a stack at random and either removes all objects or all but one, depending on
+the parity of the number of stacks and the number of objects left on the stack.
+The strategy in an unwinnable situation is not part of the standard nim-sum
+strategy, but was added to force a student to play a perfect game throughout.
+
+When the nim game is over, the students receives feedback about the outcome of
+the game and is presented with an opportunity to play another randomly
+generated game. The feedback is shown as follows.
+\begin{minipage}{0.5\linewidth}
+\includegraphics[width=\linewidth]{images/screen_nim_game_win.png}
+\end{minipage}
+\begin{minipage}{0.5\linewidth}
+\includegraphics[width=\linewidth]{images/screen_nim_game_loss.png}
+\end{minipage}
+
+\section{Rules of the game}
+\begin{figure}[ht!]
+\begin{minipage}{0.5\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/screen_oer_nim_rules_1.png}
+	\caption[Resource 1]{\textbf{Resource 1} covers the rules of the game}
+	\label{fig:apx_screen_oer_nim_rules_1}
+\end{minipage}
+\hspace{0.1\linewidth}
+\begin{minipage}{0.4\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/screen_oer_nim_rules_2.png}
+	\caption[Resource 2]{\textbf{Resource 2} covers the rules of the game}
+	\label{fig:apx_screen_oer_nim_rules_2}
+\end{minipage}
+\end{figure}
+\begin{figure}[ht!]
+\begin{minipage}{0.5\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/screen_oer_nim_rules_3.png}
+	\caption[Resource 3]{\textbf{Resource 3} covers the rules of the game}
+	\label{fig:apx_screen_oer_nim_rules_3}
+\end{minipage}
+\hspace{0.1\linewidth}
+\begin{minipage}{0.4\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/screen_oer_nim_rules_4.png}
+	\caption[Resource 4]{\textbf{Resource 4} covers the rules of the game}
+	\label{fig:apx_screen_oer_nim_rules_4}
+\end{minipage}
+\end{figure}
+\subsection{Resource 1}
+This resource is shown in Figure~\ref{fig:apx_screen_oer_nim_rules_1} contains the following text: \emph{Nim is a game in which two players take turns removing
+objects from distinct heaps. On each turn, a player must remove at least
+one object, and may remove any number of objects provided they all come
+from the same heap. The normal game is between two players and played with
+three heaps of any number of objects. The two players alternate taking any number
+of objects from any single one of the heaps. The goal is to be the last to take an
+object.}
+\subsection{Resource 2}
+The resource shown in Figure~\ref{fig:apx_screen_oer_nim_rules_2} plays the
+Youtube video \texttt{zEpXIoF2nwk} made by Paul Gafni, which explains the rules
+by showing an example game. It is a video clip from a larger
+collection of nim lessons created by the same author. The clip is displayed in
+an embedded Youtube player.
+\subsection{Resource 3}
+The third resource that covers the rules of the game is shown in
+Figure~\ref{fig:apx_screen_oer_nim_rules_3} and contains a
+textual explanation in three points. One, \emph{The game of Nim is played
+with two players that each in turn can take away objects from a single stack}.
+Two, \emph{Each turn a player needs to take away at least one object}.
+Three, \emph{The player that takes away the last object on the table wins.}
+\subsection{Resource 4}
+The last resource that covers the rules of the game is shown in
+Figure~\ref{fig:apx_screen_oer_nim_rules_4} and contains a
+very brief textual explanation. \emph{You can only take away objects from one
+stack. The last person to take away an object wins}.
+\section{Intuition}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/screen_oer_nim_intuition_1.png}
+	\caption[Resource 5]{\textbf{Resource 5} covers the intuition
+    behind a winning strategy for the game nim}
+    \label{fig:apx_screen_oer_nim_intuition_1}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/screen_oer_nim_intuition_2.png}
+	\caption[Resource 6]{\textbf{Resource 6} covers the intuition
+    behind a winning strategy for the game nim}
+    \label{fig:apx_screen_oer_nim_intuition_2}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/screen_oer_nim_intuition_3.png}
+	\caption[Resource 7]{\textbf{Resource 7} covers the intuition
+    behind a winning strategy for the game nim}
+    \label{fig:apx_screen_oer_nim_intuition_3}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/screen_oer_nim_intuition_4.png}
+	\caption[Resource 8]{\textbf{Resource 8} covers the intuition
+    behind a winning strategy for the game nim}
+    \label{fig:apx_screen_oer_nim_intuition_4}
+\end{figure}
+\subsection{Resource 5}
+Figure~\ref{fig:apx_screen_oer_nim_intuition_1} shows the resource that allows the
+student to play the nim game using the script defined in
+Section\ref{sec:apx_nimjs}. The configuration of
+stacks should be simple enough for most students to be able to imagine the
+consequences of an action. The winning sequence of moves is
+typically three moves long for the student. The configuration is generated
+randomly in such a way that each stack contains between one and
+three objects, with two stacks having the identical number of objects. The
+latter requirements ensures that the game is winnable by the student and that a
+more advanced nim-sum strategy is not yet necessary.
+
+The nim game interface is also explained in the resource with an introduction.
+\begin{framed}\noindent
+This is a game of Nim. The orange rectangles represent stacks of objects. The
+number of objects on the stack is shown by the white number in the stack. You
+can take objects off a stack by clicking on it. You will then be asked how many
+objects you want to take. After you have made a move, your artificial counter
+player will make one as well. The game ends when either of you won.\\\\
+\noindent You can keep playing these nim games as long as you want.
+If you think you are ready, click on the button below.
+\end{framed}
+\subsection{Resource 6}
+A resource shown in Figure~\ref{fig:apx_screen_oer_nim_intuition_2} that
+describes the optimal actions for three example scenarios. The described actions
+are all aimed at achieving a situation with two identical stacks on the table
+for the other player. Regardless of what the other player takes away,
+you can mimic the action for the other stack and end up taking the last object.
+The first scenario depicts two equal stacks and one bigger stack.
+The second scenario depicts two equal stacks and one smaller stack.
+The last scenario depicts three equal stacks.
+\subsection{Resource 7}
+Figure~\ref{fig:apx_screen_oer_nim_intuition_3} shows a resource that gives a
+textual explanation of the intuitive strategy of enforcing two equal stacks on
+the opponent. This is formulated as follows.
+\begin{framed}\noindent
+In simple situations such as three nonempty stacks of which two are identical,
+there is an easy strategy: take away all objects from the stack that is
+different. The intuition is that when the opponent is confronted with a
+situation where there are only two identical stacks left, he can either pick
+everything from a stack (leaving you a winning situation) or pick only a part
+of it (leaving you a situation where you can created two identical stacks again).
+\end{framed}
+\subsection{Resource 8}
+The resource shown in Figure~\ref{fig:apx_screen_oer_nim_intuition_4} has an
+embedded video player which shows a video explanation made by
+Paul Gafni\footnote{Source:
+	\url{https://www.youtube.com/channel/UC3EadMDqZmJVJ2f43QSzIRQ}}.
+The video demonstrates in a walkthrough of the game the kind of reasoning a
+player must use to decide what move to make.
+\section{Binary numbers}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/screen_oer_nim_binary_1.png}
+	\caption[Resource 9]{\textbf{Resource 9} covers the  conversion of binary numbers to
+	their decimal form.}
+    \label{fig:apx_screen_oer_nim_binary_1}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/screen_oer_nim_binary_2.png}
+	\caption[Resource 10]{\textbf{Resource 10} covers the  conversion of binary numbers to
+	their decimal form.}
+    \label{fig:apx_screen_oer_nim_binary_2}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/screen_oer_nim_binary_3.png}
+	\caption[Resource 11]{\textbf{Resource 11} covers the  conversion of binary numbers to
+	their decimal form.}
+    \label{fig:apx_screen_oer_nim_binary_3}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/screen_oer_nim_binary_4.png}
+	\caption[Resource 12]{\textbf{Resource 12} covers the  conversion of binary numbers to
+	their decimal form.}
+    \label{fig:apx_screen_oer_nim_binary_4}
+\end{figure}
+\subsection{Resource 9}
+Figure~\ref{fig:apx_screen_oer_nim_binary_1} shows a resource that lists
+four example
+conversions between decimal and binary numbers, describes the meaning of having
+a \verb|1| in a particular position of a binary number and walks through the
+conversion of three binary numbers to their decimal counterparts. Throughout
+these different presentations a student could find the decimal numbers one
+through ten and their binary counterparts.
+\subsection{Resource 10}
+The resource shown in Figure~\ref{fig:apx_screen_oer_nim_binary_2} lists four
+examples of decimal numbers and their binary counterparts.
+The decimal numbers listed were one, three, six and nine.
+\subsection{Resource 11}
+A resource that shows a video made by Marija Kero of eHow\footnote{Source:
+	\url{https://www.youtube.com/user/eHowFamily}} is shown in
+	Figure~\ref{fig:apx_screen_oer_nim_binary_3}.
+The video shows how to calculate the conversion of a binary number to its
+decimal form, by demonstrating this for two examples. The video is displayed
+without any description.
+\subsection{Resource 12}
+The resource shown in Figure~\ref{fig:apx_screen_oer_nim_binary_4} contains
+an adapted version of the definition of a binary number given by an online
+dictionary\footnote{\url{http://dictionary.reference.com/browse/binary}}.
+The adaptation contains two mistakes. The last two powers of two do not have
+a superscript display of the power, making it potentially confusing. This was
+however only discovered till late in the experiment by the author. The late
+discovery combined with the notion that these type of mistakes are very common
+in any large collection of educational material resulted in the decision to
+leave it like this.
+\begin{framed}\noindent
+ A binary number is expressed in a system of numerical notation to the base 2,
+ in which each place of a number, expressed as 0 or 1, corresponds to a power
+ of 2. The decimal number 58 appears as 111010 in binary notation, since 58
+ = $1\times2^5+1\times2^4+1\times2^3+0\times2^2+1\times21+0\times20$
+\end{framed}
+\section{Nim-Sum}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/screen_oer_nim_pair_cancelling_1.png}
+	\caption[Resource 13]{\textbf{Resource 13} covers the nim-sum
+    by means of pair cancelling}
+    \label{fig:apx_screen_oer_nim_pair_cancelling_1}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/screen_oer_nim_pair_cancelling_2.png}
+	\caption[Resource 14]{\textbf{Resource 14} covers the nim-sum
+    by means of pair cancelling}
+    \label{fig:apx_screen_oer_nim_pair_cancelling_2}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/screen_oer_nim_pair_cancelling_3_part1.png}
+	\caption[Resource 15 part 1]{\textbf{Resource 15} covers the nim-sum
+    by means of pair cancelling. This screenshot is the first part of three
+screenshots of this resource.}
+    \label{fig:apx_screen_oer_nim_pair_cancelling_3_part1}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/screen_oer_nim_pair_cancelling_3_part2.png}
+	\caption[Resource 15 part 2]{\textbf{Resource 15} covers the nim-sum
+    by means of pair cancelling. This screenshot is the second part of three
+screenshots of this resource.}
+    \label{fig:apx_screen_oer_nim_pair_cancelling_3_part2}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/screen_oer_nim_pair_cancelling_3_part3.png}
+	\caption[Resource 15 part 3]{\textbf{Resource 15} covers the nim-sum
+    by means of pair cancelling. This screenshot is the last part of three
+screenshots of this resource.}
+    \label{fig:apx_screen_oer_nim_pair_cancelling_3_part3}
+\end{figure}
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.9\linewidth]{images/screen_oer_nim_xor_1.png}
+	\caption[Resource 16]{\textbf{Resource 16} covers the nim-sum
+    by means of XOR calculations}
+    \label{fig:apx_screen_oer_nim_xor_1}
+\end{figure}
+\subsection{Resource 13}
+The resource shown in Figure~\ref{fig:apx_screen_oer_nim_pair_cancelling_1} contains an extremely brief textual explanation of pair cancelling, in the following words.
+\begin{framed}
+The winning strategy is for a player to always leave an even total number of
+power of two's.
+\end{framed}
+\subsection{Resource 14}
+Figure~\ref{fig:apx_screen_oer_nim_pair_cancelling_2} shows a resource that
+describes pair cancelling in one line and then applies that in an example.
+The stacks in the example contain three, four and five objects.
+The resource only shows the first next move the player should make,
+which is take 2 objects from the first stack.
+\subsection{Resource 15}
+Figure~\ref{fig:apx_screen_oer_nim_pair_cancelling_3_part1},
+Figure~\ref{fig:apx_screen_oer_nim_pair_cancelling_3_part2} and
+Figure~\ref{fig:apx_screen_oer_nim_pair_cancelling_3_part3} are screenshots of
+a resource that gives the following step-by-step description of how to apply
+pair cancelling.
+\begin{framed}
+\begin{enumerate}
+	\item Write down the number of objects in each stack underneath each other
+		in their binary representation, such that each column of digits
+		represents the same power of two.
+	\item Count the total number of 1's in each column.
+	\item The goal is to make sure that after you made your move, all columns
+		have an even total number of 1's.
+	\item Return to step 1, until the game ends.
+\end{enumerate}
+\end{framed}
+Furthermore it provides an explicit walkthrough of each of these steps for two
+examples. One containing three stacks of three, four and five objects, and one
+containing four stacks of two, four, five and five objects.
+\subsection{Resource 16}
+This last resource for the Nim-Sum knowledge component takes a different
+approach where the nim-sum is explained using the application of the binary XOR
+operation, which essentially is what the nim-sum operation really is.
+The description originates from the English Wikipedia
+article\footnote{\url{http://en.wikipedia.org/wiki/Nim}} about Nim.
+Figure~\ref{fig:apx_screen_oer_nim_xor_1} shows a screenshot of this resource.
