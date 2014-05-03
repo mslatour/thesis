@@ -2,14 +2,6 @@
 % Chapter: Experimental setup %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{GA Parameters}
-\begin{description}
-	\item[Number of episodes] 4
-	\item[Number of individuals in population] 4
-	\item[Number of elite individuals] 2
-	\item[Probability of mutation] 0.05
-	\item[Minimum length of chromosome] 1
-	\item[Maximum length of chromosome] 3
-\end{description}
 \section{Student groups}
 In order to reduce the number of required data points, the students were split
 up in only two different student groups per knowledge component. The splitting
@@ -17,16 +9,16 @@ criteria was based on the achieved pre-test score. If a student scored more
 than 50\% then he or she was assigned to the High group of that knowledge
 component, else he or she was assigned to the Low group of that knowledge
 component. This resulted in the following groups.\\\\
-\begin{tabular}{l|l||l}
-	\textbf{Knowledge Component} & \textbf{Pre-test score}    & \textbf{Group} \\\hline\hline
-	Rules of the game	& $\leq 50\%$		& Rules Low \\\hline
-	Rules of the game	& $> 50\%$			& Rules High \\\hline
-	Intuition			& $\leq 50\%$		& Intuition Low \\\hline
-	Intuition			& $> 50\%$			& Intuition High \\\hline
-	Binary Numbers		& $\leq 50\%$		& Binary Low \\\hline
-	Binary Numbers		& $> 50\%$			& Binary High \\\hline
-	Nim-Sum				& $\leq 50\%$		& NimSum Low \\\hline
-	Nim-Sum				& $> 50\%$			& NimSum High \\\hline
+\begin{tabular}{lll}\hline
+	\textbf{Knowledge Component} & \textbf{Pre-test score}    & \textbf{Group} \\\hline
+	Rules of the game	& $\leq 50\%$		& Rules Low \\
+	Rules of the game	& $> 50\%$			& Rules High \\
+	Intuition			& $\leq 50\%$		& Intuition Low \\
+	Intuition			& $> 50\%$			& Intuition High \\
+	Binary Numbers		& $\leq 50\%$		& Binary Low \\
+	Binary Numbers		& $> 50\%$			& Binary High \\
+	Nim-Sum				& $\leq 50\%$		& NimSum Low \\
+	Nim-Sum				& $> 50\%$			& NimSum High \\
 \end{tabular}
 \section{Educational material}
 % TODO: Describe initial page of curriculum with explanation of the experiment
@@ -50,10 +42,24 @@ important that the collection of resources contains both good and bad material.
 The resources for each knowledge component are described in
 Appendix~\ref{ax_resources}, the rest of this section will describe
 each knowledge component.
-\subsection{Rules of the game}
-\subsection{Intuition}
-\subsection{Binary Numbers}
-\subsection{Nim-Sum}
+\paragraph{Rules of the game} The first knowledge component covers the rules
+of the Nim game. The playing field of the game contains two or more stacks of
+objects. Nim is played by two players that in turn take away at least
+one object from exactly one stack of objects. The player that takes a way the
+last object from the playing field wins.
+\paragraph{Intuition} The intuition behind a winning strategy is the subject
+of the second knowledge component. In any Nim game, it is desireable to leave
+your opponent with two equally sized stacks. From that position, you can mimic
+any move your opponent made and return to the same situation until only one
+object is left for you to take away and win. The understanding that it is
+beneficial to leave your opponent with two equal stacks is the intuition behind
+the winning strategy for the Nim game.
+\paragraph{Binary Numbers} The third knowledge component covers binary numbers.
+In order to generalize the intuition to a winning strategy
+for any winneable situation a student needs to be able to work with binary
+representations of numbers. Specifically, a student needs to be to able to
+convert decimal numbers into binary numbers.
+\paragraph{Nim-Sum}
 % explain nim-sum with pair cancelling, explain that there is also an XOR
 % method to this and that pair cancelling is the more human friendly way
 \section{Pre-test \& post-test}
@@ -106,7 +112,8 @@ question.
 \section{Questionaire}
 At the end of the course, after all knowledge components and the exam have been
 completed by the student. A small optional questionaire is presented to the
-student. The questionaire consisted of three questions.
+student. The questionaire consisted of two multiple choice questions and one
+open ended question.
 \begin{enumerate}
 	\item How good were you at Nim before these lessons?
 		\begin{itemize}

@@ -261,18 +261,15 @@ numbered. The rest of the section describes these components in more detail.
 \label{sec:software_monitor_module}
 The monitor module provides a real-time insight in the relevant processes,
 events and data stored in the database. This module has only been used to
-monitor the experiment while it was running. It contains the following views.
-\begin{description}
-	\item[Log] A long list of logged events, as described in
-		Section~\ref{sec:software_logging_module}.
-	\item[Student] A list of the logged events related to a particular student
-		and an overview of the test scores, assigned student group and
-		presented sequence for each knowledge component the student
-		participated in so far.
-	\item[Population] A list of the individuals in each generation for a
-		specific population, including observed fitness values, and a graph
-		displaying the cumulative regret for that population.
-\end{description}
+monitor the experiment while it was running and contained three views:
+\emph{log}, \emph{student} and \emph{population}. The log view showed a long
+list of logged events, as described in Section~\ref{sec:software_logging_module}.
+The student view showed a list of the logged events related to a particular
+student. It also showed an overview of the test scores, the assigned student
+group and the presented sequence for each knowledge component the student
+participated in so far. The population view displayed a list of the individuals
+in each generation for a specific population. This included observed fitness
+values and the cumulative regret graph for that population.
 \section{Logging Module}
 \label{sec:software_logging_module}
 All logging of events is done by the logging module. This module is tighly

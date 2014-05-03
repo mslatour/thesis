@@ -1,13 +1,96 @@
 %%%%%%%%%%%%%%%%%%%%%%%%
 % Chapter: Simulations %
 %%%%%%%%%%%%%%%%%%%%%%%%
-\section{Setup of the simulation}
-\subsection{Parameters}
-\subsubsection{Population size}
-The number of individuals in each generation. The larger this value is, the
-more diversity can occur in each generation. The actual amount of diversity is
-also determined by the diversity of the previous generation, the selection
-mechanism and the mutation rate.
+In order to gain more insight in the properties and effectiveness of
+the approach presented in Chapter~\ref{ch_approach} a series of
+simulations have been performed for this thesis. These simulations are
+based on explicit assumptions regarding the fitness landscape and
+facilitate a broader range of analysis than the experiment described in
+Chapter~\ref{ch:experimental_setup}. The experiment assesses whether the
+analysis based on the simulation results also holds on more realistic data.
+
+This chapter describes the setup of the simulations that have been performed.
+The results of these simulations are listed in Chapter~\ref{ch:results}.
+%Section listing
+
+\section{General setup}
+In order to compare the results from the different simulations more easily, the
+termination of the simulation and the manner in which the results are evaluated
+are the same for each simulation. This general setup is described in this
+section.
+\subsection{Termination}
+\label{sec:simulations_termination}
+As is described in Section~\ref{sec:approach_termination}, the used
+implementation of the genetic algorithm is not equiped with termination
+conditions given the nature of the domain. However, when multiple simulations
+need to be run, this can obviously not be the case. Each simulation setup has
+two stopping criteria: \emph{reaching optimality} and \emph{maximum attempts}.
+\paragraph{Reaching optimality} An instance of the software is said to have
+reached optimality when the sequence that is considered optimal given the
+fitness landscape is evaluated twenty consecutive times. In an online course
+this would mean that twenty students in a row would be presented the optimal
+solution. In the case of multiple sequences being optimal under the fitness
+model, each evaluation of any of those sequences is considered an optimal
+evaluation.
+\paragraph{Maximum attempts} An instance of the software is given a maximum of
+2000 evaluations to reach an optimal solution. This could for example mean that
+a genetic algorithm could run for 100 generations, where in each generation
+there are twenty evaluations for UCB-1 to divide.
+
+\subsection{Evaluation of results}
+To aid in the analysis of each simulation result, three views are applied to
+the data: \emph{the cumulative regret curve}, \emph{the derivative of the
+cumulative regret curve} and \emph{the number of evaluations needed}.
+\paragraph{Cumulative Regret Curve} Regret is defined as the difference in
+performance between the applied policy and the optimal policy. In the context
+of the educational domain, regret is roughly speaking the damage done to the
+student's understanding due to the offering of suboptimal educational material.
+Due to the use of the UCB-1 selection algorithm, the cumulative regret over time
+is mathematically proven to decrease logarithmically. That means that the
+cumulative regret curve must resemble the curve of a logarithmic function.
+However, this does not mean that the cumulative regret curve does not hold any
+information. Due to the combination with the genetic algorithm, the options from
+which the UCB-1 algorithm can choose are limited. The interplay between the
+genetic algorithm and UCB determines if the cumulative regret converges and the
+dimensions of the resulting curve. This curve is especially interesting because
+it visualizes the exploration vs. exploitation trade-off.
+\paragraph{Derivative of the Cumulative Regret Curve}
+The cumulative regret curve can occassionally be difficult to interpret.
+When fitness values are noissy or when a lot of mutation occurs one
+can expect to find fluctuations in the curve, especially in the beginning. In
+order to assist in the interpretation of the curve, the derivative of the curve
+is also plotted. The curve of the derivative should at least show a downwards
+trend. In the ideal case the curve resembles the derivative of a logarithm.
+\paragraph{Number of evaluations needed} In addition to the curves, one could
+also look at quantitative results. One of these is the number of evaluations
+needed before the tutor reached the optimal solution, as described in
+Section~\ref{sec:simulations_termination}. This value cannot be determined in case
+the simulation terminated before that point was reached.
+\section{Parameters}
+There are various parameters that can be tuned
+\subsection{Population size}
+The population size refers to the number of individuals in each generation.
+When this value is bigger, more diversity can exist in each generation.
+The actual amount of diversity is also determined by the diversity of the
+previous generation, the selection mechanism and the mutation rate.
 
 What the population size does directly influence is the number of crossover
-operations. 
+operations.
+
+\subsection{Number of episodes}
+
+\subsection{Number of elite}
+
+\subsection{Mutation rate}
+
+\section{Scenarios}
+% Scenarios
+\begin{itemize}
+	\item These parameters are tested for different fitness landscapes
+		\begin{itemize}
+			\item hand-crafted model based on author's expectations
+			\item Worse-case scenario: optimal sequence is surrounded by
+				sequences with lower fitness values than their neighbours.
+			\item model based on the fitness values found in the experiment
+		\end{itemize}
+\end{itemize}

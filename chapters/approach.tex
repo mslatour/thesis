@@ -8,10 +8,13 @@ problem using genetic algoritms. Two other modeling choices that are common for
 this problem are markov decision processes and knowledge-based systems.
 Section~\ref{approach_discussion} discusses the disadvantages of using genetic
 algorithms as a model and compares it with the two alternative modeling
-choices. First, section~\ref{approach_genetic_algorithm} describes the details
+choices. First, Section~\ref{approach_genetic_algorithm} describes the details
 of the genetic algorithm modeling.
 
 \section{Student Groups}
+Within the scope of this thesis, the sequences are not optimized for every
+individual student. Instead, each student is assigned to a student group, for
+which the sequence of educational material is optimized.
 \begin{itemize}
 	\item Each student is characterized by two dimensions
 		\begin{itemize}
@@ -164,6 +167,7 @@ to be rated neutral (i.e. the middle of a five-point scale).
 % Termination
 %%%
 \subsection{Termination}
+\label{sec:approach_termination}
 Given the inherent noise in the fitness values, the algorithm should not stop
 before the fitness of each possible\footnote{i.e. all possible sequences given
 the constraints on length and the uniqueness requirement} chromosome is determined
@@ -272,7 +276,7 @@ was applied in this thesis, as described in section~\ref{sec:approach_ucb}.
 \label{sec:approach_generation_switch}
 \begin{figure}[ht!]
 	\centering
-	\includegraphics[width=\linewidth]{images/generation_switch.png}
+	\includegraphics[width=0.8\linewidth]{images/generation_switch.png}
 	\caption[Generation switch]{The operations and intermediate phases during a generation switch. Illustration was taken from \cite{Whitley1994}.}
 	\label{fig:generation_switch}
 \end{figure}
@@ -419,7 +423,7 @@ population, replacing the worst individual. The migrated individuals are
 copies, and do not change the occurence of the migrated chromosomes in the
 originating populations.
 
-Important to note is that all other actions of the genetic algorithm in eahc
+Important to note is that all other actions of the genetic algorithm in each
 population are still independant, meaning that the populations can also evolve
 at different speeds. One reason for this would be that the distributions of
 students in each student group will not be uniform. That has the consequence
