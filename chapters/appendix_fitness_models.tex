@@ -1,0 +1,77 @@
+\section{Handcrafted model}
+\label{sec:apx_fitness_handcrafted}
+\begin{tabular}[ht]{ll}\hline
+	Construct &  Meaning \\\hline
+	\verb![5]! & A sequence containing resource 5.\\
+	\verb![*]! & A sequence containing any resource.\\
+	\verb![5, 6]! & A sequence containing first resource 5 and then resource 6.\\
+	\verb!{5, 6}! & A sequence containing resources 5 and 6 in any order.\\
+	\verb![( 5 | 6 )]! & A sequence containing either resource 5 or 6.\\
+	\verb!{7, ( 5 | 6 )}! & A sequence containing resource 7 and either resource 5
+	or 6 in any order.\\
+\end{tabular}
+\begin{table}
+\centering
+\begin{subtable}{0.5\linewidth}
+\begin{tabular}[ht]{ll}\hline
+	Sequence pattern & Fitness \\\hline
+	\verb![5]! & 0.7 \\
+	\verb![6]! & 0.8 \\
+	\verb![7]! & 0.1 \\
+	\verb![8]! & 0.8 \\
+	\verb!{6, ( 5 | 8 )}! & 1 \\
+	\verb!{5, 6, 8}! & 1 \\
+	\verb!{5, 6, 7}! & 0.6 \\
+	\verb!{*, *, ( 5 | 6 ), ( 5 | 6 )}! & 0.7\\
+\end{tabular}
+\caption{Rules of the game}
+\label{tab:apx_fitness_handcrafted_rules}
+\end{subtable}
+\begin{subtable}{0.45\linewidth}
+\begin{tabular}[ht]{ll}\hline
+	Sequence pattern & Fitness \\\hline
+	\verb![5]! & 0.7 \\
+	\verb![6]! & 0.8 \\
+	\verb![7]! & 0.1 \\
+	\verb![8]! & 0.8 \\
+	\verb!{6, ( 5 | 8 )}! & 1 \\
+	\verb!{5, 6, 8}! & 1 \\
+	\verb!{5, 6, 7}! & 0.6 \\
+	\verb!{*, *, ( 5 | 6 ), ( 5 | 6 )}! & 0.7\\
+\end{tabular}
+\caption{Intuition}
+\label{tab:apx_fitness_handcrafted_intuition}
+\end{subtable}
+\begin{subtable}{0.5\linewidth}
+\begin{tabular}[ht]{ll}\hline
+	Sequence pattern & Fitness \\\hline
+	\verb![5]! & 0.7 \\
+	\verb![6]! & 0.8 \\
+	\verb![7]! & 0.1 \\
+	\verb![8]! & 0.8 \\
+	\verb!{6, ( 5 | 8 )}! & 1 \\
+	\verb!{5, 6, 8}! & 1 \\
+	\verb!{5, 6, 7}! & 0.6 \\
+	\verb!{*, *, ( 5 | 6 ), ( 5 | 6 )}! & 0.7\\
+\end{tabular}
+\caption{Binary numbers}
+\label{tab:apx_fitness_handcrafted_binary}
+\end{subtable}
+\begin{subtable}{0.45\linewidth}
+\begin{tabular}[ht]{ll}\hline
+	Sequence pattern & Fitness \\\hline
+	\verb![5]! & 0.7 \\
+	\verb![6]! & 0.8 \\
+	\verb![7]! & 0.1 \\
+	\verb![8]! & 0.8 \\
+	\verb!{6, ( 5 | 8 )}! & 1 \\
+	\verb!{5, 6, 8}! & 1 \\
+	\verb!{5, 6, 7}! & 0.6 \\
+	\verb!{*, *, ( 5 | 6 ), ( 5 | 6 )}! & 0.7\\
+\end{tabular}
+\caption{Nim-sum}
+\label{tab:apx_fitness_handcrafted_nimsum}
+\end{subtable}
+\caption{Fitness models for the resources in each knowledge component.}
+\label{tab:apx_fitness_handcrafted}
+\end{table}

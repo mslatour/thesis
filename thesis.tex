@@ -19,7 +19,11 @@
 % Required for good typesetting in PDF
 \usepackage{microtype}
 
-% Alternative margins
+% Required for subtables
+\usepackage{caption}
+\usepackage{subcaption}
+
+%Alternative margins
 \usepackage[hmargin=3cm, vmargin=3cm]{geometry}
 
 % Required for different BibTeX citations
@@ -33,7 +37,7 @@
 
 % Set numbering up till subsubsection level
 \setcounter{secnumdepth}{3}
-\setcounter{tocdepth}{2}
+\setcounter{tocdepth}{1}
 
 % Define the argmax function
 \DeclareMathOperator*{\argmax}{arg\,max}
@@ -131,13 +135,13 @@
 
 \chapter{Introduction}
 \input{chapters/introduction.tex}
+\chapter{Task description}
+\input{chapters/educational_task.tex}
 \chapter{Related Work}
 \input{chapters/related_work.tex}
-\chapter{Educational Task}
-\input{chapters/educational_task.tex}
-\chapter{Approach}
+\chapter{Theory}
 \input{chapters/approach.tex}
-\chapter{The TutOER Software}
+\chapter{Software}
 \input{chapters/the_tutoer_software.tex}
 \chapter{Simulations}
 \input{chapters/simulations.tex}
@@ -166,6 +170,9 @@
 \chapter{Nim Test Questions}
 \label{ax_questions}
 \input{chapters/appendix_questions.tex}
+\chapter{Simulation Fitness Models}
+\label{ax_simulation_fitness_models}
+\input{chapters/appendix_fitness_models.tex}
 
 %%%%%%%%%%%%%%%
 % Back matter %

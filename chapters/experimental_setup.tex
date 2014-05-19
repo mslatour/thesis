@@ -2,6 +2,16 @@
 % Chapter: Experimental setup %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{GA Parameters}
+% TODO explain why the values are what they are
+\begin{tabular}{ll}\hline
+	\textbf{Parameter} &  \textbf{Value}\\\hline
+	Population size & 7 \\
+	Number of episodes & 10 \\
+	Number of elite & 2 \\
+	Mutation rate & 0.05 \\
+	Minimum length & 1 \\
+	Maximum length & 3 \\
+\end{tabular}
 \section{Student groups}
 In order to reduce the number of required data points, the students were split
 up in only two different student groups per knowledge component. The splitting
@@ -60,8 +70,22 @@ for any winneable situation a student needs to be able to work with binary
 representations of numbers. Specifically, a student needs to be to able to
 convert decimal numbers into binary numbers.
 \paragraph{Nim-Sum}
-% explain nim-sum with pair cancelling, explain that there is also an XOR
-% method to this and that pair cancelling is the more human friendly way
+The key to winning the Nim game in any winnable situation is to leave the game
+in a state where the nim-sum of the stacks is zero. The nim-sum operator is in
+fact the \emph{exclusive or} (XOR) operator, which describes the sum of two
+binary numbers neglecting all carries between digits. A different way to put
+this is that the XOR operator outputs a `one' when exactly one of the two
+inputs contains a `one', and 'zero' in any other case. In a winnable situation,
+the nim-sum is not equal to zero at the beginning of your turn. You then remove a
+number of objects from a single stack, such that the nim-sum becomes zero.
+The nim-sum operator can not only be used to determine whether the nim-sum will
+be zero after an action, it can also be used to identify which action you can take.
+
+A slightly easier operation to perform mentally is to write down the stacks
+underneath each other in binary format, count the number of `ones' in each
+digit column ($2^0$, $2^1$, $2^2$ etc) and ensure that each column has an even
+number of `ones'. In the resources used in this thesis this method is referred
+to as \emph{pair cancelling}.
 \section{Pre-test \& post-test}
 In this experiment, each knowledege component has the same questions for both
 the pre-test and post-test. Given the low threshold for participants to stop
@@ -130,3 +154,26 @@ open ended question.
 	\item Do you have any last comments you whish to make?
 \end{enumerate}
 \section{Amazon Mechanical Turk}
+Participants for the experiment are partly found via the Amazon Mechanical
+Turk\footnote{\url{https://www.mturk.com/mturk/}} service, where tasks that are
+currently not possible to execute using artificial intelligence can be done by
+humans in return for a small fee in the form of Amazon credits. The site forms
+a market place where a \emph{requester} can post a certain \emph{Human
+Intelligence Task} (HIT) that he or she wants to have crowdsourced for a
+certain price and where \emph{providers} choose which tasks they want to perform.
+The \emph{provider} chooses the time and place of the execution, as most if not
+all \emph{HIT}s are only bound to existance of an internet connnection. Only
+when a \emph{provider} completes the \emph{HIT} to the approval of the
+\emph{provider} will he or she be paid the agreed amount. A \emph{provider} is
+not forced to finish a \emph{HIT} and can decide to give up participation at
+any moment during the \emph{HIT}. Typically a preview is shown of the task
+before the \emph{provider} makes the decision to accept.
+
+In the context of this thesis, a \emph{HIT} represents an entire walkthrough of
+the experiment including the different knowledge components and the final exam
+of one participant. \emph{Providers} were initially paid ten cents for this task,
+which was raised to twenty cents during the experiment to speed up the data
+collection. All \emph{providers} that completed the experiment were paid,
+regardless of the \emph{provider}'s performance or usefulness of the data.
+\emph{Providers} that dropped out during the experiment were not paid, but the data
+that was collected as a result of their actions so far was still kept.

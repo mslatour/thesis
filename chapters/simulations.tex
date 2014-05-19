@@ -67,30 +67,45 @@ needed before the tutor reached the optimal solution, as described in
 Section~\ref{sec:simulations_termination}. This value cannot be determined in case
 the simulation terminated before that point was reached.
 \section{Parameters}
-There are various parameters that can be tuned
-\subsection{Population size}
-The population size refers to the number of individuals in each generation.
+The approach taken in this thesis requires several paremeters to be set in
+advance. These parameters influence the result of the algorithm and are often
+not independent. This section describes the effect of each parameters.
+\paragraph{Population size} The \emph{population size} refers to the number of individuals in each generation.
 When this value is bigger, more diversity can exist in each generation.
 The actual amount of diversity is also determined by the diversity of the
 previous generation, the selection mechanism and the mutation rate.
-
 What the population size does directly influence is the number of crossover
 operations.
 
-\subsection{Number of episodes}
-
-\subsection{Number of elite}
-
-\subsection{Mutation rate}
-
+\paragraph{Number of episodes} As described in Section~\ref{sec:approach_ucb}, UCB selects which of the
+individuals from the current generation are evaluated. UCB gets queried several
+times during one generation, how often is determined by the \emph{number of
+episodes} parameter. One episode equals one evaluation per generation. When
+the value of this parameter is higher, the certainty of the fitness values of
+each individual in the generation increases. However, when the individuals
+selected are not optimal, a higher value also causes an increase in regret.
+\paragraph{Number of elite} Elitism, as described in Section~\ref{sec:approach_generation_switch},
+preserves the best performing individuals of the previous generation. The
+\emph{number of elite} members corresponds negatively to the number of
+crossover operations, since elite members are maintained as is and are not
+replaced by their offspring. Note that there is some interplay with
+the \emph{population size} in the effect on the number of parents in the
+intermediate generation.
+\paragraph{Mutation rate} The \emph{mutation rate} determines the chance that a mutation occurs in the
+chromosome of a new individual. Mutation ensures that areas of the search space
+are explored, even when the genetic algorithm moved in a different direction.
+When this parameter value increases, more exploration occurs. Setting this
+parameter too high will result in a lack of convergence.
 \section{Scenarios}
-% Scenarios
-\begin{itemize}
-	\item These parameters are tested for different fitness landscapes
-		\begin{itemize}
-			\item hand-crafted model based on author's expectations
-			\item Worse-case scenario: optimal sequence is surrounded by
-				sequences with lower fitness values than their neighbours.
-			\item model based on the fitness values found in the experiment
-		\end{itemize}
-\end{itemize}
+The simulations run for this thesis demonstrate the effect of these parameters
+in various scenarios. First, a handcrafted model scenario will be run where the
+sequences are evaluated based on a fitness model manually created by the
+author. The fitness model values are based on the author's expectation of the
+true value of each sequence of learning material. The handcrafted model for
+each population can be found in
+Table~\ref{tab:apx_fitness_handcrafted}. Second, the worst-case scenario where
+an optimal sequence is surrounded by valley of bad sequences. The purpose of
+this scenario is to demonstrate the effects of hamming walls. Third, the
+experiment-based scenario where the fitness values observed in the experiment
+are converted into a fitness model, with which the sequences in the simulation
+are evaluated.

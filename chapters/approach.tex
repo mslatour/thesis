@@ -3,59 +3,9 @@
 %%%%%%%%%%%%%%%%%%%%%
 \label{ch_approach}
 There are several ways to model the educational task described in
-section~\ref{ch_problem_domain}. The work presented in this thesis models the
-problem using genetic algoritms. Two other modeling choices that are common for
-this problem are markov decision processes and knowledge-based systems.
-Section~\ref{approach_discussion} discusses the disadvantages of using genetic
-algorithms as a model and compares it with the two alternative modeling
-choices. First, Section~\ref{approach_genetic_algorithm} describes the details
-of the genetic algorithm modeling.
+Section~\ref{ch_problem_domain}. The work presented in this thesis models the
+problem using genetic algoritms.
 
-\section{Student Groups}
-Within the scope of this thesis, the sequences are not optimized for every
-individual student. Instead, each student is assigned to a student group, for
-which the sequence of educational material is optimized.
-\begin{itemize}
-	\item Each student is characterized by two dimensions
-		\begin{itemize}
-			\item score on the pre-test for this particular knowledge component
-			\item relevant experiences
-		\end{itemize}
-	\item Other things that could have been included are learning
-		style, gender and age. As is also common in most user models in
-		curriculum sequencing applications. However, in this thesis it
-		was decided not to include those. Partly because of the
-		difficult way some of the indicators can be retrieved or
-		checked automatically, as is for example difficult for learning
-		style. And partly because it would enlarge the state space even
-		more.
-	\item The two dimensions are discretized into two values, high and low.
-	\item This results in four categories:
-		\begin{description}
-			\item[A] This person has a lot of relevant experience but did not
-				score well on this particular knowledge component in the
-				pre-test.
-			\item[B] This person has a lot of relevant experience and also
-				scored high on the pre-test for this knowledge component.
-			\item[C] This person has neither much relevant experience nor
-				a high score on the pre-test for this knowledge component.
-			\item[D] This person does not have a lot of relevant experience,
-				but did score high on the pre-test on this knowledge component.
-		\end{description}
-	\item The curriculum sequencing problem is splitted up per student group,
-		while maintaining the ability for good solutions to be copied.
-		Analogous to a teachter that teaches in different grades, the algorithm
-		tries to optimize the learning material for each group separately. But
-		in that same analogy, if the teacher would see that a particular
-		approach would work really well for one group he might be inclined to
-		try it out on the other groups as well. The underlying assumption is
-		that there are some universal do's and don'ts for the explanation of
-		the same topics, some examples work better than others etc. The student
-		groups, although different on a few selected dimensions, are likely to
-		be similar on many other dimensions.
-\end{itemize}
-
-\section{The Genetic Algorithm approach}
 %%%
 % General introduction
 %%%
@@ -66,8 +16,11 @@ times in one generation of the population. Chromosomes are a configuration of
 genes, where each gene represents a component of the candidate solution. In the
 analogy with natural evolution these genes typically represent certain traits
 of the animal, such as the length of wings or the color, that affect the change
-of survival and can be optimized by inheritence and natural selection.
-
+of survival. As a result, the configuration of genes can be optimized by inheritence
+natural selection. The genetic algorithm works in a similar way, where the
+fitness of an individual with a particular configuration of genes determines
+the chances of new individuals arising with similar configurations. The
+standard outline of this algorithm is given in Figure~\ref{alg:ea_scheme}.
 \label{approach_genetic_algorithm}
 \begin{figure}[ht!]
 	\begin{framed}
@@ -88,15 +41,26 @@ of survival and can be optimized by inheritence and natural selection.
 		Evolutionary Algorithm as presented in \citep{Eiben2007}}
 	\label{alg:ea_scheme}
 \end{figure}
-\begin{itemize}
-	\item refer to \ref{alg:ea_scheme}.
-	\item refer to \citep{Eiben2007} for listing the important aspects of any evolutionary algorithm that need to be modeled: representation, fitness, population, parent selection, variation operators, survivor selection, initialization and termination conditions
-\end{itemize}
+
+\citep{Eiben2007} enumerates the important aspects of any
+evolutionary algorithm that need to be modeled: representation
+(Section~\ref{sec:approach_representation}), initialization
+(Section~\ref{sec:approach_initialization}), termination conditions
+(Section~\ref{sec:approach_termination}), fitness
+(Section~\ref{sec:approach_evaluation}) and parent selection, variation
+operators and survivor selection
+(Section~\ref{sec:approach_generation_switch}). The applied island model to
+support for related student groups is described in
+Section~\ref{sec:approach_island_model}.
+Finally, Section~\ref{sec:approach_discussion} discusses the advantages and
+disadvantages of using genetic algorithms as a model and compares it with the
+two alternative modeling choices.
+
 
 %%%%
 % Representation/Domain modeling
 %%%
-\subsection{Representation of the domain}
+\section{Representation of the domain}
 \label{sec:approach_representation}
 In this thesis, each educational resource is encoded as a single gene. A
 chromosome represents a particular sequence of resources. The order of these
@@ -106,7 +70,7 @@ the student. An individual denotes a particular teaching attempt where a particu
 sequence of the education resources is presented to a student. Each knowledge
 component and student group combination is represented by a separate
 population. These populations are however not entirely independent, see
-section~\ref{sec:approach_island_model}.
+Section~\ref{sec:approach_island_model}.
 
 It is not known apriori what the length of the optimal sequence of material is,
 which means that chromosomes have variable length. For practical reasons this
@@ -115,7 +79,8 @@ length will be bounded to a lower and upper limit in the application.
 Instead of using the standard binary encoding (i.e. the binary representations
 of all genes concatenated into one string of bits), a chromosome is encoded as a list
 of gene identifiers (i.e. integers). There are two main arguments for this decision.
-First, the operations defined in sections~\ref{sec:approach_combination_operator}~and~\ref{sec:approach_mutation_operator}
+First, the operations defined in Section~\ref{sec:approach_combination_operator}
+and Section~\ref{sec:approach_mutation_operator}
 take the educational resource as smallest unit. In applications that use the
 standard binary encoding it is common to operate on a bit level, regardless of
 the start and finish of each gene representation. Second, the application
@@ -131,7 +96,8 @@ the purpose of having a database optimized for relational algebra.
 %%%
 % Initialization
 %%%
-\subsection{Initialization}
+\section{Initialization}
+\label{sec:approach_initialization}
 The first generation of the population is initialized with a fixed number of
 individuals. Each individual contains a chromosome with exactly one gene. The
 individuals are generated according to the following steps:
@@ -152,7 +118,7 @@ The probability density function (PDF) refered to in
 step~\ref{init_sample_step} is a uniform distribution by default, but can also
 represent apriori values of resources as described in
 \ref{sec:approach_bootstrapping}.
-\subsubsection{Bootstrapping}
+\subsection{Bootstrapping}
 \label{sec:approach_bootstrapping}
 % Should this be mentioned, since it has not been used in the experiment?
 Some of the OER repositories allow for teachers to give ratings for educational
@@ -166,7 +132,7 @@ to be rated neutral (i.e. the middle of a five-point scale).
 %%%
 % Termination
 %%%
-\subsection{Termination}
+\section{Termination}
 \label{sec:approach_termination}
 Given the inherent noise in the fitness values, the algorithm should not stop
 before the fitness of each possible\footnote{i.e. all possible sequences given
@@ -184,7 +150,7 @@ an optimal value can be defined.
 
 The application presented in this thesis does not require the genetic algorithm
 to terminate. The web-based variation to the algorithm described in
-section~\ref{sec:web-based_ga} ensures that computation only happens on a event
+Section~\ref{sec:web-based_ga} ensures that computation only happens on a event
 basis. Furthermore, due to the nature of the application, it is not
 as interesting to have the best solution at the end as it is to select the best
 known solution at each point that an individual is tested. Naturally a
@@ -195,11 +161,12 @@ moving towards convergence is important.
 %%%
 % Candidate evaluation
 %%%
-\subsection{Candidate evaluation}
+\section{Candidate evaluation}
+\label{sec:approach_evaluation}
 %%%
 % 	Fitness function
 %%%
-\subsubsection{Fitness function}
+\subsection{Fitness function}
 % From: A comprehensive survey of fitness approximation
 %  in evolutionary computation. By: Y. Jin (2005)
 % Chen J-H, Goldberg DE, Ho S-Y, Sastry K (2002) Fitness
@@ -209,27 +176,8 @@ moving towards convergence is important.
 %  genetic algorithms
 % Zhang X, Julstrom B, Cheng W (1997) Design of vector
 %  quantization codebooks using a genetic algorithm
-There are many different implementations of fitness functions for the
-curriculum sequencing problem. Some solutions include a term that expresses how
-well a particuluar solution fits the pre-determined prerequisite structure of
-the learning objects. Others include a term that expresses how smooth the
-transitions are between learning objects in difficulty.
-
-A big part of the prerequisite structure is already captured by the
-given main curriculum in this thesis that provides the order of
-knowledge components. The curriculum sequencing step takes place
-in this thesis on a much smaller level where the different learning
-objects all try to convey the same content, but do so in different
-ways. In a way this means that this thesis implements a particular type
-of curriculum sequencing that focuses on the presentation. Some objects
-might contain an example or the formal description. Some might present
-the knowledge in text, others are more visual. Yet it is not expected
-to need only one learning object per student, if you would consider
-the learning object term referring to the smallest unit of explanation.
-Different students require a different mix of presentations at perhaps
-even different orders. Furthermore, learning objects are often not
-a perfect fit. They might explain too much or too little about some
-context. On top of that, it is not that well indexed in terms of the
+Learning objects are often not a perfect fit. They might explain too much or too
+little about some context. On top of that, it is not that well indexed in terms of the
 exact type of presentation that they have. Thus, what we want is a
 sequence of imperfect learning objects that together maximize the
 educational performance. We do not know what the order should be, given
@@ -239,7 +187,7 @@ for each type of student perfectly. We would still not have the
 required information about these learning objects, or the information
 might be wrong. In conclusion, we are learning a sequence of black
 boxes of which we only know that they attempt to teach a particular
-knowledge component, or so they say.
+knowledge component.
 
 The only way we can measure the value of a particular sequence for a
 group of students, and thereby assess its fitness, is to look at the
@@ -247,7 +195,7 @@ gain in knowledge as observed by the post-test.
 
 More precisely the fitness function used in this thesis is the normalized
 learning gain between the pre-test and post-test for a given knowledge component,
-given by $\frac{C_{post} - C_{pre}}{100-C_{pre}}$ where $C_{pre}$ and $C_{post}$
+given by $\frac{C^2 - C^1}{1-C^1}$ where $C^1$ and $C^2$
 represent the percentage of correct answers on the pre-test and post-test
 respectively of the student.
 
@@ -261,18 +209,56 @@ multiple samples and average over them. However, in this case, taking
 samples must be considered to be expensive. The approach taken must
 therefor try to minimize the number of samples while maximizing the
 certainty of the fitness value. Which is why Upper Confidence Bound selection
-was applied in this thesis, as described in section~\ref{sec:approach_ucb}.
+was applied in this thesis, as described in Section~\ref{sec:approach_ucb}.
 
 %%%
 %   UCB-1 selection
 %%%
-\subsubsection{UCB Selection}
+\subsection{UCB Selection}
 \label{sec:approach_ucb}
+The consequence of having a fitness function that involves actual
+students is that the event of evaluating a suboptimal individual
+also causes damage to the learning process of the student. Something
+which is much less the case in a simulation environment.
+
+In the reinforcement learning paradigm this damage is expressed in regret, which
+is defined as the difference in performance with the choice made and the
+optimal choice. You do however need to evaluate all individuals to see if one
+scores better. You even need to evaluate each individual several times in order
+to deal with outliers and varience. However you don't want to evaluate an
+individual too often when you know it performs suboptimally, given the regret
+it will cause. This is a classic exploration vs. exploitation trade-off that is
+found in any one-armed bandit problem, where in this application the sequences
+of educational material are the one-armed bandits.
+
+In this thesis, the Upper Confidence Bound (UCB) selection algorithm is used to
+determine which of the individuals will be evaluated. In
+particular the UCB-1\cite{Auer2002} algorithm is used. In UCB-1,
+first every individual is evaluated once. After this has been done, the
+individual is evaluated for which equation~\eqref{eq:ucb1_value} is maximized,
+where $\overline{x_i}$ denotes the average fitness of the individual, $n_i$
+denotes the number of times the individual has been evaluated so far and $n$
+denotes the overal number of evaluations that occured.
+
+\begin{equation}
+	\overline{x_i} + \sqrt{\frac{2 \ln n}{n_i}}
+	\label{eq:ucb1_value}
+\end{equation}
+
+UCB-1 is proven in \cite{Auer2002} to logarithmically bound the
+regret, which ensures that a suboptimal individual is selected logarithmically
+less often than the optimal individual. It is important to note that UCB-1 can
+only consider the individuals that are present in the current generation of the
+population for which the evaluation occurs. This means that there is some
+interplay between the UCB-1 mechanism and the selection mechanism of the
+genetic algorithm, where the genetic algorithm is responsible for searching
+through the solution space efficiently and the UCB-1 algorithm is responsible
+for reducing the regret.
 
 %%%
 % Generation switch
 %%%
-\subsection{Generation switch}
+\section{Generation switch}
 \label{sec:approach_generation_switch}
 \begin{figure}[ht!]
 	\centering
@@ -309,7 +295,7 @@ can occur are described.
 %%%
 % 	Survivor selection
 %%%
-\subsubsection{Survivor selection}
+\subsection{Survivor selection}
 \label{sec:approach_survivor_selection}
 In this thesis, survivors are selected from the current generation using the
 roulette wheel selection. In this selection strategy, each individual from the
@@ -331,7 +317,7 @@ survivor.
 %%%
 %  	Parent selection
 %%%
-\subsubsection{Parent selection}
+\subsection{Parent selection}
 \label{sec:approach_parent_selection}
 Pairs of individuals are taken from the list of survivors, excluding the elite
 individuals, from top to bottom. That means that parents are matched based on
@@ -347,7 +333,7 @@ as its own offspring.
 %%%
 %  	Crossover operation
 %%%
-\subsubsection{Combination operator}
+\subsection{Combination operator}
 \label{sec:approach_combination_operator}
 When two parents are matched to create offspring, their chromosome's are
 combined using a crossover operation. The resulting chromosome is placed in a
@@ -381,7 +367,7 @@ one parent after the other. The two ways to do this result in two children.
 %%%
 %  	Mutation operation
 %%%
-\subsubsection{Mutation operator}
+\subsection{Mutation operator}
 \label{sec:approach_mutation_operator}
 Most of the mechanism in genetic algorithms ensures that individuals in each
 generation are samples from increasingly smaller areas in the solution
@@ -410,9 +396,9 @@ possible, a different mutation is attempted.
 %%%
 % Island model
 %%%
-\subsection{Island model}
+\section{Island model}
 \label{sec:approach_island_model}
-As described in section~\ref{sec:approach_representation}, the curriculum
+As described in Section~\ref{sec:approach_representation}, the curriculum
 sequencing problem is done per knowledge component and per student group. These
 are represented as separate populations. However, the populations that
 represent the same knowledge component but different student groups actually
@@ -429,7 +415,10 @@ at different speeds. One reason for this would be that the distributions of
 students in each student group will not be uniform. That has the consequence
 that a population that evolves really slowly will continue to migrate the same
 individual towards the other population. Even if it turned out not to work
-well.
+well. To counter this, the immigrants compete with the worst individual in
+roulette selection. This means that if the immigrants are a lot worse than the
+worst individual of this population, the worst individual is likely to remain
+in the population.
 
 The idea behind applying the Island model on this task is that what seems to work
 extremely well for one student group, might also be close to a good solution in
@@ -438,77 +427,78 @@ migration candidates than slots. In that case, the choice is made using
 roulette wheel selection based on the fitness values of each migration
 candidate.
 \section{Discussion}
-\label{approach_discussion}
+\label{sec:approach_discussion}
 \subsection{Benefits of the approach}
-\begin{itemize}
-	\item More natural fit to the problem of curriculum sequencing, given the
-		natural mapping of chromosomes and genes to the domain.
-	\item The method is good for changing environments (citation needed)
-	\item No need to explitely specify intermediate states
-	\item Domain allows for many enhancements of the canonical algorithm by
-		adding prior knowledge in the initialization and fitness function, by
-		propagating fitness information to next generations using fitness
-		inheritance, and restrict the crossover and mutation operations to
-		ensure only valid and interesting outcomes.
-	\item Search through the solution space is biased towards areas that seem
-		most promising, with a small but nonzero chance of exploring in other
-		areas.
-	\item This implicit exploration-exploitation trade-off can be enhanced by
-		incorperating uncertainty information
-\end{itemize}
+
+%\begin{itemize}
+%	\item More natural fit to the problem of curriculum sequencing, given the
+%		natural mapping of chromosomes and genes to the domain.
+%	\item The method is good for changing environments (citation needed)
+%	\item No need to explitely specify intermediate states
+%	\item Domain allows for many enhancements of the canonical algorithm by
+%		adding prior knowledge in the initialization and fitness function, by
+%		propagating fitness information to next generations using fitness
+%		inheritance, and restrict the crossover and mutation operations to
+%		ensure only valid and interesting outcomes.
+%	\item Search through the solution space is biased towards areas that seem
+%		most promising, with a small but nonzero chance of exploring in other
+%		areas.
+%	\item This implicit exploration-exploitation trade-off can be enhanced by
+%		incorperating uncertainty information
+%\end{itemize}
 \subsection{Downsides of the approach}
 % risk of Hamming walls
 \subsection{Comparing with the Markov Decision Process Approach}
-\begin{itemize}
-	\item Paraphrase/quote/link from \citep{Whiteson2012} the following points.
-		(\textbf{Currently copied literally}, better not keep it that way)
-	\item evolutionary methods do not take advantage of the fact the an agent travels
-          to states while performing actions. However evolutionary computation
-		  is still a popular method for solving reinforcement learning
-		  problems. There are three main reasons why.:
-		  \begin{enumerate}
-			  \item ``First, evolutionary methods can cope well with
-					partial observability. While evolutionary methods do not exploit the relationship
-					between subsequent states that an agent visits, this can be advantageous when the
-					agent is unsure about its state. Since temporal-difference methods rely explicitly
-					on the Markov property, their value estimates can diverge when it fails to hold,
-					with potentially catastrophic consequences for the performance of the greedy policy.
-					In contrast, evolutionary methods do not rely on the Markov property and will always
-					select the best policies they can find for the given task. Severe partial
-					observability may place a ceiling on the performance of such policies, but
-					optimization within the given policy space proceeds normally (Moriarty et al, 1999).
-					In addition, representations that use memory to reduce partial observability,
-					such as recurrent neural networks, can be be optimized in a natural way with
-					evolutionary methods (Gomez and Miikkulainen, 1999; Stanley and Miikkulainen, 2002;
-					Gomez and Schmidhuber, 2005a,b).``
-				\item ``Second, evolutionary methods can make it easier to find
-					suitable representations for the agent’s solution. Since policies need only specify
-					an action for each state, instead of the value of each state-action pair, they can be
-					simpler to represent. In addition, it is possible to simultaneously evolve a
-					suitable policy representation``
-				\item ``Third, evolutionary methods provide a simple way to solve
-					problems with large or continuous action spaces. Many temporal-difference
-					methods are ill-suited to such tasks because they require iterating over the action
-					space in each state in order to identify the maximizing action. In contrast,
-					evolutionary methods need only evolve policies that directly map states to actions. Of
-					course, actor-critic methods (Doya, 2000; Peters and Schaal, 2008) and other techniques
-					(Gaskett et al, 1999; Mill ́an et al, 2002; van Hasselt and Wiering, 2007) can
-					also be used to make temporal-difference methods suitable for continuous action
-					spaces. Nonetheless, evolutionary methods provide a simple, effective way to
-					address such difficulties.``
-				\item \citet{Whiteson2012} further mentions: ``Of course, none
-					of these arguments are unique to evolutionary methods, but
-					apply in principle to other policy-search methods too.
-					However, evolutionary methods have proven a particularly
-					popular way to search policy space and, consequently, there
-					is a rich collection of algorithms and results for the
-					reinforcement-learning setting. Furthermore, as modern
-					methods, such as distribution-based approaches, depart
-					further from the original genetic algorithms, their
-					resemblance to the process of natural selection has
-					decreased. Thus, the distinction between evolutionary
-					methods and other policy search approaches has become
-					fuzzier and less important.''
-		  \end{enumerate}
-\end{itemize}
+%\begin{itemize}
+%	\item Paraphrase/quote/link from \citep{Whiteson2012} the following points.
+%		(\textbf{Currently copied literally}, better not keep it that way)
+%	\item evolutionary methods do not take advantage of the fact the an agent travels
+%          to states while performing actions. However evolutionary computation
+%		  is still a popular method for solving reinforcement learning
+%		  problems. There are three main reasons why.:
+%		  \begin{enumerate}
+%			  \item ``First, evolutionary methods can cope well with
+%					partial observability. While evolutionary methods do not exploit the relationship
+%					between subsequent states that an agent visits, this can be advantageous when the
+%					agent is unsure about its state. Since temporal-difference methods rely explicitly
+%					on the Markov property, their value estimates can diverge when it fails to hold,
+%					with potentially catastrophic consequences for the performance of the greedy policy.
+%					In contrast, evolutionary methods do not rely on the Markov property and will always
+%					select the best policies they can find for the given task. Severe partial
+%					observability may place a ceiling on the performance of such policies, but
+%					optimization within the given policy space proceeds normally (Moriarty et al, 1999).
+%					In addition, representations that use memory to reduce partial observability,
+%					such as recurrent neural networks, can be be optimized in a natural way with
+%					evolutionary methods (Gomez and Miikkulainen, 1999; Stanley and Miikkulainen, 2002;
+%					Gomez and Schmidhuber, 2005a,b).``
+%				\item ``Second, evolutionary methods can make it easier to find
+%					suitable representations for the agent’s solution. Since policies need only specify
+%					an action for each state, instead of the value of each state-action pair, they can be
+%					simpler to represent. In addition, it is possible to simultaneously evolve a
+%					suitable policy representation``
+%				\item ``Third, evolutionary methods provide a simple way to solve
+%					problems with large or continuous action spaces. Many temporal-difference
+%					methods are ill-suited to such tasks because they require iterating over the action
+%					space in each state in order to identify the maximizing action. In contrast,
+%					evolutionary methods need only evolve policies that directly map states to actions. Of
+%					course, actor-critic methods (Doya, 2000; Peters and Schaal, 2008) and other techniques
+%					(Gaskett et al, 1999; Mill ́an et al, 2002; van Hasselt and Wiering, 2007) can
+%					also be used to make temporal-difference methods suitable for continuous action
+%					spaces. Nonetheless, evolutionary methods provide a simple, effective way to
+%					address such difficulties.``
+%				\item \citet{Whiteson2012} further mentions: ``Of course, none
+%					of these arguments are unique to evolutionary methods, but
+%					apply in principle to other policy-search methods too.
+%					However, evolutionary methods have proven a particularly
+%					popular way to search policy space and, consequently, there
+%					is a rich collection of algorithms and results for the
+%					reinforcement-learning setting. Furthermore, as modern
+%					methods, such as distribution-based approaches, depart
+%					further from the original genetic algorithms, their
+%					resemblance to the process of natural selection has
+%					decreased. Thus, the distinction between evolutionary
+%					methods and other policy search approaches has become
+%					fuzzier and less important.''
+%		  \end{enumerate}
+%\end{itemize}
 \subsection{Comparing with the Knowledge Engineering Approach}
