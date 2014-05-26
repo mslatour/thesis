@@ -31,6 +31,7 @@
 
 % Required for clickable citations
 \usepackage{hyperref}
+\hypersetup{pdfborder={0 0 0}}
 
 % Required for proper handling or URL's
 \usepackage{url}
@@ -114,7 +115,9 @@
 \pagenumbering{roman}
 
 % Show TOC
+\begin{KeepFromToc}
 \tableofcontents
+\end{KeepFromToc}
 \newpage
 % Show LOF
 \listoffigures
@@ -134,16 +137,22 @@
 % curriculum sequencing, OER, evidence-based, genetic algorithm
 
 \chapter{Introduction}
+\label{ch:introduction}
 \input{chapters/introduction.tex}
-\chapter{Task description}
+\chapter{Background}
+\label{ch:background}
+\input{chapters/background.tex}
+\chapter{Curriculum Sequencing}
+\label{ch:curriculum_sequencing}
 \input{chapters/educational_task.tex}
-\chapter{Related Work}
-\input{chapters/related_work.tex}
-\chapter{Theory}
+\chapter{Approach}
+\label{ch:approach}
 \input{chapters/approach.tex}
 \chapter{Software}
+\label{ch:software}
 \input{chapters/the_tutoer_software.tex}
 \chapter{Simulations}
+\label{ch:simulations}
 \input{chapters/simulations.tex}
 \chapter{Experimental setup}
 \label{ch:experimental_setup}
@@ -151,14 +160,20 @@
 \chapter{Results}
 \label{ch:results}
 \input{chapters/results.tex}
-\chapter{Analysis}
-\input{chapters/analysis.tex}
-\chapter{Discussion}
-\input{chapters/discussion.tex}
-\chapter{Conclusion}
-\input{chapters/conclusion.tex}
-\chapter{Future Work}
+\chapter{Discussion / Conclusion}
+\label{ch:discussion_conclusion}
+\input{chapters/discussion_conclusion.tex}
+\chapter{Future work}
+\label{ch:future_work}
 \input{chapters/future_work.tex}
+
+%%%%%%%%%%%%%%%
+% Back matter %
+%%%%%%%%%%%%%%%
+
+% Show bibliography
+\bibliographystyle{plainnat}
+\bibliography{literature}
 
 \appendix
 \chapter{Database}
@@ -174,11 +189,4 @@
 \label{ax_simulation_fitness_models}
 \input{chapters/appendix_fitness_models.tex}
 
-%%%%%%%%%%%%%%%
-% Back matter %
-%%%%%%%%%%%%%%%
-
-% Show bibliography
-\bibliographystyle{plainnat}
-\bibliography{literature}
 \end{document}
