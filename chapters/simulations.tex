@@ -96,6 +96,33 @@ chromosome of a new individual. Mutation ensures that areas of the search space
 are explored, even when the genetic algorithm moved in a different direction.
 When this parameter value increases, more exploration occurs. Setting this
 parameter too high will result in a lack of convergence.
+\section{Simulation setups}
+Table~\ref{tab:simulation_setups} shows the set of parameter setups used for
+the simulations in each scenario. Each parameter setup is labelled for easier
+reference.
+\begin{table}
+	\centering
+	\begin{tabular}{llllll}\hline
+		\textbf{Label} & \textbf{Population size} & \textbf{\# Episodes}
+		& \textbf{\# Elite} & \textbf{Mutation rate} \\\hline
+		% big names in open education internationally
+		\emph{george} & 5 & 5 & 2 & 0.05 \\
+		\emph{david} & 5 & 10 & 2 & 0.05 \\
+		\emph{stephen} & 5 & 20 & 2 & 0.05 \\
+		\emph{erik} & 10 & 10 & 2 & 0.05 \\
+		\emph{xavier} & 10 & 20 & 2 & 0.05 \\
+		\emph{peter} & 20 & 20 & 2 & 0.05 \\\hdashline
+		% Dutch SIG OER members
+		\emph{robert} & 10 & 10 & 0 & 0.05 \\
+		\emph{martijn} & 10 & 10 & 1 & 0.05 \\
+		\emph{ria} & 10 & 10 & 2 & 0.05 \\
+		\emph{ellen} & 10 & 10 & 0 & 0.25 \\
+		\emph{nicolai} & 10 & 10 & 1 & 0.25 \\
+		\emph{saskia} & 10 & 10 & 2 & 0.25 \\
+	\end{tabular}
+	\caption{Simulation setups}
+	\label{tab:simulation_setups}
+\end{table}
 \section{Scenarios}
 The simulations run for this thesis demonstrate the effect of these parameters
 in various scenarios. First, a handcrafted model scenario will be run where the
@@ -111,8 +138,211 @@ are converted into a fitness model, with which the sequences in the simulation
 are evaluated.
 \subsection{Scenario 1: Handcrafted model}
 \begin{figure}[ht]
+	% origin: simulation_2014-05-28-1432
+	\begin{subfigure}{0.48\linewidth}
 	\centering
-	\includegraphics[width=0.8\linewidth]{images/results/plot_cumul_regrets_pop1_xkcd.png}
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_george_handcrafted.png}
+	\caption{\emph{george} parameters}
+	\label{fig:cumul_handcrafted_george}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.48\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_erik_handcrafted.png}
+	\caption{\emph{erik} parameters}
+	\label{fig:cumul_handcrafted_erik}
+	\end{subfigure}
+	\begin{subfigure}{0.48\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_david_handcrafted.png}
+	\caption{\emph{david} parameters}
+	\label{fig:cumul_handcrafted_david}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.48\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_stephen_handcrafted.png}
+	\caption{\emph{stephen} parameters}
+	\label{fig:cumul_handcrafted_stephen}
+	\end{subfigure}
+	\begin{subfigure}{0.48\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_xavier_handcrafted.png}
+	\caption{\emph{xavier} parameters}
+	\label{fig:cumul_handcrafted_xavier}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.48\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_peter_handcrafted.png}
+	\caption{\emph{peter} parameters}
+	\label{fig:cumul_handcrafted_peter}
+	\end{subfigure}
+	\label{fig:cumul_handcrafted_individuals1}
+	\caption{Plot with error bars of the cumulative regret of the \emph{TutOER}
+	system using specific parameter setups in the handcrafted model
+	scenario.}
+\end{figure}
+
+
+\begin{figure}[ht]
+	% origin: simulation_2014-05-28-1432
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_joined_david_erik_stephen_xavier_peter_george_handcrafted_nobars.png}
+	\caption{Cumulative regret plot placeholder}
+	\label{fig:cumul_nobars_placeholder1}
+\end{figure}
+\begin{figure}[ht]
+	% origin: simulation_2014-05-28-1432
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_joined_david_erik_stephen_xavier_peter_george_handcrafted.png}
 	\caption{Cumulative regret plot placeholder}
 	\label{fig:cumul_placeholder1}
+\end{figure}
+\begin{figure}[ht]
+	% origin: simulation_2014-05-28-1432
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_conv_joined_david_erik_stephen_xavier_peter_george_handcrafted.png}
+	\caption{Convergence plot}
+	\label{fig:conv_placeholder1}
+\end{figure}
+
+
+\begin{figure}[ht]
+	% origin: simulation_2014-05-28-1622
+	\begin{subfigure}{0.48\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_robert_handcrafted.png}
+	\caption{\emph{robert} parameters}
+	\label{fig:cumul_handcrafted_robert}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.48\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_martijn_handcrafted.png}
+	\caption{\emph{martijn} parameters}
+	\label{fig:cumul_handcrafted_martijn}
+	\end{subfigure}
+	\begin{subfigure}{0.48\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_ria_handcrafted.png}
+	\caption{\emph{ria} parameters}
+	\label{fig:cumul_handcrafted_ria}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.48\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_ellen_handcrafted.png}
+	\caption{\emph{ellen} parameters}
+	\label{fig:cumul_handcrafted_ellen}
+	\end{subfigure}
+	\begin{subfigure}{0.48\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_nicolai_handcrafted.png}
+	\caption{\emph{nicolai} parameters}
+	\label{fig:cumul_handcrafted_nicolai}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.48\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_saskia_handcrafted.png}
+	\caption{\emph{saskia} parameters}
+	\label{fig:cumul_handcrafted_saskia}
+	\end{subfigure}
+	\label{fig:cumul_handcrafted_individuals2}
+	\caption{Plot with error bars of the cumulative regret of the \emph{TutOER}
+	system using specific parameter setups in the handcrafted model
+	scenario.}
+\end{figure}
+
+\begin{figure}[ht]
+	% origin: simulation_2014-05-28-1622
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_joined_robert_saskia_ellen_martijn_nicolai_ria_handcrafted_nobars.png}
+	\caption{Cumulative regret plot placeholder}
+	\label{fig:cumul_nobars_placeholder2}
+\end{figure}
+\begin{figure}[ht]
+	% origin: simulation_2014-05-28-1622
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_joined_robert_saskia_ellen_martijn_nicolai_ria_handcrafted.png}
+	\caption{Cumulative regret plot placeholder}
+	\label{fig:cumul_placeholder2}
+\end{figure}
+\begin{figure}[ht]
+	% origin: simulation_2014-05-28-1622
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_conv_joined_robert_saskia_ellen_martijn_nicolai_ria_handcrafted.png}
+	\caption{Convergence plot}
+	\label{fig:conv_placeholder2}
+\end{figure}
+
+\begin{figure}[ht]
+	% origin: simulation_2014-05-28-2118
+	\begin{subfigure}{0.48\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_robert_handcrafted_noise.png}
+	\caption{\emph{robert} parameters}
+	\label{fig:cumul_handcrafted_noise_robert}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.48\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_martijn_handcrafted_noise.png}
+	\caption{\emph{martijn} parameters}
+	\label{fig:cumul_handcrafted_noise_martijn}
+	\end{subfigure}
+	\begin{subfigure}{0.48\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_ria_handcrafted_noise.png}
+	\caption{\emph{ria} parameters}
+	\label{fig:cumul_handcrafted_noise_ria}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.48\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_ellen_handcrafted_noise.png}
+	\caption{\emph{ellen} parameters}
+	\label{fig:cumul_handcrafted_noise_ellen}
+	\end{subfigure}
+	\begin{subfigure}{0.48\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_nicolai_handcrafted_noise.png}
+	\caption{\emph{nicolai} parameters}
+	\label{fig:cumul_handcrafted_noise_nicolai}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.48\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_saskia_handcrafted_noise.png}
+	\caption{\emph{saskia} parameters}
+	\label{fig:cumul_handcrafted_noise_saskia}
+	\end{subfigure}
+	\label{fig:cumul_handcrafted_noise_individuals2}
+	\caption{Plot with error bars of the cumulative regret of the \emph{TutOER}
+	system using specific parameter setups in the handcrafted model with
+	additional noise of 2 sigma.
+	scenario.}
+\end{figure}
+
+\begin{figure}[ht]
+	% origin: simulation_2014-05-28-2118
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_joined_robert_saskia_ellen_martijn_nicolai_ria_handcrafted_nobars_noise.png}
+	\caption{Cumulative regret plot placeholder}
+	\label{fig:cumul_nobars_noise_placeholder2}
+\end{figure}
+\begin{figure}[ht]
+	% origin: simulation_2014-05-28-2118
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_joined_robert_saskia_ellen_martijn_nicolai_ria_handcrafted_noise.png}
+	\caption{Cumulative regret plot placeholder}
+	\label{fig:cumul_noise_placeholder2}
+\end{figure}
+\begin{figure}[ht]
+	% origin: simulation_2014-05-28-2118
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_sim_conv_joined_robert_saskia_ellen_martijn_nicolai_ria_handcrafted_noise.png}
+	\caption{Convergence plot}
+	\label{fig:conv_noise_placeholder2}
 \end{figure}

@@ -1,197 +1,168 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%
 % Chapter: Introduction %
 %%%%%%%%%%%%%%%%%%%%%%%%%
-% 1. Open Education is a big trend,
-%    which also causes an increasing interest in Open Educational Resources
-Open Education is a big theme in Higher Education, both in scientific
-\citep{Wiley2014, Duval2010} and practice oriented communities
-\citep{Bussemaker2014, Trendsurfoe2014, Yuan2013, Johnson2013, OECD2007}.
-The Open Educational Resources (OERs) movement, which is a significant
-part of this theme, aims to ``provide open access to high quality digital
-educational materials'' \citep{Caswell2008}. Starting with MIT's
-OpenCourseWare initiative \citep{Abelson2008} in 2001, the movement has grown
-into a global topic of conversation \citep{Hylen2012}.
-Open Educational Resources are a type of learning objects, which are defined as
-``any reusable digital resource that is encapsulated in a lesson or assemblage
-of lessons grouped in units, modules, courses, and even programmes''
-\citep{McGreal2004}. The two terms are in the context of this thesis mostly
-interchangeable. Both address resources that are available to be reused in a
-learning context. An important difference however, is that an Open Educational
-Resource is also free\footnote{Free as in free speech, not necessarily as in
-free beer} to be revised (i.e. altered), remixed (i.e. combined with others)
-and afterwards redistributed \citep{Hilton2010}. This effectively lowers the
-threshold for innovation with educational material, which facilitates at least two
-things. One, the creation and distribution of more
-(derivatives of) educational content. Two, a larger diversity in authors, which
-results in more a diverse quality of the shared learning objects
-\citep{Weller2010}.\\\\
+Open Educational Resources (OER) are a well-studied topic in communities of
+scientists \citep{Wiley2014, Hylen2012, Duval2010}, practitioners
+\citep{Johnson2013, Yuan2013, Trendsurfoe2014} and policy-makers
+\citep{Bussemaker2014,OECD2007}. In addition to standard learning objects
+\citep{McGreal2004}, OER are free to be reused, revised (i.e. altered), remixed
+(i.e. combined with others) and afterwards redistributed \citep{Hilton2010}. As
+a consequence the threshold for innovation of education material is lowered.
+This results in a less stable quality level of the shared learning objects due
+to a larger diversity in authors \citep{Weller2010}.\\\\
 \noindent
-% 2. OER assigns vital role to teachers
-Section~\ref{sec:background_oer_lifecycle} describes six stages in the
-lifecycle of a reusable learning object. All of these stages involved some form
-of human activity, either by content developers or instructors\footnote{Obviously not
-disjoint groups}. An obvious example of that would be the actual creation and
-labelling of content. However, more interestingly, the selection of learning
-objects created by others and the subsequent determination of their quality are
-also particularly dependent on actions of instructors.
+The selection of OER from repositories and the subsequent determination of the
+quality are particularly dependent on actions of instructors. \citet{Ochoa2009}
+show that the size of OER collections vary from hundreds to
+millions of objects depending on the type of repository. \citeauthor{Ochoa2009}
+expect that exponential growth will occur when the repositories are capable of
+retaining its productive users. Determining the quality of an exponentially
+growing number of open educational resources by human effort is infeasible
+\citep{Cechinel2011, Ochoa2006, Zemsky2004}. Acquiring a reliable automatic
+method for assessing OER quality is thus required.\\\\
 \noindent
-% 3. The quantity is too big to continue this dependency on teachers
-One could question how sustainable this is.
-\citet{Ochoa2009} show that the size of learning object collections
-vary from hundreds to millions of objects depending on the type of
-repository. \citeauthor{Ochoa2009} further state that almost all examined
-repositories are growing linearly at the moment. However,
-\citeauthor{Ochoa2009} expect that exponential growth
-will occur when the repositories are capable of retaining its productive users.
-With this increasing number of open educational resources it becomes
-impractical to determine the quality of learning objects using human effort
-\citep{Cechinel2011}. Ratings were for example used as primary indicator of
-quality in the MERLOT repository, but only a small proportion was actually
-rated by peers \citep{Ochoa2006, Zemsky2004}.\\\\
+Previous approaches have predominantly focussed on proxies of OER quality. Some
+automatically evaluated the quality of metadata \citep{Ochoa2009, Tani2013}.
+\citet{Cechinel2011, Cechinel2012} took a different approach by predicting quality ratings of
+learning objects based on intrinsic metrics (e.g. number of links in a
+document). \citet{Duval2006} proposed the context-dependent ranking algorithm
+LearnRank, where learning objects that are used in many contexts receive a
+higher rank. In \citep{Ochoa2006} the attention given to an OER is taken as a
+proxy for its usefullness.\\\\
 \noindent
-% 4. Therefore, there is a quest towards automatic means of quality assessment.
-%    Several approaches are on the way, but all leave incorporating actual
-%    learning gain to teachers
-As a result, the interest in automatic assessments of learning object quality
-increased. One approach focuses on the quality of the metadata of the learning
-object \citep{Ochoa2009, Tani2013}, as a proxy for the quality of the object
-itself.
-% TODO: does this even make sense in the story?
-A problem with this approach is that metadata can be inaccurate
-\citep{Cechinel2009} and incomplete \citep{Sicilia2005}.
-% and it says nothing about the actual quality of the learning object it self.
-A different approach
-is to automatically assess the quality of learning objects based on intrinsic
-metrics, such as the number of links in a learning object.
-\citeauthor{Cechinel2011} managed to find statistical profiles of different
-quality labels by comparing intrinsic metrics of good and poor learning objects
-in the MERLOT repository. \citet{Duval2006} however states that the quality of
-a learning object is context-dependent and intrinsically subjective. As
-examples of context \citeauthor{Duval2006} mentions a.o. learning goal,
-available time and educational level. \citeauthor{Duval2006} proposes the
-context-dependent ranking algorithm  LearnRank, in which learning objects that
-are used in many contexts receive a higher rank. In \citep{Ochoa2006} the ``use
-of contextualized attention metadata for ranking and recommending learning
-objects'' is proposed, where the attention given to a learning object by a
-student or a teacher within a certain context is considered to be a proxy for
-the usefulness of the object in that context. \citeauthor{Duval2006} however
-also mentions in \citep{Duval2006} that
-``In an ideal world, we would actually bootstrap and steer this process [of
-establishing the LearnRank] through empirical data on the learning effect that
-specific objects have actually caused (or helped to realise) in specific
-contexts\ldots''. According to \citep{Kay2007} the effect of a learning
-object on 'actual learning' is underrepresented in the research on learning
-objects. In a recent report from the European Commission, quality of Open
-Educational Resources had five aspects: efficacy, impact, availability,
-accuracy and excellence \citep{Camilleri2014}. The aspect of impact referred to
-the ``extend to which an object or concept proves effective''. However, little is
-said in \citet{Camilleri2014} about methods that would measure
-this impact. \citeauthor{Camilleri2014} further state as one of the challenges
-that educational resources of high quality are fragmented with no particular way of
-distinguishing them from the other available learning objects. They recommend
-creating ``specialised directories'' where exclusive lists of repositories of
-high-quality content are maintained. It is however not stated how these
-high-quality repositories could incorporate impact in their quality assessment.\\\\
+A recent report from the European Commission on the quality issue of OER
+identified one of the challenges to be that educational resources of high
+quality are fragmented with no particular way of distinguishing them from the
+other available learning objects \citep{Camilleri2014}. \citet{Duval2006}
+states that in an ideal case empirical data of the learning effect caused by a
+particular OER bootstraps its ranking. \citet{Camilleri2014} refers to impact
+as one of the five important aspects of OER quality.\\\\
 \noindent
-% 6.There is however growing interest in evidence-based decisions
-% 7. Learning objects are typically presented as part of a sequence in a LMS
-% 8. And in fact the sequence influences, as being part of the context,
-%    each individual learning object’s quality
-% 9. The assessments in the LMS could provide insight in the learning gain,
-%    as a result of the sequence
-At the same time, there is a growing interest in the use of
-quantitative data for evidence-based teaching decisions \citep{Wayman2005,
-Marsh2006, Spillane2012, Clow2013}. The electronic learning environments where the
-educational material is presented to learners often also contain
-digital assessments of the learning outcomes linked to that educational
-material. It is important to note however, that learning objects are
-first sequenced with other learning objects before presented to students
-\citep{Brusilovsky1992, Quinn2000}. The activities before and after a
-learning object also affect its quality \citep{Duval2006}. It therefore makes
-sense to determine the quality of a learning object within the sequence it is
-part of. The coexistence of such a sequence and digital assessments of learning
-allows for the collection of empirical evidence of the sequence quality
-\citep{Latour2014}. The situation that would make this possible is shown in
-Figure~\ref{fig:assessment_of_sequences} where a sequence of OER is embedded in
-between two assessments. The first assessment would provide a benchmark of a
-student's knowledge, with which the result of the second assessment could be
-compared. The comparison would in turn provide empirical evidence for the
-quality of the sequence used.
+However, in the proposed automatic mechanisms to assess OER quality, the impact
+a particular OER has on learning has thusfar been mostly neglected
+\citep{Kay2007}. This is an undesireable situation as the sole purpose of any
+learning material is to have a positive effect on learners. This situation is
+particularly unsatisfactory because of the growing demand for evidence-based
+teaching decisions using quantitative data \citep{Wayman2005, Marsh2006, Spillane2012, Clow2013}.\\\\
+\noindent
+A complication with the assessment of OER quality by measured impact is that in
+general educational material is sequenced with other educational material
+before being presented to students \citep{Brusilovsky1992, Quinn2000}.
+Furthermore, the activities before and after an OER also affect its quality
+\citep{Duval2006}. It is therefore necessary to determine the quality of an OER
+within the sequence it is part of. As a consequence, two issues need to be
+taken into account when automatically assessing OER quality. First of all,
+there are many OER sequences possible, even when there are only a few OER
+available for a particular topic. These sequences will require multiple
+evaluations before an estimate of learning impact can be made due to the
+inherent noise in the domain. This experimentation clearly does not come
+without cost. Each time a sequence shows to be less effective than a different
+one, a learner has received a lower level of education than necessary. This
+turns OER quality assessment in a curriculum sequencing task
+\citep{AlMuhaideb2011} with an \emph{exploration vs. exploitation trade-off}
+\citep{Holland1992}. Second of all, repositories are constantly updated with
+new OER. The collection of possible sequences of OER will therefore continue to
+grow during a quality assessment process. This is known as the \emph{open
+corpus} problem \citep{Brusilovsky2007}.\\\\
+\noindent
+This thesis introduces and evaluates \emph{TutOER}, a novel approach to
+automatic assessment of OER quality. \emph{TutOER} estimates the impact of a
+sequence of OER by measuring the knowledge level of a student before and after the
+sequence is presented to the student. Figure~\ref{fig:assessment_of_sequences}
+depicts the situation. The curriculum sequencing task is executed by a genetic
+algorithm with generational replacement and elite preservation. Sequences of
+OER are evolved by crossover and mutation in order to consider better sequences
+over time. The survival chance of an OER sequence is proportional to its
+measured impact. The genetic algorithm was extended with UCB-1 selection
+\citep{Auer2002} for better cost boundaries.\\\\
+\noindent
+The \emph{TutOER} system was evaluated in a newly created online course around
+the mathematical game Nim. The course contained four lessons through which a
+participant was instructed about the game and its winning strategy. Each lesson
+contained a sequence of OER that was selected by the \emph{TutOER} system to be
+evaluated. Additionally a series of simulations were executed to explore
+the behavior of the system in several theoretical situations.\\
 \begin{figure}[h!]
 	\begin{framed}
 	\centering
 	\includegraphics[width=0.9\linewidth]{images/assessment_of_sequences.pdf}
-	\caption[Coexistence of learning objects and assessments]{The coexistence of digitial assessments and sequences of learning
-	objects can result in a situation where the sequence is embedded in between
-	two assessments.}
+	\caption[Setup of assessments of impact OER]{The impact of an OER sequence
+		is measured by a knowledge test before and after the
+	sequence was presented to the student. The sequence is selected by the
+	\emph{TutOER} system.}
 	\label{fig:assessment_of_sequences}
 	\end{framed}
-\end{figure}\\\\
-\noindent
-This approach is however not trivial. Even when the number of relevant learning
-objects is relatively small, there will still be a large number of sequences
-possible. Section~\ref{sec:task_search_space} provides a formula to calculate
-this number. Each of these sequences will require multiple evaluations due to
-the inherent noise in the domain. This noise for example comes from the fact
-that the test results of one learner will not be representative of the average
-results of an entire group. This is not only due to the fact that learners have
-different backgrounds and skills to start with, and as such do not form a
-uniform group. Education in general is a complex process, of which it is likely
-that only a part takes places within the observable electronic learning
-enviroment. This means that a sequence of learning material that appears to
-have no significant effect on the learning process of a particular learner must
-still be presented to a few more students in order to be more sure about its
-quality. However, this experimentation clearly does not come without cost. Each
-time a sequence shows to be less effective than a different one, a learner has
-received a lower level of education than necessary.\\\\
-\noindent
-This dilemma is familiar to many fields and is known as the \emph{exploration
-vs. exploitation trade-off} \citep{Holland1992}. An often used example is the
-\emph{n-armed bandit problem} \citep{Sutton1998} where a casino offers \emph{n}
-different slot machines (a.k.a. one-armed bandits) to play. A player would want to
-optimize the total amount of money earned and is therefore looking for the slot
-machine that has the highest pay-off. It is tempting to stay with a slot
-machine that gives the highest return you have seen so far (exploitation), but
-it is important to also try out other slot machines to see if they perform even
-better (exploration). This can be related to the domain of open education by
-aligning the bandits with sequences of learning objects and the pay-off
-with learning gain. A teacher would then be required to select from the
-metaphorical casino floor the sequences to try in order to optimize the total
-learning gain of his or her students. A task that is far from trivial to do.
-\\\\
-\noindent
-An alternative approach would be to automatically construct the sequences of
-learning material, a task known as curriculum sequencing \citep{AlMuhaideb2011}.
-In particular, due to the ever-growing nature of open educational resources,
-the automatic mechanism would have to deal with the open corpus problem known
-in the field of adaptive educational hypermedia \citep{Brusilovsky2007}.
-Such a mechanism could address the desire for empirical evidence
-of quality of learning objects on the one hand, while also addressing the
-difficulties of obtaining that evidence from interactions in a real learning
-context. The mechanism could be a component in learning object repositories
-that suggests learning object sequences to teachers, while collecting data from
-the learning environment that the teacher uses. It could also
-function as a component in a fully automatic intelligent tutoring system
-\citep{Psotka1988}, which replaces the role of the teacher.\\\\\
-\noindent
-% state that the work presented in this thesis is such a mechanism.
-% explain thesis work
-The work presented in this thesis is such a mechanism.
-This thesis introduces and evaluates a novel approach for
-the open corpus problem in intelligent tutoring systems, which is especially
-applicable to the usage of Open Educational Resources.
-In its core, the developed system applies genetic algorithms to construct
-sequences of learning material based on the measured learning gain it caused,
-while balancing exploration and exploitation using Upper Confidence Bound (UCB)
-selection.\\\\
+\end{figure}\\
 \noindent
 This thesis is structured as follows. Chapter~\ref{ch:background} provides
 background information and related work. Chapter~\ref{ch:curriculum_sequencing}
 contains a detailed description of the task. The approach is described in
-Chapter~\ref{ch:approach}, the resulting software is described in
-Chapter~\ref{ch:software}. In Chapter~\ref{ch:simulations} a series of
-simulations are discussed. Chapter~\ref{ch:experimental_setup} covers the setup
+Chapter~\ref{ch:approach} and the resulting software in
+Chapter~\ref{ch:software}. In Chapter~\ref{ch:simulations} the simulations are
+discussed. Chapter~\ref{ch:experimental_setup} covers the setup
 of the experiment. The results of this experiment are discussed in
 Chapter~\ref{ch:results}. Chapter~\ref{ch:discussion_conclusion} concludes the
 findings in this thesis and provides general discussion. Finally,
-Chapter~\ref{ch:future_work} enumerates some future work.
+Chapter~\ref{ch:future_work} enumerates future work.
+
+%The electronic learning environments where the
+%educational material is presented to learners often also contain
+%digital assessments of the learning outcomes linked to that educational
+%material.
+%The coexistence of such a sequence and digital assessments of learning
+%allows for the collection of empirical evidence of the sequence quality
+%\citep{Latour2014}. The situation that would make this possible is shown in
+%Figure~\ref{fig:assessment_of_sequences} where a sequence of OER is embedded in
+%between two assessments. The first assessment would provide a benchmark of a
+%student's knowledge, with which the result of the second assessment could be
+%compared. The comparison would in turn provide empirical evidence for the
+%quality of the sequence used.
+%\noindent
+%This approach is however not trivial. Even when the number of relevant learning
+%objects is relatively small, there will still be a large number of sequences
+%possible. Section~\ref{sec:task_search_space} provides a formula to calculate
+%this number.
+%
+%
+%This noise for example comes from the fact
+%that the test results of one learner will not be representative of the average
+%results of an entire group. This is not only due to the fact that learners have
+%different backgrounds and skills to start with, and as such do not form a
+%uniform group. Education in general is a complex process, of which it is likely
+%that only a part takes places within the observable electronic learning
+%enviroment. This means that a sequence of learning material that appears to
+%have no significant effect on the learning process of a particular learner must
+%still be presented to a few more students in order to be more sure about its
+%quality. 
+%
+%
+%\\\\
+%\noindent
+%This dilemma is familiar to many fields and is known as the \emph{exploration
+%vs. exploitation trade-off} \citep{Holland1992}. An often used example is the
+%\emph{n-armed bandit problem} \citep{Sutton1998} where a casino offers \emph{n}
+%different slot machines (a.k.a. one-armed bandits) to play. A player would want to
+%optimize the total amount of money earned and is therefore looking for the slot
+%machine that has the highest pay-off. It is tempting to stay with a slot
+%machine that gives the highest return you have seen so far (exploitation), but
+%it is important to also try out other slot machines to see if they perform even
+%better (exploration). This can be related to the domain of open education by
+%aligning the bandits with sequences of learning objects and the pay-off
+%with learning gain. A teacher would then be required to select from the
+%metaphorical casino floor the sequences to try in order to optimize the total
+%learning gain of his or her students. A task that is far from trivial to do.
+%\\\\
+%\noindent
+%An alternative approach would be to automatically construct the sequences of
+%learning material, a task known as curriculum sequencing \citep{AlMuhaideb2011}.
+%In particular, due to the ever-growing nature of open educational resources,
+%the automatic mechanism would have to deal with the open corpus problem known
+%in the field of adaptive educational hypermedia \citep{Brusilovsky2007}.
+%Such a mechanism could address the desire for empirical evidence
+%of quality of learning objects on the one hand, while also addressing the
+%difficulties of obtaining that evidence from interactions in a real learning
+%context. The mechanism could be a component in learning object repositories
+%that suggests learning object sequences to teachers, while collecting data from
+%the learning environment that the teacher uses. It could also
+%function as a component in a fully automatic intelligent tutoring system
+%\citep{Psotka1988}, which replaces the role of the teacher.\\\\\

@@ -232,7 +232,7 @@ of educational material are the one-armed bandits.
 
 In this thesis, the Upper Confidence Bound (UCB) selection algorithm is used to
 determine which of the individuals will be evaluated. In
-particular the UCB-1\cite{Auer2002} algorithm is used. In UCB-1,
+particular the UCB-1 \citep{Auer2002} algorithm is used. In UCB-1,
 first every individual is evaluated once. After this has been done, the
 individual is evaluated for which equation~\eqref{eq:ucb1_value} is maximized,
 where $\overline{x_i}$ denotes the average fitness of the individual, $n_i$
@@ -244,7 +244,7 @@ denotes the overal number of evaluations that occured.
 	\label{eq:ucb1_value}
 \end{equation}
 
-UCB-1 is proven in \cite{Auer2002} to logarithmically bound the
+UCB-1 is proven in \citep{Auer2002} to logarithmically bound the
 regret, which ensures that a suboptimal individual is selected logarithmically
 less often than the optimal individual. It is important to note that UCB-1 can
 only consider the individuals that are present in the current generation of the
@@ -262,12 +262,12 @@ for reducing the regret.
 \begin{figure}[ht!]
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/generation_switch.png}
-	\caption[Generation switch]{The operations and intermediate phases during a generation switch. Illustration was taken from \cite{Whitley1994}.}
+	\caption[Generation switch]{The operations and intermediate phases during a generation switch. Illustration was taken from \citep{Whitley1994}.}
 	\label{fig:generation_switch}
 \end{figure}
 This thesis implements generational replacement with elite preservation, which
 are commonly used strategies for survivor selection in the curriculum
-sequencing domain \cite{AlMuhaideb2011}.
+sequencing domain \citep{AlMuhaideb2011}.
 Elite preservation means that the best performing individuals from the current
 generation will transfered directly to the new generation, without any
 alteration. Elitism has the purpose of ensuring that cross-over or mutation
