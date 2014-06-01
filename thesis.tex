@@ -8,7 +8,9 @@
 
 % Required to make colored boxes
 \usepackage{framed, color}
+\usepackage[framemethod=tikz]{mdframed}
 \definecolor{shadecolor}{rgb}{1.0, 0.95, 0.80}
+\definecolor{nimback}{rgb}{0.17,0.24,0.31}
 
 % Required for pseudo algorithm listings
 \usepackage{algpseudocode}
@@ -191,5 +193,8 @@
 \chapter{Simulation Fitness Models}
 \label{ax_simulation_fitness_models}
 \input{chapters/appendix_fitness_models.tex}
+\chapter{Simulation Convergence Data}
+\label{ax_simulation_convergence_data}
+\input{chapters/appendix_convergence_data.tex}
 
 \end{document}
