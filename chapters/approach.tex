@@ -51,9 +51,6 @@ operators and survivor selection
 (Section~\ref{sec:approach_generation_switch}). The applied island model to
 support for related student groups is described in
 Section~\ref{sec:approach_island_model}.
-Finally, Section~\ref{sec:approach_discussion} discusses the advantages and
-disadvantages of using genetic algorithms as a model and compares it with the
-two alternative modeling choices.
 
 
 %%%%
@@ -425,79 +422,3 @@ other student groups. If there are more student groups than two, there are more
 migration candidates than slots. In that case, the choice is made using
 roulette wheel selection based on the fitness values of each migration
 candidate.
-\section{Discussion}
-\label{sec:approach_discussion}
-\subsection{Benefits of the approach}
-
-%\begin{itemize}
-%	\item More natural fit to the problem of curriculum sequencing, given the
-%		natural mapping of chromosomes and genes to the domain.
-%	\item The method is good for changing environments (citation needed)
-%	\item No need to explitely specify intermediate states
-%	\item Domain allows for many enhancements of the canonical algorithm by
-%		adding prior knowledge in the initialization and fitness function, by
-%		propagating fitness information to next generations using fitness
-%		inheritance, and restrict the crossover and mutation operations to
-%		ensure only valid and interesting outcomes.
-%	\item Search through the solution space is biased towards areas that seem
-%		most promising, with a small but nonzero chance of exploring in other
-%		areas.
-%	\item This implicit exploration-exploitation trade-off can be enhanced by
-%		incorperating uncertainty information
-%\end{itemize}
-\subsection{Downsides of the approach}
-% risk of Hamming walls
-\subsection{Comparing with the Markov Decision Process Approach}
-%\begin{itemize}
-%	\item Paraphrase/quote/link from \citep{Whiteson2012} the following points.
-%		(\textbf{Currently copied literally}, better not keep it that way)
-%	\item evolutionary methods do not take advantage of the fact the an agent travels
-%          to states while performing actions. However evolutionary computation
-%		  is still a popular method for solving reinforcement learning
-%		  problems. There are three main reasons why.:
-%		  \begin{enumerate}
-%			  \item ``First, evolutionary methods can cope well with
-%					partial observability. While evolutionary methods do not exploit the relationship
-%					between subsequent states that an agent visits, this can be advantageous when the
-%					agent is unsure about its state. Since temporal-difference methods rely explicitly
-%					on the Markov property, their value estimates can diverge when it fails to hold,
-%					with potentially catastrophic consequences for the performance of the greedy policy.
-%					In contrast, evolutionary methods do not rely on the Markov property and will always
-%					select the best policies they can find for the given task. Severe partial
-%					observability may place a ceiling on the performance of such policies, but
-%					optimization within the given policy space proceeds normally (Moriarty et al, 1999).
-%					In addition, representations that use memory to reduce partial observability,
-%					such as recurrent neural networks, can be be optimized in a natural way with
-%					evolutionary methods (Gomez and Miikkulainen, 1999; Stanley and Miikkulainen, 2002;
-%					Gomez and Schmidhuber, 2005a,b).``
-%				\item ``Second, evolutionary methods can make it easier to find
-%					suitable representations for the agent’s solution. Since policies need only specify
-%					an action for each state, instead of the value of each state-action pair, they can be
-%					simpler to represent. In addition, it is possible to simultaneously evolve a
-%					suitable policy representation``
-%				\item ``Third, evolutionary methods provide a simple way to solve
-%					problems with large or continuous action spaces. Many temporal-difference
-%					methods are ill-suited to such tasks because they require iterating over the action
-%					space in each state in order to identify the maximizing action. In contrast,
-%					evolutionary methods need only evolve policies that directly map states to actions. Of
-%					course, actor-critic methods (Doya, 2000; Peters and Schaal, 2008) and other techniques
-%					(Gaskett et al, 1999; Mill ́an et al, 2002; van Hasselt and Wiering, 2007) can
-%					also be used to make temporal-difference methods suitable for continuous action
-%					spaces. Nonetheless, evolutionary methods provide a simple, effective way to
-%					address such difficulties.``
-%				\item \citet{Whiteson2012} further mentions: ``Of course, none
-%					of these arguments are unique to evolutionary methods, but
-%					apply in principle to other policy-search methods too.
-%					However, evolutionary methods have proven a particularly
-%					popular way to search policy space and, consequently, there
-%					is a rich collection of algorithms and results for the
-%					reinforcement-learning setting. Furthermore, as modern
-%					methods, such as distribution-based approaches, depart
-%					further from the original genetic algorithms, their
-%					resemblance to the process of natural selection has
-%					decreased. Thus, the distinction between evolutionary
-%					methods and other policy search approaches has become
-%					fuzzier and less important.''
-%		  \end{enumerate}
-%\end{itemize}
-\subsection{Comparing with the Knowledge Engineering Approach}

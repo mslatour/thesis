@@ -1,6 +1,150 @@
 %%%%%%%%%%%%%%%%%%%%
 % Chapter: Results %
 %%%%%%%%%%%%%%%%%%%%
+In this chapter the result of the experiment are enumerated and discussed.
+Although the results will be analyzed per population, most of the
+visualizations are grouped together. These visualizations will first be
+explainaed by Section~\ref{sec:results_explanation}.
+Section~\ref{sec:results_general} then lists some general statistics of the
+experiment.
+Sections~\ref{sec:results_rules}~through~\ref{sec:results_nimsum}
+analyse the results per lesson.
+
+\section{Explanation of the visualizations}
+\label{sec:results_explanation}
+\subsection{Three curves of cumulative regret}
+Figure~\ref{fig:exp_cumul1} and Figure~\ref{fig:exp_cumul2} show the cumulative
+regret curves per population. Each subfigure contains three curves, which are
+labelled \emph{theoretical best}, \emph{population best} and \emph{generation
+best}. The curve labelled \emph{theoretical best} shows the cumulative regret
+compared to the perfect score of a normalized learning gain of 1. This score
+could only be achieved if all evaluations of a particular sequence returned the
+maximum result of 1, something which is not likely in a noisy environment. That
+is why two more curves have been plotted. The curve labelled \emph{population
+best} plots the cumulative regret compared to the estimated fitness of the best
+sequence ever evaluated by the \emph{TutOER} system in that population.
+Similarly, the \emph{generation best} labelled curve shows the cumulative
+regret compared to the estimated fitness of the best sequence available in the
+current generation. For all fitness values, the estimated value at the end of
+the experiment was used while calculating the regret. The reason for that is
+that comparing with the estimated values at the moment of the decision is less
+interesting. Theoretical results from the literature about genetic
+algorithm and UCB already tell us how they will deal with exploration versus
+exploitation and the regret that would be caused by that. Furthermore from the
+simulations performed in this thesis it appears that the algorithm is properly
+implemented. What the experiment is intended to find out is whether the task of
+OER quality assessment by curriculum sequencing is feasible in a realistic
+scenario with noise due to real students. For that purpose it is more
+interesting to see whether the \emph{TutOER} system would temporarily discard
+optimal sequences that have seem to perform poorly at the time, or whether the
+system is robust enough.
+\subsection{Fitness variance}
+\subsection{Sorted number of evaluations}
+\subsection{Coverage curve}
+\subsection{Diversity table}
+Table~\ref{tab:results_diversity} shows the percentage of unique sequences at
+each generation for each population. A diversity of 40\% indicates that across
+the ten individuals four distinct chromosomes were divided. Similarly, a
+diversity of 10\% means that all individuals have the same chromosome.
+% TODO : DEAL WITH BUG IN CODE THAT HAS SOME CHROMOSOMES DOUBLE?
+
+\section{General statistics}
+\label{sec:results_general}
+\section{Lesson: Rules}
+\label{sec:results_rules}
+The \emph{Rules low} population completed 22 generations and received the
+223 evaluations by students. At the end of the experiment
+this population converged to the best sequence encounter till that point. The
+sequence contains Resource~3 and Resource~1, in that order, and will be
+referred to as \emph{Sequence~372} for the rest of the chapter. A graph of all
+evaluations of this sequence can be seen in
+Figure~\ref{fig:exp_eval_rules_low_372}.
+The estimated fitness of \emph{Sequence~372} at the end of the experiment was
+0.7634. \emph{Sequence~372} was created by a mutation on Resource~3 in the transition
+from the fourth to the fifth generation that added Resource~1. At first,
+Resource~1 dissapeared from the population after not being selected for the
+second generation. Resource~3 had the highest fitness of the first four
+generations \\\\
+\noindent
+Figure~\ref{fig:exp_cumul_rules_low} shows that after twenty evaluations the
+sequences selected by the \emph{TutOER} system turn out to be the best of each
+generation. After 40 evaluations, in the fifth generation, \emph{TutOER}
+switches to the evaluation of \emph{Sequence~372}. This is only deviated from at
+two points. First, at the 81st evaluation, the \emph{TutOER} system tried out
+Resource~1 once more. Second, from evaluation 141 till 144 the \emph{TutOER}
+system evaluated the mirrored version of \emph{Sequence~372} that ended with
+Resource~3. In both cases however, the \emph{TutOER} system returned to the
+optimal sequence.\\\\
+\noindent
+Figure~\ref{fig:exp_cover_rules_low} shows the \emph{Rules low} population
+encountered a fifth of all sequences, namely eight out of 40. Although this was
+enough to find \emph{Sequence~372}, the large majority of sequences was not
+attempted. No sequences of three resources were attempted. These sequences
+filled 60\% of the total number of possible sequences in this experiment. When
+comparing to the possible sequences of two resources maximum, the \emph{TutOER}
+system evaluated half.\\\\
+\noindent
+The \emph{Rules high} population encountered five out of 40 possible sequences.
+However, in contrast to \emph{Rules low}, only 30 evaluations were collected
+As a result, the population completed just two generations. The best sequence at the
+end of the experiment contained only Resource~1. The estimated fitness of this
+sequence is 0.4388. The number of evaluations is however too low to put much
+value on the estimate.\\\\
+\noindent
+
+% immigrant story:
+% Due to a bug in the system, immigrants were not disconnected from their
+% original source. As a result, the fitness of both chromosomes were connected
+% Two sequences with Gene 1 existed in Rules high.
+% Sequence 31 came into the third generation from Rules Low by means of immigration
+\section{Lesson: Intuition}
+\label{sec:results_intuition}
+% Intuition low did not converge, intuition high did converge
+% Still lot of noise in Intuition high
+% intuition low had 7/40, high, 6/40
+% intuition high dropped in diversity dramatically after the first generation,
+% because all sequences other than [6]
+\section{Lesson: Binary}
+\label{sec:results_binary}
+\section{Lesson: Nim-sum}
+\label{sec:results_nimsum}
+
+\begin{table}
+	\begin{subtable}{\linewidth}
+	\centering
+		\begin{tabular}{lllllllllllll}\hline
+		Population & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12\\\hline
+		Rules low & 40 & 40 & 30 & 40 & 30 & 20 & 10 & 10 & 20 & 10 & 20 & 20\\
+		Rules high & 40 & 20 & 30 & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash\\
+		Intuition low & 40 & 30 & 20 & 20 & 20 & 20 & 30 & 10 & 20 & 20 & 30 & \textemdash\\
+		Intuition high & 40 & 10 & 10 & 10 & 20 & 20 & 10 & 30 & 30 & 10 & 20 & \textemdash\\
+		Binary low & 40 & 40 & 30 & 60 & 20 & 10 & 30 & 30 & 20 & 30 & 30 & 10\\
+		Binary high & 40 & 30 & 40 & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash\\
+		Nim-sum low & 40 & 40 & 20 & 10 & 10 & 10 & 10 & 10 & 20 & 10 & 10 & 30\\
+		Nim-sum high & 40 & 60 & 60 & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash\\
+		\end{tabular}
+	\caption{generation 1-12}
+	\end{subtable}
+
+	\medskip
+	\begin{subtable}{\linewidth}
+	\centering
+		\begin{tabular}{lllllllllllll}\hline
+		Population & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24\\\hline
+		Rules low & 30 & 20 & 20 & 20 & 20 & 20 & 20 & 10 & 10 & 20 & 30 & \textemdash\\
+		Rules high & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash\\
+		Intuition low & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash\\
+		Intuition high & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash\\
+		Binary low & 20 & 10 & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash\\
+		Binary high & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash\\
+		Nim-sum low & 10 & 10 & 10 & 10 & 10 & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash\\
+		Nim-sum high & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash\\	
+		\end{tabular}
+	\caption{generation 13-24}
+	\end{subtable}
+	\caption{Diversity percentage at each generation}
+	\label{tab:results_diversity}
+\end{table}
 
 \begin{figure}[ht]
 	\begin{subfigure}{0.49\linewidth}
@@ -67,11 +211,22 @@
 
 
 \begin{figure}[ht]
+	\begin{subfigure}{0.9\linewidth}
 	\centering
-	\includegraphics[width=0.98\linewidth]{images/results/plot_exp_evaluations_oldest_chromosomes.png}
-	\caption{Evaluations of the most used sequences plotted together with 
-		the running average.}
-	\label{fig:exp_evals_oldest}
+	\includegraphics[width=\linewidth]{images/results/plot_exp_eval_rules_low_372_31.png}
+	\caption{Sequence~372 in the \emph{Rules low} population}
+	\label{fig:exp_eval_rules_low_372}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.9\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_exp_eval_intuition_high_14_6.png}
+	\caption{Sequence~14 in the \emph{Intuition high} population}
+	\label{fig:exp_eval_innovation_high_14}
+	\end{subfigure}
+	\caption{Observed normalized learning gain values (blue) plotted with the
+	running average (green).}
+	\label{fig:exp_eval}
 \end{figure}
 
 \begin{figure}[ht]

@@ -14,7 +14,7 @@ that would be possible in an experiment. The simulations are executed using the
 same software that is used for the experiment. However, for the
 sake of simplicity and speed the actual web interaction was left out of the
 simulation. Sequences are therefore evaluated using a handcrafted model instead
-of usingg actual students. Each simulation is repeated ten times to deal with
+of using actual students. Each simulation is repeated ten times to deal with
 randomization artefacts.\\\\
 \noindent
 This chapter is organized as follows. Section~\ref{sec:simulations_setup}
@@ -164,29 +164,63 @@ later reference.\\
 	\label{tab:simulation_setups}
 \end{table}\\
 \noindent
-The simulations run for this thesis demonstrate the effect of these parameters
-in various scenarios. First, a handcrafted model scenario will be run where the
-sequences are evaluated based on a fitness model manually created by the
-author. The fitness model values are based on the author's expectation of the
-true value of each sequence of learning material. The handcrafted model for
-each population can be found in
-Table~\ref{tab:apx_fitness_handcrafted}. Second, the worst-case scenario where
-an optimal sequence is surrounded by valley of bad sequences. The purpose of
-this scenario is to demonstrate the effects of hamming walls. Third, the
-experiment-based scenario where the fitness values observed in the experiment
-are converted into a fitness model, with which the sequences in the simulation
-are evaluated.
+The parameter setups are tested in two artificial environments. The first
+provides evaluation outcomes using the handcrafted model displayed in
+Table~\ref{tab:simulation_fitness_model}. The handcrafted model contains
+patterns that match to sequences, the explanation of these patterns can be
+found in Table~\ref{tab:simulation_fitness_model_explanation}.
+The model is based on the author's expectation of the true quality of the
+sequences containing resources about the intuition of the game. The first
+environment will be referred to as the \emph{normal environment}.\\
+\begin{table}[h]
+\begin{minipage}[t]{0.48\linewidth}
+\begin{tabular}[ht]{ll}\hline
+	Sequence pattern & Fitness \\\hline
+	\verb![5]! & 0.7 \\
+	\verb![6]! & 0.8 \\
+	\verb![7]! & 0.1 \\
+	\verb![8]! & 0.8 \\
+	\verb!{6, ( 5 | 8 )}! & 1 \\
+	\verb!{5, 6, 8}! & 1 \\
+	\verb!{5, 6, 7}! & 0.6 \\
+	\verb!{*, *, ( 5 | 6 ), ( 5 | 6 )}! & 0.7\\
+\end{tabular}
+\caption{Fitness values for each sequence.}
+\label{tab:simulation_fitness_model}
+\end{minipage}
+\hfill
+\begin{minipage}[t]{0.51\linewidth}
+\begin{tabular}[ht]{lp{0.6\linewidth}}\hline
+	Construct &  Meaning \\\hline
+	\verb![5]! & Resource 5.\\
+	\verb![*]! & Any resource.\\
+	\verb![5, 6]! & First resource 5 followed by resource 6.\\
+	\verb!{5, 6}! & Resources 5 and 6 in any order.\\
+	\verb![( 5 | 6 )]! & Either resource 5 or 6.\\
+	\verb!{7, ( 5 | 6 )}! & Resources 7 and either 5 or 6 in any order.\\
+\end{tabular}
+\caption{Explanation of sequence patterns.}
+\label{tab:simulation_fitness_model_explanation}
+\end{minipage}
+\end{table}\\
+\noindent
+The second environment uses the same handcrafted model as the first
+environment, but adds gaussian noise of 0.2 standard deviation. The purpose of
+the second environment is to see how the performance of the \emph{TutOER}
+system under each paramater setup is changed when the observed fitness contains
+noise. The second environment will be referred to as the \emph{noisy
+environment}
 \section{Results}
 \label{sec:simulations_results}
 \subsection{Group 1 (Population size \& \# Episodes)}
 \subsubsection*{Analysis}
 Figure~\ref{fig:cumul_handcrafted_container_group1} shows the cumulative
-regret built-up by the \emph{TutOER} system with the parameter setups of Group~1
-in the handcrafted model scenario. Each simulation setup has
+regret built-up by the \emph{TutOER} system under the parameter setups of Group~1
+in the normal environment. Each simulation setup has
 been repeted ten times. Each individual plot shows the averaged cumulative
 regret after each evaluation, together with vertical error bars indicating the
 maximum and minimum value at every twenty evaluations. The \texttt{stephen} setup stands out with a
-much higher cumulative regret built-up. Due to the number of episodes in the
+much higher cumulative regret built-up than the others. Due to the number of episodes in the
 \texttt{stephen} parameter setup, only 50 generations have been completed after
 1000 evaluations. Also the \texttt{xavier} and \texttt{peter} setups complete
 50 generations. In comparison, the \texttt{george} setup ensures the completion
@@ -207,9 +241,9 @@ happen than in a setup where that difference is smaller.\\\\
 The \texttt{peter}
 setup is an example where that difference is much smaller. It has the same
 amount of episodes as the \texttt{stephen} setup but a higher number of
-individuals in each generation (namely twenty), which allows for more diversity in a
-generation. This has no effect in the first generation, since the
-population is initialized with sequences of only one resource. Because there are
+individuals in each generation (namely twenty). That allows for more diversity in a
+generation. This has no effect in the first generation, because the
+population is initialized with sequences of only one resource. Since there are
 only four resources in the population, the first generation under the
 \texttt{peter} setup will contain sixteen duplicates. From the perspective of
 the UCB-1 selection, this has the same effect as in the \texttt{stephen} setup.
@@ -221,7 +255,7 @@ shows the percentage of possible sequences that have been encountered by the
 \texttt{peter} setup causes the most exploration. Followed by the other
 parameter setups of Group~1 in decreasing order of their \emph{population size}
 parameter. However, some of the differences are too close to call. When comparing
-parameter setups with the same \emph{population size} parameter value, a second
+parameter setups with the same \emph{population size}, a second
 ordering becomes apparent. Parameter setups with a
 high number of episodes (e.g. \texttt{stephen}) have encountered a lower percentage of sequences than
 parameter setups with a lower number of episodes (e.g. \texttt{george}). This
@@ -233,34 +267,33 @@ applications, and thereby also less opportunities for diversity.\\\\
 The observation of these orderings in relation to the number of episodes and
 the population size also hold in a more noisy environment.
 Figure~\ref{fig:cover_handcrafted_noise_container_group1} shows the
-percentage of sequences encountered under parameter setups of Group~1 in a
-noisy environment. Although, again, some differences are rather small. This is
-also what you would expect. Noise on the observed fitness values should not
+percentage of sequences encountered under parameter setups of Group~1 in the
+second environment. Noise on the observed fitness values should not
 have a direct impact on the level of exploration in the genetic algorithm
 setup. What it could affect however is the direction of exploration and the
 regret as a result that.
 Figure~\ref{fig:cumul_handcrafted_noise_container_group1} shows the
-cumulative regret built-up by the \emph{TutOER} system with the parameter
-setups of Group~1 in a noisy environment. The differences with the scenario
-without noise are not that big. The parameter setups are slightly more apart in
+cumulative regret built-up by the \emph{TutOER} system under the parameter
+setups of Group~1 in a noisy environment. The differences with the results in
+the normal environment are not that big. The parameter setups are slightly more apart in
 terms of cumulative regret, but that difference is made early on in the
 simulation (Figure~\ref{fig:cumul_handcrafted_noise_overview_group1}).
 Given that the lines plotted in the overview are averages of ten repetitions,
-it could also be that a mutation occured at a different time causing a
-different outlier in the simulated cumulative regrets. This means that there
-might actually be no effect of the added noise on the performance of the
-\emph{TutOER} system under the parameter setups of Group~1. The impact of the
-set values for the mutation rate and number of elite in all paramater setups of
-Group~1 on this noise resillience will be discussed in
-Section~\ref{sec:simulation_handcrafted_group2}.\\\\
+there could also be an alternative explanation. For example a mutation may have
+occured at a different time causing a different outlier in the simulated
+cumulative regrets. This means that there might actually be no effect of the
+added noise on the performance of the \emph{TutOER} system under the parameter
+setups of Group~1. The impact of the values for the mutation rate and
+number of elite in all parameter setups of Group~1 on this noise resillience
+will be discussed in Section~\ref{sec:simulation_handcrafted_group2}.\\\\
 \noindent
-Figure~\ref{fig:conv_group1_handcrafted} shows the boxplot distribution for the ten
+Figure~\ref{fig:conv_group1_handcrafted} shows the boxplot for the ten
 repetitions of the number of evaluations needed to converge under each
-parameter setup in Group~1. The actual convergence numbers of each repetition
+parameter setup in Group~1. The actual numbers of the convergence at each repetition
 can be found in Appendix~\ref{ax_simulation_convergence_data}. The \emph{TutOER} system
 converges the fastest on average under the \texttt{erik} parameter setup.
 Parameter setups \texttt{george} and \texttt{david} follow in second and third
-place, even though they have a lower median value. The one that stands out is
+place, even though they have a better median value. The one that stands out is
 the parameter setup \texttt{stephen} with extreme outliers as well as a
 relatively high median value. However, apart from one trial that took 769
 evaluations to converge, all trials under any parameter setup of Group~1
@@ -277,7 +310,7 @@ number of evaluations that are needed to converge. Parameter setup
 \texttt{erik} outperforms the rest, including \texttt{peter}, on convergence in
 this noisy environment.
 \subsubsection*{Conclusion}
-From the plots of cumulative regret, percentage encountered and convergence can
+From the plots of cumulative regret, coverage and convergence can
 be concluded that \texttt{erik} scores best overal. The \emph{TutOER} system
 had on average the lowest cumulative regret under the parameter setup
 \texttt{george}, but \texttt{erik} and \texttt{david} followed in second and
@@ -285,7 +318,7 @@ third place. The most unique sequences were encountered on average by the
 \emph{TutOER} system under \texttt{peter} parameters, followed by the
 \texttt{erik} parameters. In terms of convergence, the \texttt{erik} parameters
 were most favorable for the \emph{TutOER} system. Overall, the optimal
-population size and number of episodes are both 10.
+population size and number of episodes are thus both 10.
 \begin{figure}[ht]
 	% origin: simulation_2014-05-28-1432
 	\begin{subfigure}{0.48\linewidth}
@@ -327,8 +360,8 @@ population size and number of episodes are both 10.
 	\label{fig:cumul_handcrafted_overview_group1}
 	\end{subfigure}
 	\caption{Plot with error bars of the cumulative regret of the \emph{TutOER}
-	system using specific parameter setups in the handcrafted model scenario.
-	Subplot~\ref{fig:cumul_handcrafted_overview_group1} shows the
+	system using specific parameter setups in the normal environment.
+	Plot~\ref{fig:cumul_handcrafted_overview_group1} shows the
 	different parameter setups in one graph.}
 	\label{fig:cumul_handcrafted_container_group1}
 \end{figure}
@@ -357,7 +390,7 @@ population size and number of episodes are both 10.
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.48\linewidth}
-	\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_erik_handcrafted_noise.png}
+		\includegraphics[width=\linewidth]{images/results/plot_sim_cumul_erik_handcrafted_noise.png}
 	\caption{\texttt{erik} parameters}
 	\label{fig:cumul_handcrafted_noise_erik}
 	\end{subfigure}
@@ -389,9 +422,8 @@ population size and number of episodes are both 10.
 	\label{fig:cumul_handcrafted_noise_overview_group1}
 	\end{subfigure}
 	\caption{Plot with error bars of the cumulative regret of the \emph{TutOER}
-	system using specific parameter setups in the handcrafted model scenario
-	with an additional noise of 2 sigma.
-	Subplot~\ref{fig:cumul_handcrafted_noise_overview_group1} shows the
+	system using specific parameter setups in the noisy environment.
+	Plot~\ref{fig:cumul_handcrafted_noise_overview_group1} shows the
 	different parameter setups in one graph.}
 	\label{fig:cumul_handcrafted_noise_container_group1}
 \end{figure}
@@ -403,6 +435,54 @@ population size and number of episodes are both 10.
 %	\caption{Cumulative regret plot placeholder}
 %	\label{fig:cumul_placeholder1}
 %\end{figure}
+
+\begin{figure}[ht]
+	% origin: simulation_2014-05-29-1301
+	\begin{subfigure}{0.48\linewidth}
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cover_george_handcrafted.png}
+	\caption{\texttt{george} parameters}
+	\label{fig:cover_handcrafted_george}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.48\linewidth}
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cover_erik_handcrafted.png}
+	\caption{\texttt{erik} parameters}
+	\label{fig:cover_handcrafted_erik}
+	\end{subfigure}
+	\begin{subfigure}{0.48\linewidth}
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cover_david_handcrafted.png}
+	\caption{\texttt{david} parameters}
+	\label{fig:cover_handcrafted_david}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.48\linewidth}
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cover_stephen_handcrafted.png}
+	\caption{\texttt{stephen} parameters}
+	\label{fig:cover_handcrafted_stephen}
+	\end{subfigure}
+	\begin{subfigure}{0.48\linewidth}
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cover_xavier_handcrafted.png}
+	\caption{\texttt{xavier} parameters}
+	\label{fig:cover_handcrafted_xavier}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.48\linewidth}
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cover_peter_handcrafted.png}
+	\caption{\texttt{peter} parameters}
+	\label{fig:cover_handcrafted_peter}
+	\end{subfigure}
+	\begin{subfigure}{\linewidth}
+	\includegraphics[width=\linewidth]{images/results/plot_sim_cover_joined_david_erik_stephen_xavier_peter_george_handcrafted_nobars.png}
+	\caption{overview}
+	\label{fig:cover_handcrafted_overview_group1}
+	\end{subfigure}
+	\caption{Plot with error bars of the percentage of chromosomes seen by the \emph{TutOER}
+	system using specific parameter setups in the normal environment
+	Plot~\ref{fig:cover_handcrafted_overview_group1} shows the
+	different parameter setups in one graph.}
+	\label{fig:cover_handcrafted_container_group1}
+\end{figure}
+
 
 \subsection{Group 2 (\# Elite \& Mutation rate)}
 \label{sec:simulation_handcrafted_group2}
@@ -420,45 +500,62 @@ the cumulative regret that much in
 Figure~\ref{fig:cumul_handcrafted_container_group2}. This is however different
 when operating in a noisy environment.
 Figure~\ref{fig:cumul_handcrafted_noise_container_group2} shows the cumulative
-regret under the parameter setups of Group~2 in a noisy environment. Observing
+regret under the parameter setups of Group~2 in the second environment. Observing
 the cumulative regret under \texttt{robert} parameters we see that regret rises
 significantly from around 100 evaluations.
 Figure~\ref{fig:conv_group2_handcrafted_noise} shows the worst convergence result
 under the \texttt{robert} parameters is 80 evaluations. That means that the
 \emph{TutOER} system already found the optimal sequence but lost it in a
-generation transition, since otherwise UCB-1 would have ensured that the
-cumulative regret curve continued its logarithmic path. Losing the optimal
+generation transition. Otherwise UCB-1 would have ensured that the
+cumulative regret curve continued its logarithmic path, by continuing to select
+the optimal sequence. Losing the optimal
 sequence in a generation transition can easily be explained by the fact that
 the \texttt{robert} parameters set the number of elites to zero. With no elite
 preservation, the optimal sequence needs to compete in the fitness-based
 roulette wheel selection. In a noisy environment the observed fitness value of
-the optimal sequence can be lower than observed fitness values of less optimal
+the optimal sequence can be lower than the observed fitness values of less optimal
 sequences. Additionally elitism protects the individual from being applied to
-crossover or mutation operators. The counterpart of \texttt{robert} with a high
+crossover or mutation operators. In lack of this protection, the optimal
+sequence may have been subject to mutation or crossover and was thereby no
+longer present in the generation. The counterpart of \texttt{robert} with a high
 mutation rate is \texttt{ellen}. The cumulative regret curve of \texttt{ellen}
 is indeed worse than the parameter setups with one or two elites preserved.
 However, curiously the difference is not as extreme as with \texttt{robert}.
 One would expect that having no elite members would have a bigger impact when
 the mutation rate is higher given the larger risk of mutating an already
-optimal sequence.
-
+optimal sequence.\\\\
+\noindent
+The parameter setup \texttt{ria} has the lowest cumulative regret in both
+environments. The \texttt{ria} parameter values are the most conservative of
+all. A high number of elites and a low mutation rate keeps the performance of
+the \emph{TutOER} system largely unaffected by the added noise in the second
+environment. The consequence of a low mutation rate becomes apparent in
+Figure~\ref{fig:cover_handcrafted_ria}. The percentage of sequences evaluated by
+the system is one of the lowest under the \texttt{ria} parameters.
+Other parameter setups with a low mutation rate share the low coverage value.
+This is also what you would expect as a result of a low mutation rate. Given
+the similarly low cumulative regret under \texttt{ria}, it is not necessarily a
+bad thing. Furthermore, the convergence is the best under the \texttt{ria}
+parameter setup in both environments.\\\\
+\noindent
+The parameter setup \texttt{saskia}, which also has a high number of elites,
+performs much worse than \texttt{ria}. The cumulative regret under
+\texttt{saskia} is a lot higher in comparison, though better than the other
+parameter setups with a high mutation rate. The number of evaluations needed to
+converge under the \texttt{saskia} setup is comparable to others in its median
+value, but several big outliers were the results of \texttt{saskia} in both
+environments. The high percentage of sequences that were evaluated under the
+\texttt{saskia} values is the other side of that same coin.
 \subsubsection*{Conclusion}
-
-%on differences between 6.3 and 6.4:
-%===================================
-%* robert is highly sensitive for noise => due to no elites
-%much more variety in trials for robert in 6.4a than in 6.3a
-%
-%* ria is barely affected by noise, martijn a bit more. => conclusion number of elites helps against losing good solutions for UCB to select from.
-%
-%* ellen, nicolai and saskia however all seem pretty much unaffected by the noise. Even ellen who has no elites. Apparently a higher mutation rate deals with noise as well, 
-%
-%on differences between parameters within 6.3:
-%====================================================
-%* lower mutation rate is better for convergence of cumulregret, both in convergence speed and hight of regret.
-%* within the same mutation rate group (saskia, ellen, nicolai & robert, martijn, ria) the number of elite does not affect the cumulregret that much.
-%
-
+From the plots of cumulative regret, coverage and convergence can
+be concluded that \texttt{ria} scores best overal. However, this conclusion is
+drawn while putting weight on the stability of a low cumulative regret and
+conversion points. The coverage of sequences appears to be mostly affected by
+a high mutation rate and to a lesser extend by a low number of elite members.
+The \emph{TutOER} system performs understandably poorly under the \texttt{ria}
+parameter setup. However, better coverage is only favorable when it leads to quicker
+convergence and lower regret. In both metrics, \texttt{ria} outperforms the
+rest. Albeit with varying margins.
 
 \begin{figure}[ht]
 	% origin: simulation_2014-05-28-1622
@@ -501,8 +598,8 @@ optimal sequence.
 	\label{fig:cumul_handcrafted_overview_group2}
 	\end{subfigure}
 	\caption{Plot with error bars of the cumulative regret of the \emph{TutOER}
-	system using specific parameter setups in the handcrafted model scenario.
-	Subplot~\ref{fig:cumul_handcrafted_overview_group2} shows the
+	system using specific parameter setups in the normal environment.
+	Plot~\ref{fig:cumul_handcrafted_overview_group2} shows the
 	different parameter setups in one graph.}
 	\label{fig:cumul_handcrafted_container_group2}
 \end{figure}
@@ -556,9 +653,8 @@ optimal sequence.
 	\label{fig:cumul_handcrafted_noise_overview_group2}
 	\end{subfigure}
 	\caption{Plot with error bars of the cumulative regret of the \emph{TutOER}
-	system using specific parameter setups in the handcrafted model scenario
-	with additional noise of 2 sigma.
-	Subplot~\ref{fig:cumul_handcrafted_noise_overview_group2} shows the
+	system using specific parameter setups in the noisy environment.
+	Plot~\ref{fig:cumul_handcrafted_noise_overview_group2} shows the
 	different parameter setups in one graph.}
 	\label{fig:cumul_handcrafted_noise_container_group2}
 \end{figure}
@@ -605,53 +701,6 @@ optimal sequence.
 \begin{figure}[ht]
 	% origin: simulation_2014-05-29-1301
 	\begin{subfigure}{0.48\linewidth}
-	\includegraphics[width=\linewidth]{images/results/plot_sim_cover_george_handcrafted.png}
-	\caption{\texttt{george} parameters}
-	\label{fig:cover_handcrafted_george}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-	\includegraphics[width=\linewidth]{images/results/plot_sim_cover_erik_handcrafted.png}
-	\caption{\texttt{erik} parameters}
-	\label{fig:cover_handcrafted_erik}
-	\end{subfigure}
-	\begin{subfigure}{0.48\linewidth}
-	\includegraphics[width=\linewidth]{images/results/plot_sim_cover_david_handcrafted.png}
-	\caption{\texttt{david} parameters}
-	\label{fig:cover_handcrafted_david}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-	\includegraphics[width=\linewidth]{images/results/plot_sim_cover_stephen_handcrafted.png}
-	\caption{\texttt{stephen} parameters}
-	\label{fig:cover_handcrafted_stephen}
-	\end{subfigure}
-	\begin{subfigure}{0.48\linewidth}
-	\includegraphics[width=\linewidth]{images/results/plot_sim_cover_xavier_handcrafted.png}
-	\caption{\texttt{xavier} parameters}
-	\label{fig:cover_handcrafted_xavier}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.48\linewidth}
-	\includegraphics[width=\linewidth]{images/results/plot_sim_cover_peter_handcrafted.png}
-	\caption{\texttt{peter} parameters}
-	\label{fig:cover_handcrafted_peter}
-	\end{subfigure}
-	\begin{subfigure}{\linewidth}
-	\includegraphics[width=\linewidth]{images/results/plot_sim_cover_joined_david_erik_stephen_xavier_peter_george_handcrafted_nobars.png}
-	\caption{overview}
-	\label{fig:cover_handcrafted_overview_group1}
-	\end{subfigure}
-	\caption{Plot with error bars of the percentage of chromosomes seen by the \emph{TutOER}
-	system using specific parameter setups in the handcrafted model scenario.
-	Subplot~\ref{fig:cover_handcrafted_overview_group1} shows the
-	different parameter setups in one graph.}
-	\label{fig:cover_handcrafted_container_group1}
-\end{figure}
-
-\begin{figure}[ht]
-	% origin: simulation_2014-05-29-1301
-	\begin{subfigure}{0.48\linewidth}
 	\includegraphics[width=\linewidth]{images/results/plot_sim_cover_robert_handcrafted.png}
 	\caption{\texttt{robert} parameters}
 	\label{fig:cover_handcrafted_robert}
@@ -690,8 +739,8 @@ optimal sequence.
 	\label{fig:cover_handcrafted_overview_group2}
 	\end{subfigure}
 	\caption{Plot with error bars of the percentage of chromosomes seen by the \emph{TutOER}
-	system using specific parameter setups in the handcrafted model scenario.
-	Subplot~\ref{fig:cover_handcrafted_overview_group1} shows the
+	system using specific parameter setups in the normal environment.
+	Plot~\ref{fig:cover_handcrafted_overview_group1} shows the
 	different parameter setups in one graph.}
 	\label{fig:cover_handcrafted_container_group2}
 \end{figure}
@@ -737,9 +786,8 @@ optimal sequence.
 	\label{fig:cover_handcrafted_noise_overview_group1}
 	\end{subfigure}
 	\caption{Plot with error bars of the percentage of chromosomes seen by the \emph{TutOER}
-	system using specific parameter setups in the handcrafted model scenario
-	with additional noise.
-	Subplot~\ref{fig:cover_handcrafted_noise_overview_group1} shows the
+	system using specific parameter setups in the noisy environment.
+	Plot~\ref{fig:cover_handcrafted_noise_overview_group1} shows the
 	different parameter setups in one graph.}
 	\label{fig:cover_handcrafted_noise_container_group1}
 \end{figure}
@@ -785,9 +833,8 @@ optimal sequence.
 	\label{fig:cover_handcrafted_noise_overview_group2}
 	\end{subfigure}
 	\caption{Plot with error bars of the percentage of chromosomes seen by the \emph{TutOER}
-	system using specific parameter setups in the handcrafted model scenario
-	with additional noise.
-	Subplot~\ref{fig:cover_handcrafted_noise_overview_group1} shows the
+	system using specific parameter setups in the noisy environment.
+	Plot~\ref{fig:cover_handcrafted_noise_overview_group1} shows the
 	different parameter setups in one graph.}
 	\label{fig:cover_handcrafted_noise_container_group2}
 \end{figure}
