@@ -1,105 +1,326 @@
+% * What are OER
+% * What is OER quality? (most features do not involve impact)
+% * How is quality assessed (mostly by means of metadata or popularity within
+% teacher community)
+% * Impact is the big missing factor in automatic quality assessment
+% * There are also costs involved in measuring impact
+This thesis solves a problem in the community of \emph{Open Educational
+Resources}. It does so with a solution from the \emph{Intelligent Tutoring
+Systems} community, called \emph{curriculum sequencing}. More specifically,
+the balance between good quality estimates and the cost bad teaching is
+optimized as a curriculum sequencing problem. The presented system
+\emph{TutOER} is thus positioned in between these two communities, as
+visualized by this Venn diagram.\\
+\begin{center}
+\includegraphics[width=0.4\linewidth]{images/ven_related_work.pdf}
+\end{center}
+\noindent
+The curriculum sequencing is executed by a genetic algorithm. This chapter
+provides a background in OER, curriculum sequencing and genetic algorithms.
+Section~\ref{sec:background_oer} describes what OER are and how assessment of
+quality is done at the moment.
+Section~\ref{sec:background_curriculum_sequencing} gives an overview of the
+relevant literature in the field of curriculum sequencing. A brief overview of
+genetic algorithms is given in Section~\ref{sec:background_genetic_algorithms}
+
 \section{Open Educational Resources}
-% paraphrase:
-%A frequently used definition of  OER is the one provided by one of the key funders of OER initiatives around the world, the William and Flora Hewlett Foundation (Atkins, Brown, and Hammond 2007, 4):
+\label{sec:background_oer}
+Several definitions of the term Open Educational Resources (OER) are given, since
+the term was first coined by UNESCO in 2002 \citep{Camilleri2014}. UNESCO
+defines	OER as follows.
+\begin{quote}
+``The open provision of educational resources, enabled by
+information and communication technologies,
+for consultation, use and adaptation by a community of users for non-commercial
+purposes'' \citep{UNESCO2002}
+\end{quote}
+The William and Flora Hewlett Foundation, the key funders of OER initiatives,
+define OER as follows.
 \begin{quote}
 ``OER are teaching, learning, and research resources that reside in the public domain or have
 been released under an intellectual property license that permits their free
 use or re-purposing by others. Open educational resources include full courses,
 course materials, modules, textbooks, streaming videos, tests, software, and
 any other tools, materials, or techniques used to support access to
-knowledge.''
+knowledge.'' \citep{Atkins2007}.
 \end{quote}
-\begin{itemize}
-	\item What are open educational resources?
-	\item What makes OER different from other sources of educational material
-	\item What are the challenges?
-\end{itemize}
-% there is not that much known about every OER. It costs authors often too much effort, or are otherwise not able, to supply sufficient meta records
-
-%TODO: References!
-\subsection{Lifecycle}
-\label{sec:background_oer_lifecycle}
-\citet{Collis2004}
-enumerates six stages in the lifecycle of a reusable learning object. 
-
+OER are closely related to reusable learning objects. The key difference lies
+in the emphasis on openness \citep{Camilleri2014}. \citet{Hilton2010} provides a framework to think
+about openness in OER, called ``The Four R's of Openness''. The four R's are
+reuse, revise, remix and redistribute. In the context of OER, these can be
+explained as follows. OER are free to be used in any way (reuse). OER are free
+to be altered in any way (revise). OER are free to be combined with other work
+(remix). OER are free to be shared with others (redistribute).\\\\
+\noindent
+\citet{Collis2004} enumerates six stages in the lifecycle of a reusable learning object.
 First, a learning object is obtained or created. Second, the learning object is labelled
-with metadata information. Third, the learning object is offered to be
-selectable for potential use.  Fourth, the learning object is selected
-to be used in an educational context. Fifth, the learning object is used either in a
-self-contained manner or in combination with other learning objects in an
-educational context. Sixth, after of during the learning object is used a
-decision is made whether or not to retain this learning object.
-%3. Learning objects can be collected in learning
-%object repositories, such as ARIADNE \citep{Vidal2004}, in which teachers are
-%able to search through the collection for appropriate material. 
-%4. , for example by a course developer,
-%6. This decision is for example influenced by ratings provided by course developers.
-Figure~\ref{fig:oer_lifecycle} depicts the cycle that these stages form.
+with metadata information. Third, the learning object is offered, often in a
+learning object repository, to be selectable for potential use. Fourth, the
+learning object is selected to be used in an educational context. Fifth, the
+learning object is used either in a self-contained manner or in combination
+with other learning objects in an educational context. Sixth, after of during
+the learning object is used a decision is made whether or not to retain this
+learning object. Figure~\ref{fig:oer_lifecycle} depicts the cycle that these
+stages form.\\
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=0.8\linewidth]{images/oer_lifecycle.pdf}
 	\caption[Lifecycle of reusable learning objects]{Lifecycle of reusable learning objects, as enumerated by \citep{Collis2004}}
 	\label{fig:oer_lifecycle}
-\end{figure}
-
-
-\subsection{Meta data}
-\subsection{Quality}
-\section{Curriculum Sequencing}
-\subsection{Reinforcement Learning Approach}
-\subsection{Genetic Algorithms Approach}
-\subsection{Knowledge Engineering Approach}
-\section{Normalized learning gain}
+\end{figure}\\
+\noindent
+The advent of OER lowered the threshold of creating and distributing
+educational material. \citet{Weller2010} states that the resulting diversity of
+authors will cause a less stable level of quality. However, a lot is expected
+from these authors. The human instructor plays an important role in almost all
+of the mentioned stages in Figure~\ref{fig:oer_lifecycle}. In particular, the
+human instructor is responsible in most systems for quality assessment.
+According to \citep{Camilleri2014} quality assurance ranges from strict
+top-down controlled production processes to peer-review and everything in
+between.\\\\
+\noindent
+However, according to \citep{Ochoa2009a} the number of OER in each learning object
+repositories vary from hundreds to millions of objects. The growth of
+these repositories is still linear in the number of authors \citep{Ochoa2009a}.
+However, \citeauthor{Ochoa2009a} expect that this growth will become
+exponential when authors are better retained by the repositories. Determining
+the quality of an exponentially growing number of open educational resources by
+human effort is infeasible \citep{Cechinel2011, Ochoa2006, Zemsky2004}.
+As a result, there is a growing interest in automatic assessments of OER
+quality.
+\section{Automatic assessment of OER Quality}
+One approach focuses on the quality of the metadata of the learning
+object \citep{Ochoa2009b, Tani2013} , as a proxy for the quality of the object
+itself. A problem with this approach is that metadata can be inaccurate
+\citep{Cechinel2009} and incomplete \citep{Sicilia2005}. A different approach is
+to automatically assess the quality of learning objects based on intrinsic
+metrics, such as the number of links in a learning object. \citet{Cechinel2011}
+managed to find statistical profiles of different quality labels by comparing
+intrinsic metrics of good and poor learning objects in the MERLOT repository.
+\citet{Duval2006} however states that the quality of a learning object is
+context-dependent and intrinsically subjective. As examples of context Duval
+mentions a.o. learning goal, available time and educational level. Duval
+proposes the context-dependent ranking algorithm LearnRank, in which learning
+objects that are used in many contexts receive a higher rank. In
+\citep{Ochoa2006} the “use of contextualized attention metadata for ranking and
+recommending learning objects” is proposed, where the attention given to a
+learning object by a student or a teacher within a certain context is
+considered to be a proxy for the usefulness of the object in that context.
+Duval however also mentions in \citep{Duval2006} that “In an ideal world, we
+would actually bootstrap and steer this process [of establishing the LearnRank]
+through empirical data on the learning effect that specific objects have
+actually caused (or helped to realise) in specific contexts. . . ”. According
+to \citep{Kay2007} the effect of a learning object on ’actual learning’ is
+underrepresented in the research on learning objects.\\\\
+\noindent
+In a recent report from the European Commission, quality of Open Educational
+Resources had five aspects: efficacy, impact, availability, accuracy and
+excellence \citep{Camilleri2014}. The aspect of impact referred to the “extend
+to which an object or concept proves effective”. However, little is said in
+\citet{Camilleri2014} about methods that would measure this impact.
+\citeauthor{Camilleri2014} further state as one of the challenges that
+educational resources of high quality are fragmented with no particular way of
+distinguishing them from the other available learning objects. They recommend
+creating “specialised directories” where exclusive lists of repositories of
+high-quality content are maintained. It is however not stated how these
+high-quality repositories could incorporate impact in their quality
+assessment.\\\\
+\noindent
+This thesis presents work that assesses OER quality by the impact it has on
+learning. This impact is measured by assessing the competence level before and
+after the OER is presented. The normalized learning gain (NLG) is used to express the
+impact the OER has on the competence level. The NLG metric is a widely adopted
+measure of student learning. The main advantage of NLG is that student learning
+is measured irrespective of the student's incoming competence \citep{Chi2010}.
+The NLG metric is calculated using formula \eqref{eq:nlg}, where $C^1$ and
+$C^2$ denote the pre-test and post-test scores respectively. The value $1$ is
+assumed to be the maximum score of an assessment. Table~\ref{tab:nlg_values}
+shows the NLG value for a variety of parameter values. Using the NLG metric,
+sequences of OER can be evaluated by comparison of the assessment score before
+and after presentation.\\
+\begin{equation}
+	nlg(C^1, C^2) = \frac{C^2-C^1}{1-C^1}
+	\label{eq:nlg}
+\end{equation}\\
+\noindent
+This approach is however not
+trivial. Even when the number of relevant learning objects is relatively small,
+there will still be a large number of sequences possible. Each of these
+sequences will require multiple evaluations due to the inherent noise in the
+domain. This noise for example comes from the fact that the test results of one
+learner will not be representative of the average results of an entire group.
+This is not only due to the fact that learners have different backgrounds and
+skills to start with, and as such do not form a uniform group. Education in
+general is a complex process, of which it is likely that only a part takes
+places within the observable electronic learning enviroment. This means that a
+sequence of learning material that appears to have no significant effect on the
+learning process of a particular learner must still be presented to a few more
+students in order to be more sure about its quality. However, this
+experimentation clearly does not come without cost. Each time a sequence shows
+to be less effective than a different one, a learner has received a lower level
+of education than necessary.\\
 \begin{table}
+	\begin{subtable}{0.25\linewidth}
 	\centering
 	\begin{tabular}{lll}\hline
-		\textbf{Pre-test score} & \textbf{Post-test score} & \textbf{NLG} \\\hline
+		$\mathbf{C^1}$ & $\mathbf{C^2}$ & \textbf{NLG} \\\hline
 		0		& 0			& 0 \\
 		0		& $^1/_3$	& $^1/_3$\\
 		0		& $^2/_3$	& $^2/_3$\\
 		0		& 1			& 1\\
+	\end{tabular}
+	\end{subtable}
+	\hspace{0.1\linewidth}
+	\begin{subtable}{0.25\linewidth}
+	\centering
+	\begin{tabular}{lll}\hline
+		$\mathbf{C^1}$ & $\mathbf{C^2}$ & \textbf{NLG} \\\hline
 		$^1/_3$	& 0			& $-^1/_2$\\
 		$^1/_3$	& $^1/_3$	& 0\\
 		$^1/_3$	& $^2/_3$	& $^1/_2$\\
 		$^1/_3$	& 1			& 1\\
+	\end{tabular}
+	\end{subtable}
+	\hspace{0.1\linewidth}
+	\begin{subtable}{0.25\linewidth}
+	\centering
+	\begin{tabular}{lll}\hline
+		$\mathbf{C^1}$ & $\mathbf{C^2}$ & \textbf{NLG} \\\hline
 		$^2/_3$	& 0			& $-2$\\
 		$^2/_3$	& $^1/_3$	& $-1$\\
 		$^2/_3$	& $^2/_3$	& 0\\
 		$^2/_3$	& 1			& 1\\
 	\end{tabular}
+	\end{subtable}
 	\caption{Different NLG values}
 	\label{tab:nlg_values}
-\end{table}
-\section{Genetic Algorithms}
+\end{table}\\
+\noindent
+This dilemma is familiar to many fields and is known as the exploration vs.
+exploitation trade- off \citep{Holland1992}. An often used example is the
+n-armed bandit problem \citep{Sutton1998} where a casino offers n different
+slot machines (a.k.a. one-armed bandits) to play. A player would want to
+optimize the total amount of money earned and is therefore looking for the slot
+machine that has the highest pay-off. It is tempting to stay with a slot
+machine that gives the highest return you have seen so far (exploitation), but
+it is important to also try out other slot machines to see if they perform even
+better (exploration). This can be related to the domain of open education by
+aligning the bandits with sequences of learning objects and the pay-off with
+learning gain. A teacher would then be required to select from the metaphorical
+casino floor the sequences to try in order to optimize the total student
+learning gain. This is a non-trivial task. In this thesis, this is approached
+as a curriculum sequencing task which is solved by a genetic algorithm.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%
-% Chapter: Related Work %
-%%%%%%%%%%%%%%%%%%%%%%%%%
-%\section{Recommender Systems}
-%\section{Intelligent Tutoring Systems}
-%\section{Adaptive Hypermedia Systems}
-%\section{Genetic algorithms}
-\subsection{Fitness function}
-There are many different implementations of fitness functions for the
-curriculum sequencing problem~\citep{AlMuhaideb2011}.
-Several systems include a term that expresses how
+\section{Curriculum Sequencing}
+\label{sec:background_curriculum_sequencing}
+Curriculum sequencing concerns generating a sequence of teaching operations
+that is optimal for an individual learning \citep{Brusilovsky2003a}. The level
+on which this takes place ranges from course sequencing to content sequencing.
+%\citet{Brusilovsky2003a} differentiate between course sequencing and course
+%generation. Curriculum generation is defined as creating the entire personalized sequence
+%beforehand. Curriculum sequencing differs in that it generates the sequence
+%incrementally when needed. In this thesis the term curriculum sequencing is
+%used to refer to the generation of the entire sequence at the moment the
+%students requests the first element. (better)
+Curriculum sequencing is an established part of the larger field of intelligent
+tutoring systems \citep{Brusilovsky1996}. \citet{Vanlehn2006} provides an
+introduction into intelligent tutoring systems. Although most intelligent
+tutoring systems used to be supported by extensive and explicit knowledge
+engineering, data-driven systems are now emerging \citep{Koedinger2013}. Within
+and around the intelligent tutotoring systems community there have been
+different technologies involved with curriculum sequencing tasks.\\\\
+\noindent
+The field of Adaptive Hypermedia Systems (AHS) explores adaptive presentation and
+adaptive navigation in hypertext documents \citep{Brusilovsky2003b}. Many
+successful AHS require the set of documents to be known in advance
+\citep{Brusilovsky2007}. According to \citeauthor{Brusilovsky2007}, these
+documents are then annotated with metadata and link to external models (e.g.
+pedagogical model). In this respect AHS relies on the same type of information
+as OER repositories.\\\\
+\noindent
+Recommending a sequence of learning materials is a one of the possible tasks of
+a recommender system \citep{Manouselis2011}.
+\\\\
+\noindent
+Reinforcement learner\\\\
+
+
+\noindent
+Another popular approach to curriculum sequencing is evolutionary computing.
+\citet{AlMuhaideb2011} provides an extensive overview of this. literature.
+The main approach is taking curriculum sequencing to be a constraint
+problem. Several systems include a term that expresses how
 well a particular solution fits the pre-determined prerequisite structure of
 the learning objects~\citep{Seki2005, Chen2009, Samia2007}.
-
-The approach presented here takes a different
-approach. A big part of the prerequisite structure is already captured by the
-given main curriculum in this thesis, and as such already provides the order of
-knowledge components. In this thesis, the curriculum sequencing step takes place
-on the lower level of presentation sequencing, where the different learning
-objects all try to convey the same content but do so in different
-ways. Some objects might contain an example or the formal description. Some
-might present the knowledge in text, others are more visual. Different students
-require a different mix of presentations and potentially at different
-orders\footnote{citation needed}.
-
 Other work in this field includes a term that expresses how smooth the
 transitions are between learning objects in difficulty~\citep{Hovakimyan2004,
-Seki2005, Chen2008, Huang2007} or how well their difficulty matches with the
-compentency level of the student\citep{Seki2005, Chen2008, Chen2009, Samia2007, Huang2007}.
+Seki2005, Chen2008, Huang2007} or how well their difficulty matches the
+compentency level of the student \citep{Seki2005, Chen2008, Chen2009, Samia2007, Huang2007}.
 
 
+% * Curriculum sequencing is a way to balance these costs, while at the same time
+% improving quality (impact) estimates
+% * CS comes from the domain of personalized learning. Often intended to serve
+% individual differences, not as much differences in quality of learning
+% material.
+% * Curriculum sequencing is performed by Adaptive Hypermedia Systems,
+% Reinforcement Learners and Evolutionary Computing.
+% * The latter is often targeted to solve the CS as constrain problem, simulating
+% evolution to efficiently search the space without involving actual learning.
+% The sequence that is found is then presented to the learner. But the resulting
+% learning impact is not used in the genetic algorithm.
+% * Some CS actually involves an open corpus
+
+\begin{itemize}
+	\item \citep{Chen2008} personalized curriculum sequencing using genetic
+		algorithms. integer coding of genes (gene = courseware). GA task is
+		simulated configuration, fitness is dificulty params and concept
+		relationship degrees. roulette selection.  In \citep{Chen2009} this was
+		extended with an Ontology of domain knowledge. The same approach as
+		\citep{Chen2008} was taken by \citep{Huang2007} in addition to a
+		case-based reasoner.
+	\item \citep{deMarcos2009} curriculum sequencing as constraint problem. applied GA PSO. Fitness is constraint penalties. Elitism. 
+	\item \citep{Seki2005} curriculum sequencing as a multi-objective
+		optimalization problem. relation between the items, difficulty of the
+		items, a.o. Metadata attributes are encoded in the chromosome.
+	\item \citep{Samia2007}
+	\item \citep{Hovakimyan2004}
+	\item \citep{Huang2007}
+\end{itemize}
+
+\section{Genetic Algorithms}
+\label{sec:background_genetic_algorithms}
+Genetic algorithms \citep{Holland1992} evolve chromosomes through a population of individuals. Each individual contains a
+chromosome that represents a candidate solution. In the literature, the
+candidate solution is often referred to as the \emph{phenotype}. The chromosome
+is often referred to as the \emph{genotype} in the literature. A particular
+chromosome can be contained by multiple individuals. Chromosomes are a
+configuration of genes, where each gene represents a component of the candidate
+solution. In the analogy with natural evolution these genes typically represent
+certain traits of the animal that affect the change of survival. For example
+the length of wings or the color. As a result, the configuration of genes can be
+optimized by inheritence and natural selection. The genetic algorithm works in a
+similar way. The fitness of an individual with a particular configuration
+of genes determines the chances of new individuals arising with similar
+configurations. The standard outline of this algorithm is given in
+Figure~\ref{alg:ea_scheme}.
+\label{approach_genetic_algorithm}
+\begin{figure}[ht!]
+	\begin{framed}
+		\begin{enumerate}
+			\item Initialization
+			\item Evaluation of each candidate
+			\item Repeat until termination condition is satisfied:
+				\begin{enumerate}
+					\item Parent selection
+					\item Recombination of parent pairs
+					\item Mutation of the resulting offspring
+					\item Evaluation of each candidate
+					\item Survivor selection
+				\end{enumerate}
+		\end{enumerate}
+	\end{framed}
+	\caption[The evolutionary algorithm]{The general scheme of an
+		Evolutionary Algorithm as presented in \citep{Eiben2007}}
+	\label{alg:ea_scheme}
+\end{figure}

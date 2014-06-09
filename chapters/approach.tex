@@ -1,48 +1,11 @@
 %%%%%%%%%%%%%%%%%%%%%
 % Chapter: Approach %
 %%%%%%%%%%%%%%%%%%%%%
-There are several ways to model the educational task described in
+There are several ways to model the task described in
 Section~\ref{ch:curriculum_sequencing}. The work presented in this thesis models the
-problem using genetic algoritms.
-
-%%%
-% General introduction
-%%%
-Genetic algorithms evolve a population of individuals. An individual contains a
-chromosome that represents a candidate solution. A particular chromosome can be contained by
-multiple individuals, and as such a candidate solution can be present multiple
-times in one generation of the population. Chromosomes are a configuration of
-genes, where each gene represents a component of the candidate solution. In the
-analogy with natural evolution these genes typically represent certain traits
-of the animal, such as the length of wings or the color, that affect the change
-of survival. As a result, the configuration of genes can be optimized by inheritence
-natural selection. The genetic algorithm works in a similar way, where the
-fitness of an individual with a particular configuration of genes determines
-the chances of new individuals arising with similar configurations. The
-standard outline of this algorithm is given in Figure~\ref{alg:ea_scheme}.
-\label{approach_genetic_algorithm}
-\begin{figure}[ht!]
-	\begin{framed}
-		\begin{enumerate}
-			\item Initialization
-			\item Evaluation of each candidate
-			\item Repeat until termination condition is satisfied:
-				\begin{enumerate}
-					\item Parent selection
-					\item Recombination of parent pairs
-					\item Mutation of the resulting offspring
-					\item Evaluation of each candidate
-					\item Survivor selection
-				\end{enumerate}
-		\end{enumerate}
-	\end{framed}
-	\caption[The evolutionary algorithm]{The general scheme of an
-		Evolutionary Algorithm as presented in \citep{Eiben2007}}
-	\label{alg:ea_scheme}
-\end{figure}
-
-\citep{Eiben2007} enumerates the important aspects of any
-evolutionary algorithm that need to be modeled: representation
+problem using genetic algoritms. Chapter~\ref{ch:background} provides an
+introduction into genetic algorithms. This chapter describes the approach used
+in this thesis. Each section discusses an important aspect of the modeling: representation
 (Section~\ref{sec:approach_representation}), initialization
 (Section~\ref{sec:approach_initialization}), termination conditions
 (Section~\ref{sec:approach_termination}), fitness
@@ -52,42 +15,38 @@ operators and survivor selection
 support for related student groups is described in
 Section~\ref{sec:approach_island_model}.
 
-
 %%%%
 % Representation/Domain modeling
 %%%
 \section{Representation of the domain}
 \label{sec:approach_representation}
-In this thesis, each educational resource is encoded as a single gene. A
-chromosome represents a particular sequence of resources. The order of these
-resources in the sequence matter, which is not often the case in genetic
-algorithm applications, as it determines in what order material is presented to
-the student. An individual denotes a particular teaching attempt where a particular
-sequence of the education resources is presented to a student. Each knowledge
-component and student group combination is represented by a separate
-population. These populations are however not entirely independent, see
-Section~\ref{sec:approach_island_model}.
-
-It is not known apriori what the length of the optimal sequence of material is,
-which means that chromosomes have variable length. For practical reasons this
-length will be bounded to a lower and upper limit in the application. 
-
-Instead of using the standard binary encoding (i.e. the binary representations
-of all genes concatenated into one string of bits), a chromosome is encoded as a list
-of gene identifiers (i.e. integers). There are two main arguments for this decision.
-First, the operations defined in Section~\ref{sec:approach_combination_operator}
+In this thesis, each OER is encoded as a single gene. A
+chromosome represents a particular sequence of resources. The order of the
+genes in the chromosome, determines the order in which the material is presented to
+the student. Each knowledge component and student group combination is represented
+by a separate population. The populations related to a single knowledge
+component are linked in an island model.
+Section~\ref{sec:approach_island_model} discusses this. There are no links
+between populations of different knowledge components. They evolve
+independently from each other.\\\\
+\noindent
+The length of the optimal sequence of OER is not known apriori. To cope with
+that, chromosomes have variable length. This length will be
+bounded to a lower and upper limit for practical reasons. The encoding of the
+sequence must support the variable length. To support this, a chromosome is
+encoded as a list of gene identifiers (i.e. integers).  There are two main
+arguments for choosing this encoding over the standard binary encoding.
+First, the mutation and crossover operations defined in Section~\ref{sec:approach_combination_operator}
 and Section~\ref{sec:approach_mutation_operator}
 take the educational resource as smallest unit. In applications that use the
-standard binary encoding it is common to operate on a bit level, regardless of
-the start and finish of each gene representation. Second, the application
-created in this thesis which applies this genetic algorithm model is web-based
-and uses relational databases to store the chromosomes. The genetic operations
-are implemented to work with these database entities and consist largely of
-database queries. This combined with the fact that the chromosome has variable
-length requires a many-to-many relation between separate chromosome and gene
-entities. The alternative of storing a bit string for each chromosome defeats
-the purpose of having a database optimized for relational algebra.
-% TODO: There should be a bias towards smaller chromosomes.
+standard binary encoding it is common to operate on a bit level. The boundaries
+of each gene in the binary representation is often not respected. However, the
+number of OER is relatively low compared to the capacity of its binary
+encoding. As a consequence, many illegitimate chromosomes would be generated.
+Second, the application created in this thesis is web-based. Storing and
+manipulating chromosomes happens in a relational database. Encoding each
+chromosome as a list of gene identifiers is easier optimized for the
+implementation.
 
 %%%
 % Initialization
@@ -112,19 +71,8 @@ individuals are generated according to the following steps:
 \end{enumerate}
 The probability density function (PDF) refered to in
 step~\ref{init_sample_step} is a uniform distribution by default, but can also
-represent apriori values of resources as described in
-\ref{sec:approach_bootstrapping}.
-\subsection{Bootstrapping}
-\label{sec:approach_bootstrapping}
-% Should this be mentioned, since it has not been used in the experiment?
-Some of the OER repositories allow for teachers to give ratings for educational
-material. These ratings could be used as an apriori probability that the
-material is good. However, only a part the collection of materials will be
-rated. Therefore, educational material that does not have a rating is assumed
-to be rated neutral (i.e. the middle of a five-point scale).
-% Each rating is an average given the number of raters. This number of raters should have impact on the value of the rating.
-% Weighted ratings could work even better if the ratings are normalized with an average value of zero, resulting in a symmetrical scale of positive and negative values.
-
+represent apriori values of resources as proposed in
+Chapter~\ref{ch:future_work}.
 %%%
 % Termination
 %%%
@@ -142,8 +90,8 @@ termination point would be reached. This would mean that the algorithm would
 never terminate, as it should wait for new genes to arrive. If it is vital that
 the algorithm finishes, a practical approach could be to stop if the fitness of
 one or more individuals is within a small margin of the optimal value. Provided
-an optimal value can be defined.
-
+an optimal value can be defined.\\\\
+\noindent
 The application presented in this thesis does not require the genetic algorithm
 to terminate. The web-based variation to the algorithm described in
 Section~\ref{sec:web-based_ga} ensures that computation only happens on a event
@@ -183,18 +131,16 @@ for each type of student perfectly. We would still not have the
 required information about these learning objects, or the information
 might be wrong. In conclusion, we are learning a sequence of black
 boxes of which we only know that they attempt to teach a particular
-knowledge component.
-
+knowledge component.\\\\
+\noindent
 The only way we can measure the value of a particular sequence for a
 group of students, and thereby assess its fitness, is to look at the
-gain in knowledge as observed by the post-test.
-
-More precisely the fitness function used in this thesis is the normalized
-learning gain between the pre-test and post-test for a given knowledge component,
-given by $\frac{C^2 - C^1}{1-C^1}$ where $C^1$ and $C^2$
-represent the percentage of correct answers on the pre-test and post-test
-respectively of the student.
-
+gain in knowledge as observed by the post-test. More precisely the fitness
+function used in this thesis is the normalized learning gain between the
+pre-test and post-test for a given knowledge component, given by $\frac{C^2 -
+C^1}{1-C^1}$ where $C^1$ and $C^2$ represent the percentage of correct answers
+on the pre-test and post-test respectively of the student.\\\\
+\noindent
 The observed fitness is probably not the same each time a chromosome
 is evaluated. This is due to the fact that students are not identical,
 especially not given the coarse division into student groups. A solution
@@ -215,8 +161,8 @@ was applied in this thesis, as described in Section~\ref{sec:approach_ucb}.
 The consequence of having a fitness function that involves actual
 students is that the event of evaluating a suboptimal individual
 also causes damage to the learning process of the student. Something
-which is much less the case in a simulation environment.
-
+which is much less the case in a simulation environment.\\\\
+\noindent
 In the reinforcement learning paradigm this damage is expressed in regret, which
 is defined as the difference in performance with the choice made and the
 optimal choice. You do however need to evaluate all individuals to see if one
@@ -225,8 +171,8 @@ to deal with outliers and varience. However you don't want to evaluate an
 individual too often when you know it performs suboptimally, given the regret
 it will cause. This is a classic exploration vs. exploitation trade-off that is
 found in any one-armed bandit problem, where in this application the sequences
-of educational material are the one-armed bandits.
-
+of educational material are the one-armed bandits.\\\\
+\noindent
 In this thesis, the Upper Confidence Bound (UCB) selection algorithm is used to
 determine which of the individuals will be evaluated. In
 particular the UCB-1 \citep{Auer2002} algorithm is used. In UCB-1,
@@ -240,7 +186,7 @@ denotes the overal number of evaluations that occured.
 	\overline{x_i} + \sqrt{\frac{2 \ln n}{n_i}}
 	\label{eq:ucb1_value}
 \end{equation}
-
+\noindent
 UCB-1 is proven in \citep{Auer2002} to logarithmically bound the
 regret, which ensures that a suboptimal individual is selected logarithmically
 less often than the optimal individual. It is important to note that UCB-1 can
@@ -402,11 +348,11 @@ co-evolve. The island model was used to model exchange of information between
 related populations. After each generation of a population, the best
 individuals from the other related populations can migrate towards this
 population, replacing the worst individual. The migrated individuals are
-copies, and do not change the occurence of the migrated chromosomes in the
+copies, and do not change the occurrence of the migrated chromosomes in the
 originating populations.
 
 Important to note is that all other actions of the genetic algorithm in each
-population are still independant, meaning that the populations can also evolve
+population are still independent, meaning that the populations can also evolve
 at different speeds. One reason for this would be that the distributions of
 students in each student group will not be uniform. That has the consequence
 that a population that evolves really slowly will continue to migrate the same

@@ -4,15 +4,22 @@
 In this chapter the result of the experiment are enumerated and discussed.
 Although the results will be analyzed per population, most of the
 visualizations are grouped together. These visualizations will first be
-explainaed by Section~\ref{sec:results_explanation}.
+explained by Section~\ref{sec:results_explanation}.
 Section~\ref{sec:results_general} then lists some general statistics of the
 experiment.
 Sections~\ref{sec:results_rules}~through~\ref{sec:results_nimsum}
 analyse the results per lesson.
 
-\section{Explanation of the visualizations}
+\begin{itemize}
+	\item Add description of each visualisation and general statistics to main
+		part and not in section?
+\end{itemize}
+
+\section{Description of each visualization}
 \label{sec:results_explanation}
-\subsection{Three curves of cumulative regret}
+The experiment results are captured in different views. This section describes
+what each figure and table means.
+\paragraph{Three curves of cumulative regret}
 Figure~\ref{fig:exp_cumul1} and Figure~\ref{fig:exp_cumul2} show the cumulative
 regret curves per population. Each subfigure contains three curves, which are
 labelled \emph{theoretical best}, \emph{population best} and \emph{generation
@@ -38,18 +45,101 @@ scenario with noise due to real students. For that purpose it is more
 interesting to see whether the \emph{TutOER} system would temporarily discard
 optimal sequences that have seem to perform poorly at the time, or whether the
 system is robust enough.
-\subsection{Fitness variance}
-\subsection{Sorted number of evaluations}
-\subsection{Coverage curve}
-\subsection{Diversity table}
+\paragraph{Fitness variance}
+Figures \ref{fig:exp_eval_rules}, \ref{fig:exp_eval_intuition},
+\ref{fig:exp_eval_binary} and \ref{fig:exp_eval_nimsum} show the observed
+evaluations of the best sequence in each population. Each figure contains a
+blue and a green line. The blue line connects the individual evaluation resuls.
+The green line shows the estimated fitness after each evaluation.
+\paragraph{Sorted number of evaluations}
+Figure~\ref{fig:exp_ages1} and Figure~\ref{fig:exp_ages2} show the division of
+each evaluation over all evaluated sequences. The sequences are sorted, such
+that the most evaluated sequence comes first.
+\paragraph{Coverage curve}
+Figure~\ref{fig:exp_cover1} and Figure~\ref{fig:exp_cover2} show the percentage
+of sequences evaluated after each evaluation. The total number of possible
+sequences is 40. That means each new encountered sequence adds 2.5\% to the
+coverage. There are limits to what percentages can theoretically be achieved in
+each generation. Each population is initialized with four different sequences
+in its first generation. Furthermore, there are seven individuals in each
+consecutive generation. That means that the maximum coverage is given by
+$4+7*(i-1)$, for each $i$th generation.
+\paragraph{Diversity table}
 Table~\ref{tab:results_diversity} shows the percentage of unique sequences at
-each generation for each population. A diversity of 40\% indicates that across
-the ten individuals four distinct chromosomes were divided. Similarly, a
-diversity of 10\% means that all individuals have the same chromosome.
-% TODO : DEAL WITH BUG IN CODE THAT HAS SOME CHROMOSOMES DOUBLE?
-
+each generation for each population. A diversity of 43\% indicates that across
+the seven individuals three distinct chromosomes were divided. Similarly, a
+diversity of 14\% means that all individuals have the same chromosome. The
+table does not capture how many occurences each chromosome has. This is also
+not relevant. The UCB-1 algorithm selects which sequence to evaluate regardless
+of their number of occurences in the generation.
 \section{General statistics}
 \label{sec:results_general}
+Table~\ref{tab:exp_stats_students} shows the student statistics for each
+lesson.
+\begin{itemize}
+	\item link to diversity table
+	\item discuss exam results (nim endgame)
+\end{itemize}
+\begin{table}
+	\centering
+	\begin{tabular}{l|lllll}\hline
+		\multicolumn{1}{l}{}& \multicolumn{2}{c}{Category \emph{low}} & \multicolumn{2}{c}{Category
+			\emph{high}} & \\
+		\multicolumn{1}{l}{Lesson} & Completed & Bootstrapped & Completed & Bootstrapped & Skipped\\
+		\hline
+		Rules & 204 & 19 & 19 & 10 & 14 \\
+		Intuition & 85 &  23 & 71 & 30 & 81 \\
+		Binary & 106 & 26 & 16 & 11 & 117 \\
+		Nim-sum & 154 & 12 & 13 & 9 & 6 \\
+	\end{tabular}
+	\caption[Student statistics of each lesson]{The table shows five student statistics for each lesson.
+	First, the number of students that completed the \emph{low} category.
+	Second, the number of bootstrap values that were used in the
+	\emph{low} category. Third, the number of students that completed the
+	\emph{high} category. Fourth, the number of bootstrap values that were used in
+	the \emph{high} category. Last, the number of students that skipped the
+	lesson.}
+	\label{tab:exp_stats_students}
+\end{table}
+
+\begin{table}
+	\begin{subtable}{\linewidth}
+	\centering
+		\begin{tabular}{l|llllllllllll}\hline
+		\multicolumn{1}{l}{} & \multicolumn{12}{c}{Generation} \\
+		\multicolumn{1}{l}{Population} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12\\\hline
+		Rules Low & 57\% & 57\% & 43\% & 57\% & 43\% & 29\% & 14\% & 14\% & 29\% & 14\% & 29\% & 29\% \\
+		Rules High & 57\% & 29\% & 29\% & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
+		Intuition Low & 57\% & 43\% & 29\% & 29\% & 29\% & 14\% & 29\% & 14\% & 14\% & 14\% & 29\% & \textemdash \\
+		Intuition High & 57\% & 14\% & 14\% & 14\% & 29\% & 29\% & 14\% & 29\% & 29\% & 14\% & 29\% & \textemdash \\
+		Binary Low & 57\% & 57\% & 43\% & 86\% & 29\% & 14\% & 43\% & 43\% & 29\% & 29\% & 43\% & 14\% \\
+		Binary High & 57\% & 43\% & 29\% & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
+		NimSum Low & 57\% & 57\% & 29\% & 14\% & 14\% & 14\% & 14\% & 14\% & 29\% & 14\% & 14\% & 29\% \\
+		NimSum High & 57\% & 86\% & 86\% & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
+		\end{tabular}
+	\caption{generation 1-12}
+	\end{subtable}
+
+	\medskip
+	\begin{subtable}{\linewidth}
+	\centering
+		\begin{tabular}{l|llllllllllll}\hline
+		\multicolumn{1}{l}{} & \multicolumn{12}{c}{Generation} \\
+		\multicolumn{1}{l}{Population} & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24\\\hline
+		Rules Low & 43\% & 29\% & 29\% & 29\% & 29\% & 29\% & 29\% & 14\% & 14\% & 29\% & 43\% & \textemdash \\
+		Rules High & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
+		Intuition Low & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
+		Intuition High & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
+		Binary Low & 29\% & 14\% & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
+		Binary High & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
+		NimSum Low & 14\% & 14\% & 14\% & 14\% & 14\% & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
+		NimSum High & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
+		\end{tabular}
+	\caption{generation 13-24}
+	\end{subtable}
+	\caption{Diversity percentage at each generation}
+	\label{tab:results_diversity}
+\end{table}
 \section{Lesson: Rules}
 \label{sec:results_rules}
 The \emph{Rules low} population completed 22 generations and received the
@@ -99,6 +189,27 @@ generation. In the third generation, \emph{Sequence~[3,1]} enters the population
 by means of immigration from the \emph{Rules low} population. The new sequence
 is tried four times in a row and two times later on, but the measured fitness
 was lower than the current best sequence.
+
+\begin{figure}[ht]
+	\begin{subfigure}{0.9\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_exp_eval_rules_low_372_31.png}
+	\caption{Sequence~[3,1] in the \emph{Rules low} population}
+	\label{fig:exp_eval_rules_low_372}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.9\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_exp_eval_rules_high_1_1.png}
+	\caption{Sequence~[1] in the \emph{Rules high} population}
+	\label{fig:exp_eval_rules_high_1}
+	\end{subfigure}
+	\caption{Observed normalized learning gain values (blue) plotted with the
+		running average (green) of the best sequences for the \emph{Rules}
+	lesson.}
+	\label{fig:exp_eval_rules}
+\end{figure}
+
 \section{Lesson: Intuition}
 \label{sec:results_intuition}
 Figure~\ref{fig:exp_cumul_intuition_low} shows the cumulative regret of the
@@ -150,6 +261,123 @@ roulette wheel selection. As a result, \emph{Sequence~[6]} appeared to have a
 higher fitness than \emph{Sequence~[6,8]} when this was not the case. The bug
 was discovered after the experiment was completed. The fitness estimates used
 in this report are not affected by this bug.
+
+\begin{figure}[ht]
+	\begin{subfigure}{0.9\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_exp_eval_intuition_low_14_6.png}
+	\caption{Sequence~[6] in the \emph{Intuition low} population}
+	\label{fig:exp_eval_intuition_low_14}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.9\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_exp_eval_intuition_high_373_68.png}
+	\caption{Sequence~[6,8] in the \emph{Intuition high} population}
+	\label{fig:exp_eval_intuition_high_373}
+	\end{subfigure}
+	\caption{Observed normalized learning gain values (blue) plotted with the
+		running average (green) of the best sequences for the \emph{Intuition}
+	lesson.}
+	\label{fig:exp_eval_intuition}
+\end{figure}
+
+\begin{figure}[ht]
+	\begin{subfigure}{0.49\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_exp_cumul_rules_low.png}
+	\caption{Rules low}
+	\label{fig:exp_cumul_rules_low}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.49\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_exp_cumul_rules_high.png}
+	\caption{Rules high}
+	\label{fig:exp_cumul_rules_high}
+	\end{subfigure}
+	\begin{subfigure}{0.49\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_exp_cumul_intuition_low.png}
+	\caption{Intuition low}
+	\label{fig:exp_cumul_intuition_low}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.49\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_exp_cumul_intuition_high.png}
+	\caption{Intuition high}
+	\label{fig:exp_cumul_intuition_high}
+	\end{subfigure}
+	\caption{Cumulative regret of the populations \emph{Rules low}, \emph{Rules
+	High}, \emph{Intuition low} and \emph{Intuition High}}
+	\label{fig:exp_cumul1}
+\end{figure}
+
+\begin{figure}[ht]
+	\begin{subfigure}{0.49\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_exp_cover_rules_low.png}
+	\caption{Rules low}
+	\label{fig:exp_cover_rules_low}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.49\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_exp_cover_rules_high.png}
+	\caption{Rules high}
+	\label{fig:exp_cover_rules_high}
+	\end{subfigure}
+	\begin{subfigure}{0.49\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_exp_cover_intuition_low.png}
+	\caption{Intuition low}
+	\label{fig:exp_cover_intuition_low}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.49\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_exp_cover_intuition_high.png}
+	\caption{Intuition high}
+	\label{fig:exp_cover_intuition_high}
+	\end{subfigure}
+	\caption{Percentage of sequences evaluated after each evaluation in \emph{Rules
+	low}, \emph{Rules high}, \emph{Intuition low} and \emph{Intuition high}.}
+	\label{fig:exp_cover1}
+\end{figure}
+
+\begin{figure}[ht]
+	\begin{subfigure}{0.49\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_exp_chromosome_ages_rules_low.png}
+	\caption{Rules low}
+	\label{fig:exp_age_rules_low}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.49\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_exp_chromosome_ages_rules_high.png}
+	\caption{Rules high}
+	\label{fig:exp_age_rules_high}
+	\end{subfigure}
+	\begin{subfigure}{0.49\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_exp_chromosome_ages_intuition_low.png}
+	\caption{Intuition low}
+	\label{fig:exp_age_intuition_low}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.49\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_exp_chromosome_ages_intuition_high.png}
+	\caption{Intuition high}
+	\label{fig:exp_age_intuition_high}
+	\end{subfigure}
+	\caption{Sorted number of evaluations of each sequence in \emph{Rules
+	low}, \emph{Rules high}, \emph{Intuition low} and \emph{Intuition high}.}
+	\label{fig:exp_ages1}
+\end{figure}
+
 \section{Lesson: Binary}
 \label{sec:results_binary}
 The \emph{Binary low} population received 132 evaluations by students.
@@ -199,6 +427,27 @@ of that. \emph{Sequence~[9]} that immigrated from \emph{Binary low} appeared to
 be the best performing sequence. Even though \emph{Sequence~[10]} was in fact
 the only sequence with a non-negative fitness estimate. However, with so few
 evaluations it is hard to say whether \emph{Sequence~[10]} was actually good.
+
+\begin{figure}[ht]
+	\begin{subfigure}{0.9\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_exp_eval_binary_low_17_9.png}
+	\caption{Sequence~[9] in the \emph{Binary low} population}
+	\label{fig:exp_eval_binary_low_17}
+	\end{subfigure}
+	\hfill
+	\begin{subfigure}{0.9\linewidth}
+	\centering
+	\includegraphics[width=\linewidth]{images/results/plot_exp_eval_binary_high_22_10.png}
+	\caption{Sequence~[10] in the \emph{Binary high} population}
+	\label{fig:exp_eval_binary_high_10}
+	\end{subfigure}
+	\caption{Observed normalized learning gain values (blue) plotted with the
+		running average (green) of the best sequences for the \emph{Binary}
+	lesson.}
+	\label{fig:exp_eval_binary}
+\end{figure}
+
 \section{Lesson: Nim-sum}
 \label{sec:results_nimsum}
 The \emph{Nim-sum low} population gathered 166 evaluations by students at the
@@ -206,7 +455,7 @@ end of the experiment. From the 15th evaluation onwards, the \emph{TutOER}
 system mainly stuck to evaluating \emph{Sequence~[16]}. This is also reflected
 in the cumulative regret curves shown in Figure~\ref{fig:exp_cumul_nimsum_low}.
 With an estimated fitness of 0.2557, \emph{Sequence~[16]} turned out to be the
-best sequence of the population. Figure~\ref{fig:exp_ages_nimsum_low} shows the
+best sequence of the population. Figure~\ref{fig:exp_age_nimsum_low} shows the
 difference between the number of evaluations of each sequence. The difference
 between the first and second most evaluated sequence is 150 evaluations. This
 difference is the largest of all other populations, but \emph{Rules low} comes
@@ -226,74 +475,20 @@ and the cumulative regret compared to the theoretical best is identical in
 Figure~\ref{fig:exp_cumul_nimsum_high}. However, this sequence has only been
 evaluated once. The variance in the fitness of all other learning materials
 shows that one evaluation provides very little information.
-\begin{table}
-	\begin{subtable}{\linewidth}
-	\centering
-		\begin{tabular}{lllllllllllll}\hline
-		Population & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12\\\hline
-		Rules Low & 57\% & 57\% & 43\% & 57\% & 43\% & 29\% & 14\% & 14\% & 29\% & 14\% & 29\% & 29\% \\
-		Rules High & 57\% & 29\% & 29\% & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
-		Intuition Low & 57\% & 43\% & 29\% & 29\% & 29\% & 14\% & 29\% & 14\% & 14\% & 14\% & 29\% & \textemdash \\
-		Intuition High & 57\% & 14\% & 14\% & 14\% & 29\% & 29\% & 14\% & 29\% & 29\% & 14\% & 29\% & \textemdash \\
-		Binary Low & 57\% & 57\% & 43\% & 86\% & 29\% & 14\% & 43\% & 43\% & 29\% & 29\% & 43\% & 14\% \\
-		Binary High & 57\% & 43\% & 29\% & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
-		NimSum Low & 57\% & 57\% & 29\% & 14\% & 14\% & 14\% & 14\% & 14\% & 29\% & 14\% & 14\% & 29\% \\
-		NimSum High & 57\% & 86\% & 86\% & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
-		\end{tabular}
-	\caption{generation 1-12}
-	\end{subtable}
-
-	\medskip
-	\begin{subtable}{\linewidth}
-	\centering
-		\begin{tabular}{lllllllllllll}\hline
-		Population & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24\\\hline
-		Rules Low & 43\% & 29\% & 29\% & 29\% & 29\% & 29\% & 29\% & 14\% & 14\% & 29\% & 43\% & \textemdash \\
-		Rules High & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
-		Intuition Low & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
-		Intuition High & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
-		Binary Low & 29\% & 14\% & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
-		Binary High & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
-		NimSum Low & 14\% & 14\% & 14\% & 14\% & 14\% & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
-		NimSum High & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
-		\end{tabular}
-	\caption{generation 13-24}
-	\end{subtable}
-	\caption{Diversity percentage at each generation}
-	\label{tab:results_diversity}
-\end{table}
 
 \begin{figure}[ht]
-	\begin{subfigure}{0.49\linewidth}
+	\begin{subfigure}{0.9\linewidth}
 	\centering
-	\includegraphics[width=\linewidth]{images/results/plot_exp_cumul_rules_low.png}
-	\caption{Rules low}
-	\label{fig:exp_cumul_rules_low}
+	\includegraphics[width=\linewidth]{images/results/plot_exp_eval_nimsum_low_28_16.png}
+	\caption{Sequence~[16] in the \emph{Nim-sum low} population}
+	\label{fig:exp_eval_nimsum_low_28}
 	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.49\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/plot_exp_cumul_rules_high.png}
-	\caption{Rules high}
-	\label{fig:exp_cumul_rules_high}
-	\end{subfigure}
-	\begin{subfigure}{0.49\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/plot_exp_cumul_intuition_low.png}
-	\caption{Intuition low}
-	\label{fig:exp_cumul_intuition_low}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.49\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/plot_exp_cumul_intuition_high.png}
-	\caption{Intuition high}
-	\label{fig:exp_cumul_intuition_high}
-	\end{subfigure}
-	\caption{Cumulative regret of the populations \emph{Rules low}, \emph{Rules
-	High}, \emph{Intuition low} and \emph{Intuition High}}
-	\label{fig:exp_cumul1}
+	\caption{Observed normalized learning gain values (blue) plotted with the
+		running average (green) of the best sequences for the \emph{Nim-Sum}
+	lesson.}
+	\label{fig:exp_eval_nimsum}
 \end{figure}
+
 \begin{figure}[ht]
 	\begin{subfigure}{0.49\linewidth}
 	\centering
@@ -324,111 +519,6 @@ shows that one evaluation provides very little information.
 	\caption{Cumulative regret of the populations \emph{Binary low},
 	\emph{Binary High}, \emph{Nim-sum low} and \emph{Nim-sum High}}
 	\label{fig:exp_cumul2}
-\end{figure}
-
-
-\begin{figure}[ht]
-	\begin{subfigure}{0.9\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/plot_exp_eval_rules_low_372_31.png}
-	\caption{Sequence~[3,1] in the \emph{Rules low} population}
-	\label{fig:exp_eval_rules_low_372}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.9\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/plot_exp_eval_rules_high_1_1.png}
-	\caption{Sequence~[1] in the \emph{Rules high} population}
-	\label{fig:exp_eval_rules_high_1}
-	\end{subfigure}
-	\caption{Observed normalized learning gain values (blue) plotted with the
-		running average (green) of the best sequences for the \emph{Rules}
-	lesson.}
-	\label{fig:exp_eval_rules}
-\end{figure}
-
-\begin{figure}[ht]
-	\begin{subfigure}{0.9\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/plot_exp_eval_intuition_low_14_6.png}
-	\caption{Sequence~[6] in the \emph{Intuition low} population}
-	\label{fig:exp_eval_intuition_low_14}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.9\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/plot_exp_eval_intuition_high_373_68.png}
-	\caption{Sequence~[6,8] in the \emph{Intuition high} population}
-	\label{fig:exp_eval_intuition_high_373}
-	\end{subfigure}
-	\caption{Observed normalized learning gain values (blue) plotted with the
-		running average (green) of the best sequences for the \emph{Intuition}
-	lesson.}
-	\label{fig:exp_eval_intuition}
-\end{figure}
-
-\begin{figure}[ht]
-	\begin{subfigure}{0.9\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/plot_exp_eval_binary_low_17_9.png}
-	\caption{Sequence~[9] in the \emph{Binary low} population}
-	\label{fig:exp_eval_binary_low_17}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.9\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/plot_exp_eval_binary_high_22_10.png}
-	\caption{Sequence~[10] in the \emph{Binary high} population}
-	\label{fig:exp_eval_binary_high_10}
-	\end{subfigure}
-	\caption{Observed normalized learning gain values (blue) plotted with the
-		running average (green) of the best sequences for the \emph{Binary}
-	lesson.}
-	\label{fig:exp_eval_binary}
-\end{figure}
-
-\begin{figure}[ht]
-	\begin{subfigure}{0.9\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/plot_exp_eval_nimsum_low_28_16.png}
-	\caption{Sequence~[16] in the \emph{Nim-sum low} population}
-	\label{fig:exp_eval_nimsum_low_28}
-	\end{subfigure}
-	\caption{Observed normalized learning gain values (blue) plotted with the
-		running average (green) of the best sequences for the \emph{Nim-Sum}
-	lesson.}
-	\label{fig:exp_eval_nimsum}
-\end{figure}
-\begin{figure}[ht]
-	\begin{subfigure}{0.49\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/plot_exp_chromosome_ages_rules_low.png}
-	\caption{Rules low}
-	\label{fig:exp_age_rules_low}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.49\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/plot_exp_chromosome_ages_rules_high.png}
-	\caption{Rules high}
-	\label{fig:exp_age_rules_high}
-	\end{subfigure}
-	\begin{subfigure}{0.49\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/plot_exp_chromosome_ages_intuition_low.png}
-	\caption{Intuition low}
-	\label{fig:exp_age_intuition_low}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.49\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/plot_exp_chromosome_ages_intuition_high.png}
-	\caption{Intuition high}
-	\label{fig:exp_age_intuition_high}
-	\end{subfigure}
-	\caption{Sorted number of evaluations of each sequence in \emph{Rules
-	low}, \emph{Rules high}, \emph{Intuition low} and \emph{Intuition high}.}
-	\label{fig:exp_ages1}
 \end{figure}
 
 \begin{figure}[ht]
@@ -470,37 +560,6 @@ shows that one evaluation provides very little information.
 %	\label{fig:exp_ages_all}
 %\end{figure}
 
-\begin{figure}[ht]
-	\begin{subfigure}{0.49\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/plot_exp_cover_rules_low.png}
-	\caption{Rules low}
-	\label{fig:exp_cover_rules_low}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.49\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/plot_exp_cover_rules_high.png}
-	\caption{Rules high}
-	\label{fig:exp_cover_rules_high}
-	\end{subfigure}
-	\begin{subfigure}{0.49\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/plot_exp_cover_intuition_low.png}
-	\caption{Intuition low}
-	\label{fig:exp_cover_intuition_low}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.49\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/plot_exp_cover_intuition_high.png}
-	\caption{Intuition high}
-	\label{fig:exp_cover_intuition_high}
-	\end{subfigure}
-	\caption{Percentage of sequences evaluated after each evaluation in \emph{Rules
-	low}, \emph{Rules high}, \emph{Intuition low} and \emph{Intuition high}.}
-	\label{fig:exp_cover1}
-\end{figure}
 
 \begin{figure}[ht]
 	\begin{subfigure}{0.49\linewidth}
@@ -534,3 +593,23 @@ shows that one evaluation provides very little information.
 	high}.}
 	\label{fig:exp_cover2}
 \end{figure}
+
+\section{Overall analysis}
+\begin{itemize}
+	\item fitness diversity shows there is still a lot of noise in the student
+		evaluation. To possible causes: bad assessment (3 MC questions!) and
+		coarse groupings.
+	\item despite the large level of noise, system actually seem to learn. that
+		means that if the assessments would be more precise and groups were
+		more nuanced, this would be a viable option.
+	\item diversity is rather limited. that is good on one side, quicker
+		convergence. Which was especially good for the experiment. However, the
+		genetic algorithm does not give diversity a big change. The population
+		could be bigger
+	\item the large fitness variance indicates that we should allow for more
+		evaluations (episodes) before a new generation. downside would be high
+		regret in the beginning. potential solution could be to have a bigger
+		population with also more diversity in the beginning (different init),
+		the large chance of being selected by GA + the free decisions of UCB to
+		decide who deserves more evaluations.
+\end{itemize}
