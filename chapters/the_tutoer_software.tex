@@ -308,3 +308,25 @@ modules. The following events are stored in the log entry table.
 \label{sec:software_database}
 The database architecture is depicted in an entity relationship diagram in
 Appendix~\ref{ax_database}.
+\section{Bootstrap values after restart}
+The experiment had to be restarted after 492 evaluations were already gathered.
+This was due to some technical changes that had to be made. No changes were
+made to the resources or the assessments. As such the gathered evaluations
+would still be valid observations. In order to reuse these evaluations at least
+partly, the \emph{TutOER} system was equiped with a bootstrap mechanism. This
+mechanism reuses evaluations from earlier experiments where possible.\\\\
+\noindent
+The technical changes affected the search behavior of the genetic algorithm.
+It is therefore not likely that all evaluations will be reusable. In fact only
+when UCB-1 selects a particular sequence to be evaluated, that evaluation could
+be bootstrapped. The bootstrap procedure extends step 4 in
+Figure~\ref{fig:web-based_ga} and goes as follows.
+\begin{enumerate}
+	\item Retrieve UCB-1 selection
+	\item If selected sequence is present in unused bootstrap values,
+		\begin{enumerate}
+			\item Submit bootstrap value as if a student evaluated it at that moment
+			\item Return to step 1.
+		\end{enumerate}
+	\item Else, present sequence to student.
+\end{enumerate}

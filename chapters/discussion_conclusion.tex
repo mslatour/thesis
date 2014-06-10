@@ -2,3 +2,93 @@
 % Chapter: Discussion/Conclusion %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+In this thesis a novel approach to automatic assessment of OER quality has been
+presented and evaluated. Measurements of the impact of OER on learning as
+component of the OER quality was largely missing in the literature. The
+\emph{TutOER} system evaluates OER in a sequence by assessing students' competence levels
+before and after the presentation of the OER sequence . The confidence of the estimate
+had to be balanced with the cost of presenting bad educational content to
+students. The curriculum sequencing task from the intelligent tutoring systems
+community has been used as framework to do this. The UCB-1 selection mechanism
+was applied to determine which OER te evaluate. A genetic algorithm was used
+to limit the scope of UCB-1 and to have a more directed and structured
+search.\\\\
+\noindent
+The \emph{TutOER} system was evaluated in two ways. First, a series of
+simulations were performed. Each simulation explored a combination of parameter
+values for the genetic algorithm. Second, an online experiment was conducted
+in which the participants took a course on the mathematical game Nim. The
+course consisted of four lessons. In each lesson a sequence of OER was
+presented to the participant. The competence level of the student was assessed
+at the beginning and end of each lesson. The measure of impact was defined as
+the normalized learning gain between the two assessments.\\\\
+\noindent
+The experiment results show that fitness evaluations can vary a lot for one
+sequence. There are three possible causes for that. Firstly, the assessments
+presented in the experiment had only three multiple-choice questions. The
+results from these assessments are thus more susceptible for noise than a more
+extensive assessment. In particular, potential guessing of students has a high
+impact on the outcome. Secondly, the division of students in student groups is
+rather coarse. It is highly likely that students within one student group form
+everything but a homogeneous group. Not only did students who had zero
+questions or one question correct in the pre-test end up in the same group.
+Students also potentally differed on learning style, age or prior knowledge on
+related topics. Not to mention that students who participated presumingly did
+so in different environments, levels of concentration, committment and time to
+spare. These factors could all have an impact on the measured learning gain,
+especially in the more complex lessons at the end. Lastly, the system assumes
+that the performance on the current sequence is independent off the sequences
+presented in other lessons. This assumption is of course a simplification of
+reality, since whether a student understands binary numbers will affect the
+chance of learning the nim-sum. Part of the noise in the fitness evaluations
+could be explained by the fact that students in the same group had different
+learning experiences in previous lessons.\\\\
+\noindent
+Despite the varying fitness observations, the \emph{TutOER} was capable of
+finding the best sequence in at least four populations in the experiment. The
+best sequences had on average a better fitness than the other sequences. In some
+cases the best sequence appears promising enough to be close to a global
+optimum. For example, the sequence found in the \emph{Rules low} population had
+a high fitness of 0.7634. Furthermore, 103 out of 178 students got all
+post-test question correct after seeing this sequence. Many more students at
+least improved their score.\\\\
+\noindent
+However, in some other cases the best sequence is less convincing. For example,
+the best sequence in the \emph{Nim-sum low} population had a low fitness of
+0.2557. More than half of the students had an equal or even lower post-test
+score compared to their pre-test. In these cases it is not a stretch to imagine
+that a better sequence might have existed. Even though on average this sequence
+was better than the rest on decisive moments. Due to the chosen parameter
+values of the genetic algorithm, decisions are made on relatively few
+evaluations. Furthermore, the order in which the students participate is
+approximately random. Given that most if not all OER sequences will perform bad
+with a few students. It could happen that by chance a sequence would get those
+few students at the beginning. A different sequence might get those few
+students at the end, and will perform better on average at the beginning in
+comparison. Due to the directed search of the genetic algorithm, it might take
+some time before a sequence is granted enough opportunities to correct the
+quality estimate.\\\\
+\noindent
+This is of course true for a normal teacher evaluating educational material as
+well. In fact, it is true for every one-armed bandid situation where there is a
+exploration vs exploitation trade-off in a noisy environment. The solution
+appears straightforward, but it comes with a cost. The solution is to evaluate
+sequences more often before making a selection. The parameter that influences
+that directly is the number of episodes. That parameter was set to a low value
+for the experiment, which also becomes clear from the results. Raising it would
+however also inevitably raise the regret built-up from sequences that turn out
+to be bad. A more indirect parameter is the number of individuals in the
+population. A larger population would increase the chance of any individual to
+be selected. Although in this thesis, sequences that caused a negative normalized
+learning gain had a zero chance of being selected. More diversity in the
+population would slow down the convergence of the genetic algorithm. However,
+due to UCB-1 selection, the exploration versus exploitation trade-off would be
+better managed.\\\\
+\noindent
+The results do show that it is possible to take into account the impact that
+OER has on learning. Even when that impact is unknown at the beginning. In the
+future, a feedback loop could be introduced from a learning environment where
+the OER is deployed back to learning object repository. Gathering data from
+many students will allow for more specific student categories. The exploration
+towards new materials could be handled by recommender systems and intelligent
+tutors. In a way similar to the work presented in this thesis.

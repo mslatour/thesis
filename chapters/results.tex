@@ -2,18 +2,19 @@
 % Chapter: Results %
 %%%%%%%%%%%%%%%%%%%%
 In this chapter the result of the experiment are enumerated and discussed.
-Although the results will be analyzed per population, most of the
+Table~\ref{tab:exp_stats_students} shows the student statistics for each
+lesson. Although the results will be analyzed per population, most of the
 visualizations are grouped together. These visualizations will first be
 explained by Section~\ref{sec:results_explanation}.
-Section~\ref{sec:results_general} then lists some general statistics of the
-experiment.
+%Section~\ref{sec:results_general} then lists some general statistics of the
+%experiment.
 Sections~\ref{sec:results_rules}~through~\ref{sec:results_nimsum}
 analyse the results per lesson.
 
-\begin{itemize}
-	\item Add description of each visualisation and general statistics to main
-		part and not in section?
-\end{itemize}
+%\begin{itemize}
+%	\item Add description of each visualisation and general statistics to main
+%		part and not in section?
+%\end{itemize}
 
 \section{Description of each visualization}
 \label{sec:results_explanation}
@@ -72,16 +73,24 @@ diversity of 14\% means that all individuals have the same chromosome. The
 table does not capture how many occurences each chromosome has. This is also
 not relevant. The UCB-1 algorithm selects which sequence to evaluate regardless
 of their number of occurences in the generation.
-\section{General statistics}
-\label{sec:results_general}
-Table~\ref{tab:exp_stats_students} shows the student statistics for each
-lesson.
-\begin{itemize}
-	\item link to diversity table
-	\item discuss exam results (nim endgame)
-\end{itemize}
+%\section{General statistics}
+%\label{sec:results_general}
+%Table~\ref{tab:exp_stats_students} shows the student statistics for each
+%lesson.
+%\begin{itemize}
+%	\item link to diversity table
+%	\item discuss exam results (nim endgame)
+%\end{itemize}
 \begin{table}
 	\centering
+	\caption[Student statistics of each lesson]{The table shows five student statistics for each lesson.
+	First, the number of students that completed the \emph{low} category.
+	Second, the number of bootstrap values that were used in the
+	\emph{low} category. Third, the number of students that completed the
+	\emph{high} category. Fourth, the number of bootstrap values that were used in
+	the \emph{high} category. Last, the number of students that skipped the
+	lesson.}
+	\label{tab:exp_stats_students}
 	\begin{tabular}{l|lllll}\hline
 		\multicolumn{1}{l}{}& \multicolumn{2}{c}{Category \emph{low}} & \multicolumn{2}{c}{Category
 			\emph{high}} & \\
@@ -92,19 +101,14 @@ lesson.
 		Binary & 106 & 26 & 16 & 11 & 117 \\
 		Nim-sum & 154 & 12 & 13 & 9 & 6 \\
 	\end{tabular}
-	\caption[Student statistics of each lesson]{The table shows five student statistics for each lesson.
-	First, the number of students that completed the \emph{low} category.
-	Second, the number of bootstrap values that were used in the
-	\emph{low} category. Third, the number of students that completed the
-	\emph{high} category. Fourth, the number of bootstrap values that were used in
-	the \emph{high} category. Last, the number of students that skipped the
-	lesson.}
-	\label{tab:exp_stats_students}
 \end{table}
 
 \begin{table}
+	\caption{Diversity percentage at each generation}
+	\label{tab:results_diversity}
 	\begin{subtable}{\linewidth}
 	\centering
+	\caption{generation 1-12}
 		\begin{tabular}{l|llllllllllll}\hline
 		\multicolumn{1}{l}{} & \multicolumn{12}{c}{Generation} \\
 		\multicolumn{1}{l}{Population} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12\\\hline
@@ -117,12 +121,12 @@ lesson.
 		NimSum Low & 57\% & 57\% & 29\% & 14\% & 14\% & 14\% & 14\% & 14\% & 29\% & 14\% & 14\% & 29\% \\
 		NimSum High & 57\% & 86\% & 86\% & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
 		\end{tabular}
-	\caption{generation 1-12}
 	\end{subtable}
 
 	\medskip
 	\begin{subtable}{\linewidth}
 	\centering
+	\caption{generation 13-24}
 		\begin{tabular}{l|llllllllllll}\hline
 		\multicolumn{1}{l}{} & \multicolumn{12}{c}{Generation} \\
 		\multicolumn{1}{l}{Population} & 13 & 14 & 15 & 16 & 17 & 18 & 19 & 20 & 21 & 22 & 23 & 24\\\hline
@@ -135,19 +139,17 @@ lesson.
 		NimSum Low & 14\% & 14\% & 14\% & 14\% & 14\% & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
 		NimSum High & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash & \textemdash \\
 		\end{tabular}
-	\caption{generation 13-24}
 	\end{subtable}
-	\caption{Diversity percentage at each generation}
-	\label{tab:results_diversity}
 \end{table}
 \section{Lesson: Rules}
 \label{sec:results_rules}
-The \emph{Rules low} population completed 22 generations and received the
+The \emph{Rules low} population completed 22 generations and received 
 223 evaluations by students. At the end of the experiment
-this population converged to the best sequence encounter till that point. The
+this population converged to the best sequence encountered. The
 sequence contains Resource~3 and Resource~1, in that order, and will be
-referred to as \emph{Sequence~[3,1]} for the rest of the chapter. A graph of all
-evaluations of this sequence can be seen in
+referred to as \emph{Sequence~[3,1]} for the rest of the chapter. In total 103
+out of 178 students that got \emph{Sequence~[3,1]} answered all post-test
+questions correctly. A graph of all evaluations of this sequence can be seen in
 Figure~\ref{fig:exp_eval_rules_low_372}.
 The estimated fitness of \emph{Sequence~[3,1]} at the end of the experiment was
 0.7634. \emph{Sequence~[3,1]} was created by a mutation on Resource~3 in the transition
@@ -204,7 +206,7 @@ was lower than the current best sequence.
 	\caption{Sequence~[1] in the \emph{Rules high} population}
 	\label{fig:exp_eval_rules_high_1}
 	\end{subfigure}
-	\caption{Observed normalized learning gain values (blue) plotted with the
+	\caption[Evaluations of best sequences in Rules]{Observed normalized learning gain values (blue) plotted with the
 		running average (green) of the best sequences for the \emph{Rules}
 	lesson.}
 	\label{fig:exp_eval_rules}
@@ -276,7 +278,7 @@ in this report are not affected by this bug.
 	\caption{Sequence~[6,8] in the \emph{Intuition high} population}
 	\label{fig:exp_eval_intuition_high_373}
 	\end{subfigure}
-	\caption{Observed normalized learning gain values (blue) plotted with the
+	\caption[Evaluations of best sequences in Intuition]{Observed normalized learning gain values (blue) plotted with the
 		running average (green) of the best sequences for the \emph{Intuition}
 	lesson.}
 	\label{fig:exp_eval_intuition}
@@ -309,7 +311,7 @@ in this report are not affected by this bug.
 	\caption{Intuition high}
 	\label{fig:exp_cumul_intuition_high}
 	\end{subfigure}
-	\caption{Cumulative regret of the populations \emph{Rules low}, \emph{Rules
+	\caption[Cumulative regret in Rules and Intuition]{Cumulative regret of the populations \emph{Rules low}, \emph{Rules
 	High}, \emph{Intuition low} and \emph{Intuition High}}
 	\label{fig:exp_cumul1}
 \end{figure}
@@ -341,7 +343,7 @@ in this report are not affected by this bug.
 	\caption{Intuition high}
 	\label{fig:exp_cover_intuition_high}
 	\end{subfigure}
-	\caption{Percentage of sequences evaluated after each evaluation in \emph{Rules
+	\caption[Percentage of sequences evaluated in Rules and Intuition]{Percentage of sequences evaluated after each evaluation in \emph{Rules
 	low}, \emph{Rules high}, \emph{Intuition low} and \emph{Intuition high}.}
 	\label{fig:exp_cover1}
 \end{figure}
@@ -373,7 +375,7 @@ in this report are not affected by this bug.
 	\caption{Intuition high}
 	\label{fig:exp_age_intuition_high}
 	\end{subfigure}
-	\caption{Sorted number of evaluations of each sequence in \emph{Rules
+	\caption[Sorted number of evaluations in Rules and Intuition]{Sorted number of evaluations of each sequence in \emph{Rules
 	low}, \emph{Rules high}, \emph{Intuition low} and \emph{Intuition high}.}
 	\label{fig:exp_ages1}
 \end{figure}
@@ -442,7 +444,7 @@ evaluations it is hard to say whether \emph{Sequence~[10]} was actually good.
 	\caption{Sequence~[10] in the \emph{Binary high} population}
 	\label{fig:exp_eval_binary_high_10}
 	\end{subfigure}
-	\caption{Observed normalized learning gain values (blue) plotted with the
+	\caption[Evaluations of the best sequences in Binary]{Observed normalized learning gain values (blue) plotted with the
 		running average (green) of the best sequences for the \emph{Binary}
 	lesson.}
 	\label{fig:exp_eval_binary}
@@ -483,7 +485,7 @@ shows that one evaluation provides very little information.
 	\caption{Sequence~[16] in the \emph{Nim-sum low} population}
 	\label{fig:exp_eval_nimsum_low_28}
 	\end{subfigure}
-	\caption{Observed normalized learning gain values (blue) plotted with the
+	\caption[Evaluations of the best sequences in Nim-sum]{Observed normalized learning gain values (blue) plotted with the
 		running average (green) of the best sequences for the \emph{Nim-Sum}
 	lesson.}
 	\label{fig:exp_eval_nimsum}
@@ -516,7 +518,7 @@ shows that one evaluation provides very little information.
 	\caption{Nim-sum high}
 	\label{fig:exp_cumul_nimsum_high}
 	\end{subfigure}
-	\caption{Cumulative regret of the populations \emph{Binary low},
+	\caption[Cumulative regret in Binary and Nim-sum]{Cumulative regret of the populations \emph{Binary low},
 	\emph{Binary High}, \emph{Nim-sum low} and \emph{Nim-sum High}}
 	\label{fig:exp_cumul2}
 \end{figure}
@@ -548,7 +550,7 @@ shows that one evaluation provides very little information.
 	\caption{Nim-sum high}
 	\label{fig:exp_age_nimsum_high}
 	\end{subfigure}
-	\caption{Sorted number of evaluations of each sequence in \emph{Binary
+	\caption[Sorted number of evaluations in Binary and Nim-sum]{Sorted number of evaluations of each sequence in \emph{Binary
 	low}, \emph{Binary high}, \emph{Nim-sum low} and \emph{Nim-sum high}.}
 	\label{fig:exp_ages2}
 \end{figure}
@@ -588,28 +590,8 @@ shows that one evaluation provides very little information.
 	\caption{Nim-sum high}
 	\label{fig:exp_cover_nimsum_high}
 	\end{subfigure}
-	\caption{Percentage of sequences evaluated after each evaluation in
+	\caption[Percentage sequences evaluated in Binary and Nim-sum]{Percentage of sequences evaluated after each evaluation in
 	\emph{Binary low}, \emph{Binary high}, \emph{Nim-sum low} and \emph{Nim-sum
 	high}.}
 	\label{fig:exp_cover2}
 \end{figure}
-
-\section{Overall analysis}
-\begin{itemize}
-	\item fitness diversity shows there is still a lot of noise in the student
-		evaluation. To possible causes: bad assessment (3 MC questions!) and
-		coarse groupings.
-	\item despite the large level of noise, system actually seem to learn. that
-		means that if the assessments would be more precise and groups were
-		more nuanced, this would be a viable option.
-	\item diversity is rather limited. that is good on one side, quicker
-		convergence. Which was especially good for the experiment. However, the
-		genetic algorithm does not give diversity a big change. The population
-		could be bigger
-	\item the large fitness variance indicates that we should allow for more
-		evaluations (episodes) before a new generation. downside would be high
-		regret in the beginning. potential solution could be to have a bigger
-		population with also more diversity in the beginning (different init),
-		the large chance of being selected by GA + the free decisions of UCB to
-		decide who deserves more evaluations.
-\end{itemize}

@@ -1,7 +1,25 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Chapter: Experimental setup %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+This chapter describes the experiment that has been performed to test the
+\emph{TutOER} system. The purpose of the experiment was to verify whether the
+presented apporach would also work in a more realistic environment. The
+experiment took the form of an online course. In this course, sequences of OER
+are presented to a student in four different lessons. The sequences are
+selected by the \emph{TutOER} system. Students are requested to answer a few
+multiple-choice questions at the beginning and the end of each sequence. These
+questions assess the competency level of the student on the topic of the
+lesson.\\\\
+\noindent
+Section~\ref{sec:setup_params} enumerates the parameter values chosen for the
+genetic algorithm during this experiment. Section~\ref{sec:setup_groups} lists the
+groups to which the students will be assigned. The educational materials that
+were used in the course are described in Section~\ref{sec:setup_material}. The
+pre-test and post-test questions are listed in Section~\ref{sec:setup_tests}.
+Section~\ref{sec:setup_exam} describes the exam that is presented at the end of
+the course.
 \section{GA Parameters}
+\label{sec:setup_params}
 Chapter~\ref{ch:simulations} analyzed what the optimal parameter values were
 for the genetic algorithm using evaluations based on the handcrafted model.
 These parameter values will be used for the experiment as well, apart from one
@@ -21,6 +39,7 @@ following.\\\\
 	Maximum length & 3 \\
 \end{tabular}
 \section{Student groups}
+\label{sec:setup_groups}
 In order to reduce the number of required data points, the students were split
 up in only two different student groups per knowledge component. The splitting
 criteria was based on the achieved pre-test score. If a student scored more
@@ -39,6 +58,7 @@ component. This resulted in the following groups.\\\\
 	Nim-Sum				& $> 50\%$			& NimSum High \\
 \end{tabular}
 \section{Educational material}
+\label{sec:setup_material}
 % TODO: Describe initial page of curriculum with explanation of the experiment
 Participants in the experiment went through a curriculum about the game of Nim.
 Nim is a mathematical game where two players alternate turns in taking away at
@@ -95,6 +115,7 @@ digit column ($2^0$, $2^1$, $2^2$ etc) and ensure that each column has an even
 number of `ones'. In the resources used in this thesis this method is referred
 to as \emph{pair cancelling}.
 \section{Pre-test \& post-test}
+\label{sec:setup_tests}
 In this experiment, each knowledege component has the same questions for both
 the pre-test and post-test. Given the low threshold for participants to stop
 participating in the experiment it was necessary to keep the time needed to
@@ -106,6 +127,7 @@ which could be right by accident. The questions for each knowledge component
 are listed in Appendix~\ref{ax_questions}.
 
 \section{Exam}
+\label{sec:setup_exam}
 \begin{figure}[ht]
     \centering
     \includegraphics[width=0.9\linewidth]{images/screen_exam.png}

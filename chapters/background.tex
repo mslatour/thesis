@@ -216,12 +216,6 @@ as a curriculum sequencing task which is solved by a genetic algorithm.
 Curriculum sequencing concerns generating a sequence of teaching operations
 that is optimal for an individual learning \citep{Brusilovsky2003a}. The level
 on which this takes place ranges from course sequencing to content sequencing.
-%\citet{Brusilovsky2003a} differentiate between course sequencing and course
-%generation. Curriculum generation is defined as creating the entire personalized sequence
-%beforehand. Curriculum sequencing differs in that it generates the sequence
-%incrementally when needed. In this thesis the term curriculum sequencing is
-%used to refer to the generation of the entire sequence at the moment the
-%students requests the first element. (better)
 Curriculum sequencing is an established part of the larger field of intelligent
 tutoring systems \citep{Brusilovsky1996}. \citet{Vanlehn2006} provides an
 introduction into intelligent tutoring systems. Although most intelligent
@@ -232,22 +226,38 @@ different technologies involved with curriculum sequencing tasks.\\\\
 \noindent
 The field of Adaptive Hypermedia Systems (AHS) explores adaptive presentation and
 adaptive navigation in hypertext documents \citep{Brusilovsky2003b}. Many
-successful AHS require the set of documents to be known in advance
-\citep{Brusilovsky2007}. According to \citeauthor{Brusilovsky2007}, these
-documents are then annotated with metadata and link to external models (e.g.
-pedagogical model). In this respect AHS relies on the same type of information
-as OER repositories.\\\\
+existing AHS require the set of documents to be known in advance, referred to
+as a \emph{closed corpus} \citep{Brusilovsky2007}. According to
+\citeauthor{Brusilovsky2007}, these documents are annotated with metadata and
+linked to ontologies before presented to students. Based on this additional
+information adaptation takes place to cater for individual needs. Examples of
+such systems \citep{Aerts2002, Kravcik2004} are used in formal education as
+authoring tool. Due to the \emph{closed corpus} assumption, this systems are
+not useful in dealing with open educational resources \citep{Brusilovsky2007}.
+\citeauthor{Brusilovsky2007} further state that AHS should move to work with
+an \emph{open corpus}.\\\\
 \noindent
-Recommending a sequence of learning materials is a one of the possible tasks of
-a recommender system \citep{Manouselis2011}.
-\\\\
+A technique that is much more suited for the open corpus task is
+\emph{collaborative filtering} \citep{Manouselis2011}. Together with
+\emph{content-based filtering} and \emph{hybrid models}, it is one of the three
+main recommendation techniques \citep{Verbert2012}. Collaborative filtering
+bases recommendations on actions of similar people. Content-based filtering
+compares content instead of people and bases recommendations on that. Hybrid
+models combine multiple recommender systems. \citep{Manouselis2011} provides an
+extensive review of recommender systems using in technology-enhanced learning.
+A recent example that was published after the review is \citep{Verbert2012}.
+\citet{Verbert2012} recommends learning designs to teachers based on patterns
+of existing learning designs of peers. Furthermore, resources are recommended
+within these designs, based on students' usage data.\\\\
 \noindent
-Reinforcement learner\\\\
-
-
+A Markov Decision Processes are a branch of reinforcment learners that
+indirectly generate sequences. \citep{Chi2010} presents a conversational
+Physics tutor that makes micro-decisions about whether to tell or elicit a
+certain fact. Features from both the conversation and the student performance
+are used. As a result, a sequence of pedagogical actions is created.\\\\
 \noindent
 Another popular approach to curriculum sequencing is evolutionary computing.
-\citet{AlMuhaideb2011} provides an extensive overview of this. literature.
+\citet{AlMuhaideb2011} provides an extensive overview of this literature.
 The main approach is taking curriculum sequencing to be a constraint
 problem. Several systems include a term that expresses how
 well a particular solution fits the pre-determined prerequisite structure of
@@ -255,39 +265,21 @@ the learning objects~\citep{Seki2005, Chen2009, Samia2007}.
 Other work in this field includes a term that expresses how smooth the
 transitions are between learning objects in difficulty~\citep{Hovakimyan2004,
 Seki2005, Chen2008, Huang2007} or how well their difficulty matches the
-compentency level of the student \citep{Seki2005, Chen2008, Chen2009, Samia2007, Huang2007}.
-
-
-% * Curriculum sequencing is a way to balance these costs, while at the same time
-% improving quality (impact) estimates
-% * CS comes from the domain of personalized learning. Often intended to serve
-% individual differences, not as much differences in quality of learning
-% material.
-% * Curriculum sequencing is performed by Adaptive Hypermedia Systems,
-% Reinforcement Learners and Evolutionary Computing.
-% * The latter is often targeted to solve the CS as constrain problem, simulating
-% evolution to efficiently search the space without involving actual learning.
-% The sequence that is found is then presented to the learner. But the resulting
-% learning impact is not used in the genetic algorithm.
-% * Some CS actually involves an open corpus
-
-\begin{itemize}
-	\item \citep{Chen2008} personalized curriculum sequencing using genetic
-		algorithms. integer coding of genes (gene = courseware). GA task is
-		simulated configuration, fitness is dificulty params and concept
-		relationship degrees. roulette selection.  In \citep{Chen2009} this was
-		extended with an Ontology of domain knowledge. The same approach as
-		\citep{Chen2008} was taken by \citep{Huang2007} in addition to a
-		case-based reasoner.
-	\item \citep{deMarcos2009} curriculum sequencing as constraint problem. applied GA PSO. Fitness is constraint penalties. Elitism. 
-	\item \citep{Seki2005} curriculum sequencing as a multi-objective
-		optimalization problem. relation between the items, difficulty of the
-		items, a.o. Metadata attributes are encoded in the chromosome.
-	\item \citep{Samia2007}
-	\item \citep{Hovakimyan2004}
-	\item \citep{Huang2007}
-\end{itemize}
-
+compentency level of the student \citep{Seki2005, Chen2008, Chen2009,
+Samia2007, Huang2007}. \citet{deMarcos2009, deMarcos2007} redefines the
+sequencing problem to be a permutation problem and applies both a genetic
+algorithm and a particle swarm optimization. The sequencing done tries to
+match compentencies the students has or desires with compentency-related
+metadata of the learning objects. Both evolutionary algorithms work, but
+particle swarm optimization outperforms the genetic algorithm.\\\\
+\noindent
+The proposed work in this thesis applies the genetic algorithm with many of the
+same features as ealier systems, such as generational replacement,
+integer-encoding for chromosomes and elitism. However, unlike all mentioned work, the approach taken in this thesis
+uses the normalized learning gain caused by the sequence to be its fitness.
+Furthermore, the learning objects are treated as black boxes in this thesis. No
+metadata or expert-driven ontologies are used. The only thing known about the
+learning objects, within the context of this thesis, is their topic. 
 \section{Genetic Algorithms}
 \label{sec:background_genetic_algorithms}
 Genetic algorithms \citep{Holland1992} evolve chromosomes through a population of individuals. Each individual contains a
@@ -302,25 +294,16 @@ the length of wings or the color. As a result, the configuration of genes can be
 optimized by inheritence and natural selection. The genetic algorithm works in a
 similar way. The fitness of an individual with a particular configuration
 of genes determines the chances of new individuals arising with similar
-configurations. The standard outline of this algorithm is given in
-Figure~\ref{alg:ea_scheme}.
-\label{approach_genetic_algorithm}
-\begin{figure}[ht!]
-	\begin{framed}
+configurations. \citet{Eiben2007} provide an introduction and present the standard outline of this algorithm:
+\begin{enumerate}
+	\item Initialization
+	\item Evaluation of each candidate
+	\item Repeat until termination condition is satisfied:
 		\begin{enumerate}
-			\item Initialization
+			\item Parent selection
+			\item Recombination of parent pairs
+			\item Mutation of the resulting offspring
 			\item Evaluation of each candidate
-			\item Repeat until termination condition is satisfied:
-				\begin{enumerate}
-					\item Parent selection
-					\item Recombination of parent pairs
-					\item Mutation of the resulting offspring
-					\item Evaluation of each candidate
-					\item Survivor selection
-				\end{enumerate}
+			\item Survivor selection
 		\end{enumerate}
-	\end{framed}
-	\caption[The evolutionary algorithm]{The general scheme of an
-		Evolutionary Algorithm as presented in \citep{Eiben2007}}
-	\label{alg:ea_scheme}
-\end{figure}
+\end{enumerate}

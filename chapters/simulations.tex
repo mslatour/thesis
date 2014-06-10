@@ -142,6 +142,8 @@ and covers the interplay between the \emph{number of elite} and the
 later reference.\\
 \begin{table}[h!]
 	\centering
+	\caption{Parameter setups for the \emph{TutOER} system divided in two groups}
+	\label{tab:simulation_setups}
 	\begin{tabular}{llllll}\hline
 		\textbf{Label} & \textbf{Population size} & \textbf{\# Episodes}
 		& \textbf{\# Elite} & \textbf{Mutation rate} \\\hline
@@ -160,8 +162,6 @@ later reference.\\
 		\texttt{nicolai} & 10 & 10 & 1 & 0.25 \\
 		\texttt{saskia} & 10 & 10 & 2 & 0.25 \\
 	\end{tabular}
-	\caption{Parameter setups for the \emph{TutOER} system divided in two groups}
-	\label{tab:simulation_setups}
 \end{table}\\
 \noindent
 The parameter setups are tested in two artificial environments. The first
@@ -174,6 +174,8 @@ sequences containing resources about the intuition of the game. The first
 environment will be referred to as the \emph{normal environment}.\\
 \begin{table}[h]
 \begin{minipage}[t]{0.48\linewidth}
+\caption{Fitness values for each sequence.}
+\label{tab:simulation_fitness_model}
 \begin{tabular}[ht]{ll}\hline
 	Sequence pattern & Fitness \\\hline
 	\verb![5]! & 0.7 \\
@@ -185,11 +187,11 @@ environment will be referred to as the \emph{normal environment}.\\
 	\verb!{5, 6, 7}! & 0.6 \\
 	\verb!{*, *, ( 5 | 6 ), ( 5 | 6 )}! & 0.7\\
 \end{tabular}
-\caption{Fitness values for each sequence.}
-\label{tab:simulation_fitness_model}
 \end{minipage}
 \hfill
 \begin{minipage}[t]{0.51\linewidth}
+\caption{Explanation of sequence patterns.}
+\label{tab:simulation_fitness_model_explanation}
 \begin{tabular}[ht]{lp{0.6\linewidth}}\hline
 	Construct &  Meaning \\\hline
 	\verb![5]! & Resource 5.\\
@@ -199,8 +201,6 @@ environment will be referred to as the \emph{normal environment}.\\
 	\verb![( 5 | 6 )]! & Either resource 5 or 6.\\
 	\verb!{7, ( 5 | 6 )}! & Resources 7 and either 5 or 6 in any order.\\
 \end{tabular}
-\caption{Explanation of sequence patterns.}
-\label{tab:simulation_fitness_model_explanation}
 \end{minipage}
 \end{table}\\
 \noindent
@@ -209,7 +209,11 @@ environment, but adds gaussian noise of 0.2 standard deviation. The purpose of
 the second environment is to see how the performance of the \emph{TutOER}
 system under each paramater setup is changed when the observed fitness contains
 noise. The second environment will be referred to as the \emph{noisy
-environment}
+environment}.\\\\
+\noindent
+In all simulations the sequences are restricted in length. Each sequence must
+contain one, two or three resources. This restriction is the same as in the
+experiment described in Chapter~\ref{ch:experimental_setup}.
 \section{Results}
 \label{sec:simulations_results}
 \subsection{Group 1 (Population size \& \# Episodes)}
@@ -359,7 +363,7 @@ population size and number of episodes are thus both 10.
 	\caption{overview}
 	\label{fig:cumul_handcrafted_overview_group1}
 	\end{subfigure}
-	\caption{Plot with error bars of the cumulative regret of the \emph{TutOER}
+	\caption[Cumulative regret in normal simulated environment for group 1]{Plot with error bars of the cumulative regret of the \emph{TutOER}
 	system using specific parameter setups in the normal environment.
 	Plot~\ref{fig:cumul_handcrafted_overview_group1} shows the
 	different parameter setups in one graph.}
@@ -421,7 +425,7 @@ population size and number of episodes are thus both 10.
 	\caption{overview}
 	\label{fig:cumul_handcrafted_noise_overview_group1}
 	\end{subfigure}
-	\caption{Plot with error bars of the cumulative regret of the \emph{TutOER}
+	\caption[Cumulative regret in noisy simulated environment for group 1]{Plot with error bars of the cumulative regret of the \emph{TutOER}
 	system using specific parameter setups in the noisy environment.
 	Plot~\ref{fig:cumul_handcrafted_noise_overview_group1} shows the
 	different parameter setups in one graph.}
@@ -476,7 +480,7 @@ population size and number of episodes are thus both 10.
 	\caption{overview}
 	\label{fig:cover_handcrafted_overview_group1}
 	\end{subfigure}
-	\caption{Plot with error bars of the percentage of chromosomes seen by the \emph{TutOER}
+	\caption[Percentage seen in normal simulated environment for group 1]{Plot with error bars of the percentage of chromosomes seen by the \emph{TutOER}
 	system using specific parameter setups in the normal environment
 	Plot~\ref{fig:cover_handcrafted_overview_group1} shows the
 	different parameter setups in one graph.}
@@ -597,7 +601,7 @@ rest. Albeit with varying margins.
 	\caption{overview}
 	\label{fig:cumul_handcrafted_overview_group2}
 	\end{subfigure}
-	\caption{Plot with error bars of the cumulative regret of the \emph{TutOER}
+	\caption[Cumulative regret in normal simulated environment for group 2]{Plot with error bars of the cumulative regret of the \emph{TutOER}
 	system using specific parameter setups in the normal environment.
 	Plot~\ref{fig:cumul_handcrafted_overview_group2} shows the
 	different parameter setups in one graph.}
@@ -652,7 +656,7 @@ rest. Albeit with varying margins.
 	\caption{overview}
 	\label{fig:cumul_handcrafted_noise_overview_group2}
 	\end{subfigure}
-	\caption{Plot with error bars of the cumulative regret of the \emph{TutOER}
+	\caption[Cumulative regret in noisy simulated environment for group 2]{Plot with error bars of the cumulative regret of the \emph{TutOER}
 	system using specific parameter setups in the noisy environment.
 	Plot~\ref{fig:cumul_handcrafted_noise_overview_group2} shows the
 	different parameter setups in one graph.}
@@ -738,7 +742,8 @@ rest. Albeit with varying margins.
 	\caption{overview}
 	\label{fig:cover_handcrafted_overview_group2}
 	\end{subfigure}
-	\caption{Plot with error bars of the percentage of chromosomes seen by the \emph{TutOER}
+	\caption[Percentage chromosomes seen in normal simulated environment for
+	group 1]{Plot with error bars of the percentage of chromosomes seen by the \emph{TutOER}
 	system using specific parameter setups in the normal environment.
 	Plot~\ref{fig:cover_handcrafted_overview_group1} shows the
 	different parameter setups in one graph.}
@@ -785,7 +790,8 @@ rest. Albeit with varying margins.
 	\caption{overview}
 	\label{fig:cover_handcrafted_noise_overview_group1}
 	\end{subfigure}
-	\caption{Plot with error bars of the percentage of chromosomes seen by the \emph{TutOER}
+	\caption[Percentage of chromosomes seen in noisy simulated environment for
+	group 1]{Plot with error bars of the percentage of chromosomes seen by the \emph{TutOER}
 	system using specific parameter setups in the noisy environment.
 	Plot~\ref{fig:cover_handcrafted_noise_overview_group1} shows the
 	different parameter setups in one graph.}
@@ -832,7 +838,8 @@ rest. Albeit with varying margins.
 	\caption{overview}
 	\label{fig:cover_handcrafted_noise_overview_group2}
 	\end{subfigure}
-	\caption{Plot with error bars of the percentage of chromosomes seen by the \emph{TutOER}
+	\caption[Percentage chromosomes seen in noisy simulated environment for
+	group 1]{Plot with error bars of the percentage of chromosomes seen by the \emph{TutOER}
 	system using specific parameter setups in the noisy environment.
 	Plot~\ref{fig:cover_handcrafted_noise_overview_group1} shows the
 	different parameter setups in one graph.}
