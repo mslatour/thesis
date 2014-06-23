@@ -15,6 +15,234 @@ operators and survivor selection
 support for related student groups is described in
 Section~\ref{sec:approach_island_model}.
 
+\section{Introducing genetic algorithms}
+This section provides a brief introduction into genetic algoritms. The purpose
+of this section is to establish a shared understanding of the standard setup. For a more
+in-depth introduction, the reader is referred to \citep{Eiben2007}.\\\\
+\noindent
+The \emph{genetic algorithm} \citep{Holland1992} is a part of a family of
+search algorithms called \emph{evolutionary computing}. The technique draws
+inspiration from Darwinian evolution and naturual selection. In genetic
+algorithms, a population of individuals evolves over multiple generations to
+better perform on some metric. These individuals all have a set of traits that
+influence their performance. For example, a bird could have traits like a long
+tail or bright colors. Traits are caused by certain genes. A particular
+configuration of genes is called a chromosome. Individuals that perform better
+than others have a higher chance of survival. The new generation contains the
+offspring of the individuals that survived. The offspring inherits the
+chromosomes of their parents. That way, traits that have a positive influence
+on performance have a higher chance of ending up in new individuals. Surviving
+individuals pair up with others to form a set of two parents. The resulting
+offspring inherits a combination of the chromosomes of both parents. Usually
+two parents form two new individuals. This application of the \emph{survival of
+the fittest} results in more individuals with successful traits and less
+individuals with unsuccessful traits.\\\\
+\noindent
+The peppered moth, the most cited example of Darwinian evolution
+\citep{Majerus2009}, illustrates this perfectly. The peppered moth rests during
+the day on the trunk of particular trees. At that moment birds pray on the
+moths. The color of the peppered moth is originally light gray. This trait
+camouflages them fairly well against the light bark of the trees. In other
+words, the fitness of these white moths is higher than moths of a different
+color. As a result most peppered moths had a light color.
+However, that all changed during the industrial revolution. The industrial
+revolution caused polution in the air that blackend the bark of the trees. As a
+result, the white peppered moths were easily spotted by praying birds. A
+variation of the peppered moth, with a dark color, suddenly had a better
+camouflage against the dark trunks. The black-bodied peppered moth produced
+more offspring because their increased chance of survival. As a result the
+occurence of dark peppered moths rose significantly.
+In modern times, the air is much cleaner and the color of the bark of the trees
+became light again. As a result the dark peppered moths were at a disadvantage.
+The frequency of light peppered moths rose to be the large majority once
+again.\\\\
+\noindent
+New variations like the dark peppered moths, are caused by genetic mutations. A
+mutation is a copying error of the chromosome during inheritence. The
+mutated chromosome causes traits that could benefit an individual's chance of
+survival. In that case the mutated chromosome will occur more often in new
+generations of the population. As was the case in the example of the peppered
+moths.\\\\
+The genetic algorithm uses the same approach to find optimal solutions in a
+large space of possibilities. In our case, finding the optimal sequence of OER.
+A particular application of this algorithm designs counterparts of the
+components of the natural selection mechanism. The components that need to be
+designed are briefly discussed in the the rest of this section. The standard
+genetic algorithm follows roughly the following steps \citep{Eiben2007}.
+\begin{leftbar}
+\smallskip
+\noindent
+\textbf{Genetic Algorithm Outline}
+\begin{enumerate}
+	\item Initialization
+	\item Evaluation of each candidate
+	\item Repeat until termination condition is satisfied:
+		\begin{enumerate}
+			\item Parent selection
+			\item Recombination of parent pairs
+			\item Mutation of the resulting offspring
+			\item Evaluation of each candidate
+			\item Survivor selection
+		\end{enumerate}
+\end{enumerate}
+\end{leftbar}
+\subsection{Representation of the domain}
+The \emph{phenotype} is the collection of properties of an individual, such as
+a long tail or color. The \emph{genotype} is the genetic information that
+causes those properties. In order words, the chromosome containing particular
+genes represents the aforementioned properties in genetic terms. This
+distinction is important for genetic algorithms, as it is often the case that
+there is a translation necessary between the two. Arguably, one of the first
+tasks in applying a genetic algorithm is finding an translation of your
+solution space to genes.\\\\
+\noindent
+For example, suppose we want a genetic algorithm to work on the travelling
+salesman problem. In this problem, the salesman needs to find the shortest
+route through all cities. Each solution to this problem would be some
+travelling plan that enumerates cities in the order that the saleman should
+visit them \textit{(phenotype)}. This could be encoded as an ordered list of
+numbers, where each number represents a city \textit{(genotype)}.
+\subsection{Fitness function}
+Individuals, carrying a particular chromosome, are exposed to the environment.
+This environment determines the chance of survival of the individuals, and
+thereby of their chromosomes. In the peppered moth example, the bark of the
+tree's trunk determines the survival chance of each individual moth. This
+survival chance, due to how well the individual fits its environment, is
+expressed by the fitness value. In more abstract terms, the fitness value
+expresses how good the found solution is. The fitness function can calculate
+these values for an arbitrary individual.\\\\
+\noindent
+The example of the travelling salesmen has an obvious candidate. The fitness
+function could measure the distance travelled in the proposed travelling plan.
+Although in this particular example, you would want the distance to negatively
+correspond to the survival chance.
+\subsection{Population}
+A population of individuals goes through several generations. Each generation
+is a new step in the search for the optimal solution. The initialization of a
+population is usually done by random sampling of chromosomes for its
+individuals. An important property is the number of individuals in each
+generation. Usually this number is fixed to one number, but it can also vary.
+The number of individuals is important as it determines the capacity for
+variation in one generation. The population is however a multiset. This means
+chromosomes can be contained by multiple individuals. Therefore it is also
+relevant to look at the diversity in the generation.\\\\
+\noindent
+The standard implementation of a genetic algorithm needs to terminate. One
+obvious candidate for a termination condition is when the algorithm found an
+optimally performing individual. In other words, when the fitness of the
+individual is, within a small range of, the maximum possible value. However,
+there are no guarantees that the genetic algorithm would reach this point.
+Other termination conditions can be added to deal with this. One example is to
+stop after a fixed number of evaluations.
+\subsection{Evolution}
+\label{sec:approach_intro_evolution}
+Searching occurs in genetic algorithms by means of evolution. There are three
+important stages in this evolution. First parent pairs are selected from the
+survivors. The chromosomes of these parents are then recombined into two new
+chromosomes. After the recombination, mutation may take place on the resulting
+chromosomes. At the end, the two new chromosomes end up in the new generation.
+The three stages are further clarified in the next subsections.
+\subsubsection{Parent Selection}
+When all fitness evaluations have been made, some chromosomes will be selected
+to become a parent. Parents are selected in pairs, in order to let their
+chromosomes recombinate. This selection of parents is at least based on the
+fitness of the chromosomes. However, also other features such as a chromosome's
+age may influence the selection. There are also various ways in using these
+values for selection. One is \emph{tournament selection}, where individuals
+compete against each other and the one with the highest fitness wins. Another
+is \emph{ranking selection}, where the probability of a chromosome being
+selected is proportionate to its rank in fitness values. A common selection
+method is \emph{roulette wheel selection} or \emph{fitness-based selection}.
+This is a sampling method where the fitness value is proportionate to the
+probability of being sampled. The roulette wheel is a circle divided in a
+number of segments. Each segment corresponds to an individual. The size of the
+segment is proportionate to the fitness value of the individual. A random
+position on the circle is chosen. The segment that contains this position
+corresponds to the individual selected.
+\subsubsection{Recombination}
+Recombination is responsible for combining information from two chromosomes.
+This recombination occurs by a crossover operator. There many different
+possible crossover operations. Two common ones are \emph{one-point crossover}
+and \emph{two-point crossover}. The one-point crossover splits the chromosomes
+at the same random point. The resulting four halfs are recombined in the
+alternative way, while maintaining their position in the chromosome.
+Figure~\ref{fig:single_point_crossover} illustrates the splitting of two parent
+chromosomes and their recombination into two child chromosomes.\\
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{images/single_point_crossover.pdf}
+	\caption{Example of a single-point crossover operation}
+	\label{fig:single_point_crossover}
+\end{figure}\\
+\noindent
+The two-point crossover splits the chromosomes at two points. The segment of
+genes between the two split points in both both chromosomes is swapped.
+Figure~\ref{fig:two_point_crossover} illustrates the application of the
+two-point crossover.\\
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.5\linewidth]{images/two_point_crossover.pdf}
+	\caption{Example of a two-point crossover operation}
+	\label{fig:two_point_crossover}
+\end{figure}%\\
+%\noindent
+%Schema theorem\ldots
+\subsubsection{Mutation}
+Selection and recombination steer the search towards the part of the search
+space that appears to be most promising. As a result, parts of the search space
+might never be reached and evaluated. There is no guarantee that this steering
+will converge to an optimal solution. This is especially true when the initial
+population does not hold the necessary variation. Therefore, most genetic algorithm
+implementations also include mutation. The mutation operator introduces random
+changes to chromosomes when passed through from parents to offspring. In the
+standard binary encoding of genes in a chromosome, the basic mutation operator
+flips a random bit.\\\\
+\noindent
+Although mutations can be vital for performance, it is still a disruption. Too
+much mutation will prevent convergence. Mutation is therefore usually only
+applied with a very low probability. The mutation operator is applied after
+recombination took place.
+\subsubsection{Survivor selection}
+Populations often have a fixed size. The newly created offspring together with
+the existing population forms a group of candidates that exceeds this size. In
+the survivor selection step, the members of the new generation are selected
+from these candidates. Unlike the parent selection, which is stochastic, the
+survivor selection is often deterministic. An example selection method is to
+just take the top $n$ chromosomes in order of their fitness. Another common
+method is \emph{generational replacement}. In this method, the chromosomes in
+the generation are completely replaced by their offspring.
+\subsection{Extensions}
+Several extensions have been proposed to the standard genetic algorithm. Two of
+them are relevant for this thesis. They will be briefly explained.
+\subsubsection{Elite preservation}
+Although mutation ensures that every chromosome is theoretically reachable.
+However, the probability of this happening might be very small. In a finite
+number of generations there is no guarantee that the optimal solution will be
+found. There is furthermore no guarantee that good solutions will be kept in
+the population. Elitism, or \emph{elite preservation}, ensures that the $n$
+best individuals of each generation are transferred to the next one. Elite
+individuals are not subjected to crossovers or mutation. Nor are they dependant
+on stochastic sampling. The number of elite individuals must be kept small.
+Otherwise the genetic algorithm will no longer have enough individuals to evolve.
+\subsubsection{Island model}
+In the island model, a population is split up in separate subpopulations,
+called \emph{demes}. These demes evolve independantly from each other.
+However, periodically communication can occur through \emph{migration} of
+individuals. The approach is a form of parallelisation and works particularly
+well when a problem consists of linearly separable subproblems
+\citep{Whitley1999}.\\\\
+\noindent
+According to \citep{Nowostawski1999}, the island model is controlled by
+four parameters. These are the \emph{topology}, the \emph{migration interval}, the
+\emph{migration scheme} and the \emph{migration size}. The \emph{topology}
+determines which demes are connected, which allows for migration. The
+\emph{migration interval} determines the number of generations between a
+migration. The \emph{migration scheme} determines which individual is picked
+from the source deme: the worst, the best or a random individual. It also
+determines which individual is replaced at the target deme: the worst, the best
+or a random individual. Replacement only occurs if the migrating individual has a higher fitness. The \emph{migration size} determines how many individuals are
+exchanged during each migration. For a more extensive analysis of the island model in genetic algorithms the reader is referred to \citep{Martin1997} and \citep{Whitley1999}.
+
 %%%%
 % Representation/Domain modeling
 %%%
@@ -149,7 +377,7 @@ top of the ``true'' value. In order to obtain an estimate of this true
 value, several approaches are possible. The most simple one is to take
 multiple samples and average over them. However, in this case, taking
 samples must be considered to be expensive. The approach taken must
-therefor try to minimize the number of samples while maximizing the
+therefore try to minimize the number of samples while maximizing the
 certainty of the fitness value. Which is why Upper Confidence Bound selection
 was applied in this thesis, as described in Section~\ref{sec:approach_ucb}.
 

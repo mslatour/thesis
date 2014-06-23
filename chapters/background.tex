@@ -280,30 +280,3 @@ uses the normalized learning gain caused by the sequence to be its fitness.
 Furthermore, the learning objects are treated as black boxes in this thesis. No
 metadata or expert-driven ontologies are used. The only thing known about the
 learning objects, within the context of this thesis, is their topic. 
-\section{Genetic Algorithms}
-\label{sec:background_genetic_algorithms}
-Genetic algorithms \citep{Holland1992} evolve chromosomes through a population of individuals. Each individual contains a
-chromosome that represents a candidate solution. In the literature, the
-candidate solution is often referred to as the \emph{phenotype}. The chromosome
-is often referred to as the \emph{genotype} in the literature. A particular
-chromosome can be contained by multiple individuals. Chromosomes are a
-configuration of genes, where each gene represents a component of the candidate
-solution. In the analogy with natural evolution these genes typically represent
-certain traits of the animal that affect the change of survival. For example
-the length of wings or the color. As a result, the configuration of genes can be
-optimized by inheritence and natural selection. The genetic algorithm works in a
-similar way. The fitness of an individual with a particular configuration
-of genes determines the chances of new individuals arising with similar
-configurations. \citet{Eiben2007} provide an introduction and present the standard outline of this algorithm:
-\begin{enumerate}
-	\item Initialization
-	\item Evaluation of each candidate
-	\item Repeat until termination condition is satisfied:
-		\begin{enumerate}
-			\item Parent selection
-			\item Recombination of parent pairs
-			\item Mutation of the resulting offspring
-			\item Evaluation of each candidate
-			\item Survivor selection
-		\end{enumerate}
-\end{enumerate}

@@ -1,29 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Chapter: Problem Domain %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\begin{itemize}
-%	\item Introduce curriculum sequencing. This is problem is part of the
-%		broader field of curriculum sequencing problems.
-%		\begin{itemize}
-%			\item generate personalized learning path through content (cite
-%				brusilovsky)
-%			\item old feature, recent necessity due to hyperspace. OER
-%				especially!
-%		\end{itemize}
-%	\item Typically fitting content to students, due to differences in student
-%		ability or learning style. OER adds a challenge of also dealing with
-%		bad content.
-%	\item Furthermore several examples of curriculum sequencing in the
-%		literature that apply evolutionary computing focus on creating a
-%		content sequencing with a smooth built-up in dificulty. However, in OER
-%		this difficulty is not necessarily known. And if it is, there is no
-%		guarantee that it will be correct.
-%	\item Slightly different from curriculum generation, where the sequence of
-%		material is generated one step at a time as the students progresses.
-%		Curriculum sequencing decides on the entire sequence at the beginning.
-%\end{itemize}
-%
-%
+
 % TODO: Lesson or knowledge component?
 The work presented in this thesis aims to contribute to solving a specific
 task, which is part of the broader category of curriculum sequencing tasks.
@@ -52,19 +30,22 @@ between the duplicates would be rather short, making it unlikely to be useful.
 \begin{framed}\noindent
 \textbf{{\large Definition:}} The task at hand. \vspace{0.5\onelineskip} \hrule
 \vspace{\baselineskip}\noindent
-Find the sequence of educational resources within the context of a lesson that
-maximizes the normalized learning gain for a student, measured as a
-result of presenting the sequence to that student.
-Equation~\eqref{eq:task} describes this mathematically, where $R$ denotes the
-set of all educational resources available for that lesson, $C^1$ and $C^2$
-denote the normalized pre-test and post-test scores respectively, $a$ and $b$
-denote the minimum and maximum length of a sequence respectively and $S$
-denotes the set of all possible sequences for that lesson.\noindent
+The task at hand is to find the optimal sequence of educational resources
+within the context of a lesson. The optimal sequence maximizes the normalized
+learning gain for a student, measured as a result of presenting the sequence to
+that student. Equation~\eqref{eq:task} describes this mathematically, where $R$
+denotes the set of all educational resources available for that lesson, $C^1$
+and $C^2$ denote the normalized pre-test and post-test scores respectively, $a$
+and $b$ denote the minimum and maximum length of a sequence respectively and
+$S$ denotes the set of all possible sequences for that lesson.\noindent
 \begin{equation}
 	\label{eq:task}
 	\argmax_{s \in S} \left[ \frac{C^2_s-C^1}{1-C^1} \right],
 	\quad S = \bigcup_{k = a}^{b} R^k
-\end{equation}
+\end{equation}\\
+\noindent
+Furthermore, the regret caused while finding the optimal sequence
+should be minimized.
 \end{framed}
 
 This thesis focusses on the utilization of Open Educational Resources (OER) in the
