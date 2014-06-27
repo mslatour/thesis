@@ -17,6 +17,8 @@
 % Required for pseudo algorithm listings
 \usepackage{algpseudocode}
 
+\usepackage{pdflscape}
+
 % Required for mathematical extensions
 \usepackage{amsmath}
 
@@ -49,6 +51,9 @@
 % Set numbering up till subsubsection level
 \setcounter{secnumdepth}{3}
 \setcounter{tocdepth}{1}
+
+\usepackage{pdfpages} % in je pre-amble
+
 
 % Define the argmax function
 \DeclareMathOperator*{\argmax}{arg\,max}
@@ -100,13 +105,14 @@
 %---------------------------
 %  Frontpage declarations
 %---------------------------
-\input{frontpage.tex}
 
+
+%\input{frontpage.tex}
 %\def\MainTitle{Towards the evolution of Open Educational Resources}
-\def\MainTitle{Survival of the fittest in the jungle of Open~Educational~Resources}
-%\def\SubTitle{Curriculum sequencing using genetic algorithms with an increasing gene pool}
-\def\SubTitle{Genetic curriculum sequencing from an open gene pool}
-\def\FrontPageImage{images/evolution.jpeg}
+%\def\MainTitle{Survival of the fittest in the jungle of Open~Educational~Resources}
+\def\SubTitle{Curriculum sequencing using genetic algorithms with an increasing gene pool}
+%\def\SubTitle{Genetic curriculum sequencing from an open gene pool}
+%\def\FrontPageImage{images/evolution.jpeg}
 \def\Author{Martin Sander Latour}
 
 \begin{document}
@@ -116,9 +122,14 @@
 
 % Show Frontpage
 \thispagestyle{empty}
-\frontpage{\MainTitle}{\SubTitle}{\Author} % include title
+
+\newgeometry{margin=0cm}
+\includepdf[fitpaper, pages=1]{SanderKaft.pdf}
+\restoregeometry
+
+%\frontpage{\MainTitle}{\SubTitle}{\Author} % include title
 \newpage
-\titleRJ
+\scientifictitle
 \newpage
 
 % Set paging to lower case roman, starting at i
