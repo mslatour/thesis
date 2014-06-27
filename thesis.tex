@@ -1,4 +1,6 @@
-\documentclass[oneside]{memoir}
+\documentclass[oneside, a4paper]{memoir}
+
+\input{cover.tex}
 
 % Required to specify font color
 \usepackage[svgnames]{xcolor}
@@ -116,6 +118,8 @@
 \thispagestyle{empty}
 \frontpage{\MainTitle}{\SubTitle}{\Author} % include title
 \newpage
+\titleRJ
+\newpage
 
 % Set paging to lower case roman, starting at i
 \pagestyle{headings}
@@ -171,9 +175,6 @@
 \chapter{Conclusion / Discussion}
 \label{ch:discussion_conclusion}
 \input{chapters/discussion_conclusion.tex}
-\chapter{Future work}
-\label{ch:future_work}
-\input{chapters/future_work.tex}
 
 %%%%%%%%%%%%%%%
 % Back matter %

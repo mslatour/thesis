@@ -20,46 +20,8 @@ Section~\ref{sec:setup_exam} describes the exam that is presented at the end of
 the course. The experiment is ended with a questionaire that is presented in
 Section~\ref{sec:setup_questionaire}. Section~\ref{sec:setup_dissemination} discusses
 how the participants were found.
-\section{GA Parameters}
-\label{sec:setup_params}
-Chapter~\ref{ch:simulations} analyzed what the optimal parameter values were
-for the genetic algorithm using evaluations based on the handcrafted model.
-These parameter values will be used for the experiment as well, apart from one
-exception. The number of individuals in the population was set back from ten
-(as it was in the \texttt{erik} setup) to seven. This was out of precaution to
-avoid the situation where a too large diversity would require more students to
-show signs of convergence than would be available to the experiment. This set
-the parameter values of the genetic algorithm in the experiment to the
-following.\\\\
-\begin{tabular}{ll}\hline
-	\textbf{Parameter} &  \textbf{Value}\\\hline
-	Population size & 7 \\
-	Number of episodes & 10 \\
-	Number of elite & 2 \\
-	Mutation rate & 0.05 \\
-	Minimum length & 1 \\
-	Maximum length & 3 \\
-\end{tabular}
-\section{Student groups}
-\label{sec:setup_groups}
-In order to reduce the number of required data points, the students were split
-up in only two different student groups per knowledge component. The splitting
-criteria was based on the achieved pre-test score. If a student scored more
-than 50\% then he or she was assigned to the High group of that knowledge
-component, else he or she was assigned to the Low group of that knowledge
-component. This resulted in the following groups.\\\\
-\begin{tabular}{lll}\hline
-	\textbf{Knowledge Component} & \textbf{Pre-test score}    & \textbf{Group} \\\hline
-	Rules of the game	& $\leq 50\%$		& Rules Low \\
-	Rules of the game	& $> 50\%$			& Rules High \\
-	Intuition			& $\leq 50\%$		& Intuition Low \\
-	Intuition			& $> 50\%$			& Intuition High \\
-	Binary Numbers		& $\leq 50\%$		& Binary Low \\
-	Binary Numbers		& $> 50\%$			& Binary High \\
-	Nim-Sum				& $\leq 50\%$		& NimSum Low \\
-	Nim-Sum				& $> 50\%$			& NimSum High \\
-\end{tabular}
-\section{Educational material}
+\section{Experiment}
+\subsection{Open Educational Resources}
 \label{sec:setup_material}
 % TODO: Describe initial page of curriculum with explanation of the experiment
 Participants in the experiment went through a curriculum about the game of Nim.
@@ -116,7 +78,7 @@ underneath each other in binary format, count the number of `ones' in each
 digit column ($2^0$, $2^1$, $2^2$ etc) and ensure that each column has an even
 number of `ones'. In the resources used in this thesis this method is referred
 to as \emph{pair cancelling}.
-\section{Pre-test \& post-test}
+\subsection{Pre-test \& post-test}
 \label{sec:setup_tests}
 In this experiment, each knowledege component has the same questions for both
 the pre-test and post-test. Given the low threshold for participants to stop
@@ -128,7 +90,7 @@ wrong answer, but is more informative for later analysis than a random guess
 which could be right by accident. The questions for each knowledge component
 are listed in Appendix~\ref{ax_questions}.
 
-\section{Exam}
+\subsection{Exam}
 \label{sec:setup_exam}
 \begin{figure}[ht]
     \centering
@@ -165,7 +127,7 @@ question.
 	\item Four stacks consisting of one, three, four and five objects.
 	\item Four stacks with ten, four, six and nine objects.
 \end{enumerate}
-\section{Questionaire}
+\subsection{Questionaire}
 \label{sec:setup_questionaire}
 At the end of the course, after all knowledge components and the exam have been
 completed by the student. A small optional questionaire is presented to the
@@ -186,9 +148,9 @@ open ended question.
 		\end{itemize}
 	\item Do you have any last comments you whish to make?
 \end{enumerate}
-\section{Dissemination to participants}
+\subsection{Participants}
 \label{sec:setup_dissemination}
-\subsection{Amazon Mechanical Turk}
+\subsubsection{Amazon Mechanical Turk}
 Participants for the experiment are partly found via the Amazon Mechanical
 Turk\footnote{\url{https://www.mturk.com/mturk/}} service, where tasks that are
 currently not possible to execute using artificial intelligence can be done by
@@ -212,10 +174,151 @@ collection. All \emph{providers} that completed the experiment were paid,
 regardless of the \emph{provider}'s performance or usefulness of the data.
 \emph{Providers} that dropped out during the experiment were not paid, but the data
 that was collected as a result of their actions so far was still kept.
-\subsection{Social network}
+\subsubsection{Social network}
 Other participants were found via Twitter, Facebook, LinkedIn and Reddit. No
 further explanation was given about the game or the nature of the experiment.
 Participants that arrived at the experiment via these communication lines did
 so without a form of financial reward as \emph{providers} did in Mechanical
 Turk. The call on social networks was sent out in the second half of the
 experiment.
+
+\section{Genetic algorithm setup}
+\subsection{Populations}
+\label{sec:setup_groups}
+Recall that each student group is a separate population. In order to reduce the
+number of required data points, the students were split up in only two
+different student groups per knowledge component. The splitting criteria was
+based on the achieved pre-test score. If a student scored more than 50\% then
+he or she was assigned to the High group of that knowledge component, else he
+or she was assigned to the Low group of that knowledge component. This resulted
+in the following groups.\\\\
+\begin{tabular}{lll}\hline
+	\textbf{Knowledge Component} & \textbf{Pre-test score}    & \textbf{Group} \\\hline
+	Rules of the game	& $\leq 50\%$		& Rules Low \\
+	Rules of the game	& $> 50\%$			& Rules High \\
+	Intuition			& $\leq 50\%$		& Intuition Low \\
+	Intuition			& $> 50\%$			& Intuition High \\
+	Binary Numbers		& $\leq 50\%$		& Binary Low \\
+	Binary Numbers		& $> 50\%$			& Binary High \\
+	Nim-Sum				& $\leq 50\%$		& NimSum Low \\
+	Nim-Sum				& $> 50\%$			& NimSum High \\
+\end{tabular}
+\subsection{Parameters}
+\label{sec:setup_params}
+Chapter~\ref{ch:simulations} analyzed what the optimal parameter values were
+for the genetic algorithm using evaluations based on the handcrafted model.
+These parameter values will be used for the experiment as well, apart from one
+exception. The number of individuals in the population was set back from ten
+(as it was in the \texttt{erik} setup) to seven. This was out of precaution to
+avoid the situation where a too large diversity would require more students to
+show signs of convergence than would be available to the experiment. This set
+the parameter values of the genetic algorithm in the experiment to the
+following.\\\\
+\begin{tabular}{ll}\hline
+	\textbf{Parameter} &  \textbf{Value}\\\hline
+	Population size & 7 \\
+	Number of episodes & 10 \\
+	Number of elite & 2 \\
+	Mutation rate & 0.05 \\
+	Minimum length & 1 \\
+	Maximum length & 3 \\
+\end{tabular}
+
+\section{Evaluation}
+The purpose of the experiment is to show that the approach taken in this thesis
+could work in a more realistic setting with actual students. To determine that,
+two types of success indicators are used. Furthermore several other views on
+the data are utilized to gain more insight in what happened. That is useful to
+find the reason for the success, or lack thereof. Both sets of visualisations
+and metrics are described in this section.
+\subsection{Indicators of success}
+The main question is: does the system learn over time to pick sequences with
+more learning impact, instead of picking those who have less impact? This
+question is answered using two metrics: cumulative regret and convergence.
+\subsubsection{Cumulative regret}
+The cumulative regret metric is similar to the one used in evaluating the
+simulations. There, regret was defined as the difference in received reward
+between the presented sequence and the optimal sequence. However, unlike in the
+simulation environment, in the experiment setting the optimal sequence is not
+known. We can only compare to the best sequence we have seen so far, which may
+or may not be the global optimum. Thus, the cumulative regret is defined as the
+cumulative difference between the estimated fitness of the presented sequence
+and the highest known estimated fitness, within the same population.\\\\
+\noindent
+The estimates used in the regret calculation are the estimated values at the
+end of the experiment. The reason is that comparing with the estimated values
+at the moment of the decision is less interesting. Theoretical results from the
+literature about genetic algorithm and UCB already tell us how they will deal
+with exploration versus exploitation and the regret that would be caused by
+that. Furthermore from the simulations performed in this thesis it appears that
+the algorithm is properly implemented. What the experiment is intended to find
+out is whether the task of OER quality assessment by curriculum sequencing is
+feasible in a realistic scenario with noise due to real students. For that
+purpose it is more interesting to see whether the \emph{TutOER} system would
+temporarily discard optimal sequences that have seem to perform poorly at the
+time, or whether the system is robust enough.\\\\
+\noindent
+If the approach works, the regret will decrease over time. As a result the
+the growth of the cumulative regret will, approximately, stop. The
+\emph{TutOER} system will always continue to try out sequences that appear to
+be suboptimal, but the intervals between these explorations will increase.
+Small peaks in regret are thus expected, but the trend of the line should be flat. The
+\textbf{cumulative regret curve} shows the development of the cumulative regret
+after each student.\\\\
+\noindent
+Furthermore, there are quantitative metrics that can be extracted from the
+the cumulative regret curve. The final cumulative regret value is not
+particularly interesting, since it doesn't capture the trend of the cumulative
+regret curve. However, the cumulative regret of the \textbf{first 20\%} and
+\textbf{last 20\%} of evaluations do capture the trend, albeit in a low
+resolution. If the approach works, the cumulative regret of the last 20\% of
+evaluations must be lower than that of the first 20\%. Ideally the last 20\% of
+evaluations have no further regret at all, which would result in a cumulative
+regret of zero for those evaluations. However, due to the incidental
+explorations it is possible that a small peak occurs in the last 20\%
+evaluations. In that case, the cumulative regret curve will give a definitive
+answer about the trend.
+\subsubsection{Convergence point}
+In general we want any learning algorithm to converge. The notion of
+convergence however needs some adjustment, because of the mentioned incidental
+exploration. The used definition of the point of convergence is the evaluation
+from which twenty-five consequtive evaluations targeted the same sequence.
+This metric does not indicate whether the system converged on presenting the
+optimal sequence, only that it converged on some sequence.
+\subsection{Insight in behavior}
+\subsubsection{Coverage curve}
+The coverage is defined as the percentage of sequences that was evaluated at
+leats once. This metric is identical to the one used for the simulation
+analysis. The total number of possible sequences is 40. That means each new
+encountered sequence adds 2.5\% to the coverage. There are limits to what
+percentages can theoretically be achieved in each generation. Each population
+is initialized with four different sequences in its first generation.
+Furthermore, there are seven individuals in each consecutive generation. That
+means that the maximum coverage is given by $4+7\cdot(i-1)$, for each $i$th
+generation.\\\\
+\noindent
+More coverage is not necessarily a good thing. The genetic algorithm should
+steer the search towards the more promising areas of the search space. However,
+the coverage can offer some indication as to how reliable the statements about
+optimality are. When a larger area of the search space has been
+encountered, it is more likely that the found optimum is a global one.
+\subsubsection{Evaluation noise}
+The observed learning gain of each sequence is expected to vary per student. The
+amount of noise in this signal has an impact on the performance of the system.
+The evaluation value for the best sequence of each population is plotted (in
+blue) for each student. Alongside, the running average is shown (in green),
+which is the estimate of the sequence's fitness after each evaluation.
+\subsubsection{Sorted number of evaluations}
+The genetic algorithm, together with UCB-1 selection, introduces a bias towards
+evaluating certain sequences over others. That is also what they are intended
+to do. However, a very skewed distribution of evaluations indicates that
+sequences did not receive the same opportunity to prove optimal. Particularly
+when the evaluation noise is large.
+\subsubsection{Diversity table}
+The diversity table shows the percentage of unique sequences at
+each generation for each population. A diversity of 43\% indicates that across
+the seven individuals three distinct chromosomes were divided. Similarly, a
+diversity of 14\% means that all individuals have the same chromosome. The
+table does not capture how many occurences each chromosome has. This is also
+not relevant. The UCB-1 algorithm selects which sequence to evaluate regardless
+of their number of occurences in the generation.

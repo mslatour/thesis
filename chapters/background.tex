@@ -20,8 +20,7 @@ provides a background in OER, curriculum sequencing and genetic algorithms.
 Section~\ref{sec:background_oer} describes what OER are and how assessment of
 quality is done at the moment.
 Section~\ref{sec:background_curriculum_sequencing} gives an overview of the
-relevant literature in the field of curriculum sequencing. A brief overview of
-genetic algorithms is given in Section~\ref{sec:background_genetic_algorithms}
+relevant literature in the field of curriculum sequencing.
 
 \section{Open Educational Resources}
 \label{sec:background_oer}
@@ -137,28 +136,11 @@ $C^2$ denote the pre-test and post-test scores respectively. The value $1$ is
 assumed to be the maximum score of an assessment. Table~\ref{tab:nlg_values}
 shows the NLG value for a variety of parameter values. Using the NLG metric,
 sequences of OER can be evaluated by comparison of the assessment score before
-and after presentation.\\
+and after presentation.
 \begin{equation}
 	nlg(C^1, C^2) = \frac{C^2-C^1}{1-C^1}
 	\label{eq:nlg}
-\end{equation}\\
-\noindent
-This approach is however not
-trivial. Even when the number of relevant learning objects is relatively small,
-there will still be a large number of sequences possible. Each of these
-sequences will require multiple evaluations due to the inherent noise in the
-domain. This noise for example comes from the fact that the test results of one
-learner will not be representative of the average results of an entire group.
-This is not only due to the fact that learners have different backgrounds and
-skills to start with, and as such do not form a uniform group. Education in
-general is a complex process, of which it is likely that only a part takes
-places within the observable electronic learning enviroment. This means that a
-sequence of learning material that appears to have no significant effect on the
-learning process of a particular learner must still be presented to a few more
-students in order to be more sure about its quality. However, this
-experimentation clearly does not come without cost. Each time a sequence shows
-to be less effective than a different one, a learner has received a lower level
-of education than necessary.\\
+\end{equation}
 \begin{table}
 	\begin{subtable}{0.25\linewidth}
 	\centering
@@ -194,23 +176,7 @@ of education than necessary.\\
 	\end{subtable}
 	\caption{Different NLG values}
 	\label{tab:nlg_values}
-\end{table}\\
-\noindent
-This dilemma is familiar to many fields and is known as the exploration vs.
-exploitation trade- off \citep{Holland1992}. An often used example is the
-n-armed bandit problem \citep{Sutton1998} where a casino offers n different
-slot machines (a.k.a. one-armed bandits) to play. A player would want to
-optimize the total amount of money earned and is therefore looking for the slot
-machine that has the highest pay-off. It is tempting to stay with a slot
-machine that gives the highest return you have seen so far (exploitation), but
-it is important to also try out other slot machines to see if they perform even
-better (exploration). This can be related to the domain of open education by
-aligning the bandits with sequences of learning objects and the pay-off with
-learning gain. A teacher would then be required to select from the metaphorical
-casino floor the sequences to try in order to optimize the total student
-learning gain. This is a non-trivial task. In this thesis, this is approached
-as a curriculum sequencing task which is solved by a genetic algorithm.
-
+\end{table}
 \section{Curriculum Sequencing}
 \label{sec:background_curriculum_sequencing}
 Curriculum sequencing concerns generating a sequence of teaching operations

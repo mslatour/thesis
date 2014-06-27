@@ -1,77 +1,67 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Chapter: Problem Domain %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\section{Educational context}
+\label{sec:task_context}
 % TODO: Lesson or knowledge component?
-The work presented in this thesis aims to contribute to solving a specific
-task, which is part of the broader category of curriculum sequencing tasks.
 The task is situated within a lesson of an online course. The course
-focuses on a particular topic and is split up into various lessons that should
-cover a concept or knowledge area that is required for understanding the
-course topic. The lesson is taught by an automatic tutor through a set of
+focuses on a particular topic and is split up into various lessons that cover a
+concept or knowledge area that is required for understanding the
+course topic. The lesson is taught by an automatic tutor through a sequence of
 educational material that is presented to an individual student. Several
-educational resources are available for this lesson, from which the tutor can
-make a selection. The result of this selection is an ordered sequence of
-educational resources that are consecutively presented. The task central
-to this thesis is to find the optimal sequence of resource`s.
-
-The optimality for these sequences is defined to be evicence-based. At the
-beginning of the lesson there is a pre-test, where the student's prior knowledge
-regarding the subject of the lesson is assessed. At the end of the lesson,
-after the sequence of content has been presented, a post-test will take place.
-In the post-test the student's relevant knowledge level will be assessed again.
-The sequence is said to be optimal when the measured normalized learning gain
-is maximized. Sequences can be of varying length, only restricted to some pre-set
-lower and upper bounds. Additionally, to simplify the problem slightly more,
-the sequence must not contain an educational resource multiple times. This is
-partly to reduce the number of possibilities and partly because the time span
-between the duplicates would be rather short, making it unlikely to be useful.
-
-\begin{framed}\noindent
-\textbf{{\large Definition:}} The task at hand. \vspace{0.5\onelineskip} \hrule
-\vspace{\baselineskip}\noindent
-The task at hand is to find the optimal sequence of educational resources
-within the context of a lesson. The optimal sequence maximizes the normalized
-learning gain for a student, measured as a result of presenting the sequence to
-that student. Equation~\eqref{eq:task} describes this mathematically, where $R$
+educational resources are available for this lesson, from which the tutor needs
+to make a selection. The result of this selection is an ordered sequence of
+educational resources that are consecutively presented. At the beginning and at
+the end of each lesson there is an assessment, refered to as the pre-test and
+post-test respectively. These assessments measure the relevant competence level
+befor and after the presented sequence. The situation is depicted in
+Figure~\ref{fig:course_lesson_diagram}. The task central to this thesis is to
+find the optimal sequence of resources.\\
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\linewidth]{images/course_lesson_diagram.pdf}
+	\caption[Educational context of the task]{The sequencing task takes place
+	within a lesson of a course.}
+	\label{fig:course_lesson_diagram}
+\end{figure}\\
+\noindent
+There is no pre-defined length of the sequences for each lesson. Only one
+educational resource could be enough to explain it. The lesson might also
+require multiple resources. However, the lengths are restricted to a
+pre-defined lower and upper bounds. Additionally, to simplify the problem
+slightly more, the sequence must not contain an educational resource multiple
+times. This is partly to reduce the number of possibilities and partly because
+the time span between the duplicates would be rather short. In this short time
+span, it is unlikely that repetition would be useful.
+\subsection{Optimality}
+The optimality of a particular sequence of educational material is determined by
+the impact it has on learning. The impact is defined as the measured normalized
+learning gain between the pre-test and the post-test, as given by
+Equation~\eqref{eq:nlg}. A sequence is optimal when the measured normalized
+learning gain is maximized. The search task is thus straightforward. Namely
+finding the sequence with maximum impact out of all possible sequences.
+Equation~\eqref{eq:optimality} describes this mathematically, where $R$
 denotes the set of all educational resources available for that lesson, $C^1$
 and $C^2$ denote the normalized pre-test and post-test scores respectively, $a$
 and $b$ denote the minimum and maximum length of a sequence respectively and
-$S$ denotes the set of all possible sequences for that lesson.\noindent
+$S$ denotes the set of all possible sequences for that lesson.
 \begin{equation}
-	\label{eq:task}
-	\argmax_{s \in S} \left[ \frac{C^2_s-C^1}{1-C^1} \right],
+	\label{eq:optimality}
+	\argmax_{s \in S} \left[ nlg(C^1, C^2_s) \right],
 	\quad S = \bigcup_{k = a}^{b} R^k
-\end{equation}\\
+\end{equation}
+\subsection{Solution space}
+The number of sequences of educational resources that need to be considered can
+increase quickly. A sequence of three slots can be instantiated from a
+collection of five resources in 60 ($5*4*3$) different ways. When the
+collection is twice as large, in total 720 sequences would be possible. The
+number of possible sequence instantiations is given by the \emph{k-permutation
+of n elements}, where \emph{k} is the number of slots to instantiate and
+\emph{n} the number of elements to draw from.\\\\
 \noindent
-Furthermore, the regret caused while finding the optimal sequence
-should be minimized.
-\end{framed}
-This thesis focusses on the utilization of Open Educational Resources (OER) in the
-lessons, which means the optimization procedure must be able to adapt to new
-resources being added while running. For the scope of this thesis, the event of
-an OER dissapearing will not be taken into account.
-
-The rest of this chapter is focused as follows.
-Section~\ref{sec:task_student_groups} describes the division of students into
-student groups, but first the search space is described in
-Section~\ref{sec:task_search_space}.
-
-\section{Search space}
-\label{sec:task_search_space}
-The curriculum sequencing task is a search problem, with the aim of searching the
-space of all valid sequences to find the optimal one. A valid sequence is a
-sequence without duplicates with a number of elements that falls within the
-boundaries. These two aspects determine the number of possible sequences. 
-The fact that a sequence doesn't have duplicates means that a
-sequence of three slots can be instantiated from a collection of five resources in
-60 ($5*4*3$) different ways, since the first, second and third slot can be
-instantiated in five, four and three ways respectively. This is formally a
-\emph{k-permutation of n elements}, where \emph{k} is the number of slots to
-instantiate and \emph{n} the number of elements to draw from.
-If the sequence can have multiple lengths, then the number of
-possibilities are found by adding the
-number of possibilities for each length together. This results in
+Apart from the number of different instantiations, sequences have a variable
+length.  The total number of possible sequences is thus the sum of all possible
+instantiations of sequences of all possible lengths. This results in
 Equation~\ref{eq:search_space_size}, where $|R|$ denotes the number of
 resources for the lesson, $a$ and $b$ denote the minimum and maximum number of
 resources in the sequence respectively and $|S|$ denotes the number of possible
@@ -121,43 +111,93 @@ equation for various values of $|R|$, $a$ and $b$.
 		10 & 5 & 10 & 9.858.240 \\
 	\end{tabular}
 	\end{minipage}
-	\caption[Search space size]{Search space sizes calculated for a few parameter values using
+	\caption[Solution space size]{Solution space sizes calculated for a few parameter values using
 		Equation~\eqref{eq:search_space_size}. Parameters $|R|$, $a$ and $b$ represent
 	the number of resources, the minimum length of a sequence and the maximum
 length of a sequence respectively. $|S|$ represents the number of possible
 sequences, given the parameters.}
 	\label{tab:search_space_sizes}
 \end{table}
-
-
-\section{Student Groups}
+\subsection{Student Groups}
 \label{sec:task_student_groups}
 Within the scope of this thesis, the sequences are not optimized for every
 individual student. Instead, each student is assigned to a student group, for
-which the sequence of educational material is optimized. There are several
-characteristics on which students can be divided into groups. Learning style,
-gender or age of students are commonly used in curriculum sequencing % citation
-applications. Another suggestion could be relevant
-experience, for example having played a lot of other mathematical games is
-relevant to the experiment conducted in this thesis. However, these are not
-used in this thesis. Partly because determining the values for these
-characteristics can be difficult and unreliable in a web context, but mostly
-because it would require much more students in the experiment in order to train
-all these student groups. In this thesis only one dimension is used to divide
-students in two groups, which is the prior knowledge a student has about a
-particular knowledge component as measured by the pre-test. The pre-test score
-is discretized in two values, high and low.
+which the sequence of educational material is optimized. Students are assigned
+to the student group based on their normalized pre-test score. The score is
+descretized in a low and high value.  The optimal sequence of education
+material must be found for each student group. In order words, students
+who know little about the topic might receive different material than students
+who know a lot. This results in a new situation, which is depicted by
+Figure~\ref{fig:student_group_sequencing}.\\
+\begin{figure}[ht]
+	\centering
+	\includegraphics[width=0.8\linewidth]{images/student_group_sequencing.pdf}
+	\caption[Educational context of the task with student groups]{The
+	sequencing task is performed separately for each student group.}
+	\label{fig:student_group_sequencing}
+\end{figure}\\
+\noindent
+There are several other features on which students could have been
+divided even further into more specific groups. Learning style, gender and age
+are not uncommon feature candidates. These are not used in this thesis for
+mainly two reasons. First, determining the values for these characteristics can
+be difficult and unreliable in a web context. Second, this would result in more
+groups. Each additional group requires new students in order to find the
+optimal sequence in that group. Acquiring many students is not possible within
+this thesis.\\\\
+\noindent
+The coarse division of students in groups could cause a large diversity of
+students within each group. That means that the evaluation of a sequence by a
+student is not necessarily representative for the average evaluation. On top of
+that, the assessment of impact will be noisy. For example because students
+might be distracted during one of the assessments. That means that sequences
+must be evaluated multiple times in order to acquire a better estimate.\\\\
+\noindent
+Although the optimal sequence is determined per student group, they are not
+entirely independent. This becomes apparent through an analogy. A teacher that
+teaches different cohorts will try to optimize his teaching for each
+separate group. If however the teacher would observe that a particular approach
+works really well for one group. The teacher might be inclined to
+try it out on other groups as well. The underlying assumption being
+that there are some universal do's and don'ts when explaining a certain topic.
+Thus, students in different student groups are likely to have differences as
+well as similarities.
 
-The curriculum sequencing problem is split up per student group,
-while maintaining the ability for good solutions to be copied.
-Analogous to a teachter that teaches in different grades, the algorithm
-tries to optimize the learning material for each group separately. But
-in that same analogy, if the teacher would see that a particular
-approach would work really well for one group he might be inclined to
-try it out on the other groups as well. The underlying assumption is
-that there are some universal do's and don'ts for the explanation of
-the same topics, some examples work better than others etc. The student
-groups, although different on a few selected dimensions, are likely to
-be similar on many other dimensions.
-
-
+\section{Multiple objectives of OER sequencing}
+Evaluating the optimality of a sequence comes with a cost.
+Each evaluation requires a new student and there are only limited
+students available. Therefore the number of students required to find the
+optimal sequence need to be minized. Furthermore, presenting a
+less-than-optimal sequence to a student could limit the amount of learning.
+That is something one wants to avoid in an educational setting.\\\\
+\noindent
+The ``damage'' done to the student's learning can be expressed in
+\emph{regret}. The definition of regret is the difference in the reward
+received between performing the optimal action and the current action. In other
+words how much reward is missed by not choosing the optimal action. In the
+context of this thesis, regret is the learning gain that is missed by not
+presenting the optimal sequence.\\\\
+\noindent
+However, we do not know beforehand what the optimal sequence is. The process of
+searching for the optimal sequence will result in evaluations of
+less-than-optimal sequences. Recall that these evaluations involve actual
+students. Thus, the regret built up during this search process, known as the
+\emph{online regret}, needs to be minimized. Furthermore recall that
+observations of the sequence's optimality are noisy. Multiple evaluations are
+needed for accurate estimates. This results in two objectives, namely
+better estimates and minimizing online regret.\\\\
+\noindent
+This situation is familiar to many fields and is known as the exploration vs.
+exploitation trade- off \citep{Holland1992}. An often used example is the
+n-armed bandit problem \citep{Sutton1998} where a casino offers n different
+slot machines (a.k.a. one-armed bandits) to play. A player would want to
+optimize the total amount of money earned and is therefore looking for the slot
+machine that has the highest pay-off. It is tempting to stay with a slot
+machine that gives the highest return you have seen so far (exploitation), but
+it is important to also try out other slot machines to see if they perform even
+better (exploration). This can be applied to OER sequencing by aligning the
+bandits with sequences of learning objects and the pay-off with learning gain.
+%This thesis focusses on the utilization of Open Educational Resources (OER) in the
+%lessons, which means the optimization procedure must be able to adapt to new
+%resources being added while running. For the scope of this thesis, the event of
+%an OER dissapearing will not be taken into account.

@@ -1,21 +1,8 @@
 %%%%%%%%%%%%%%%%%%%%%
 % Chapter: Approach %
 %%%%%%%%%%%%%%%%%%%%%
-There are several ways to model the task described in
-Section~\ref{ch:curriculum_sequencing}. The work presented in this thesis models the
-problem using genetic algoritms. Chapter~\ref{ch:background} provides an
-introduction into genetic algorithms. This chapter describes the approach used
-in this thesis. Each section discusses an important aspect of the modeling: representation
-(Section~\ref{sec:approach_representation}), initialization
-(Section~\ref{sec:approach_initialization}), termination conditions
-(Section~\ref{sec:approach_termination}), fitness
-(Section~\ref{sec:approach_evaluation}) and parent selection, variation
-operators and survivor selection
-(Section~\ref{sec:approach_generation_switch}). The applied island model to
-support for related student groups is described in
-Section~\ref{sec:approach_island_model}.
 
-\section{Introducing genetic algorithms}
+\section{The Genetic Algorithm}
 This section provides a brief introduction into genetic algoritms. The purpose
 of this section is to establish a shared understanding of the standard setup. For a more
 in-depth introduction, the reader is referred to \citep{Eiben2007}.\\\\
@@ -93,16 +80,25 @@ causes those properties. In order words, the chromosome containing particular
 genes represents the aforementioned properties in genetic terms. This
 distinction is important for genetic algorithms, as it is often the case that
 there is a translation necessary between the two. Arguably, one of the first
-tasks in applying a genetic algorithm is finding an translation of your
-solution space to genes.\\\\
+tasks in applying a genetic algorithm is finding a translation of your
+solution space to a genetic encoding.\\\\
+\noindent
+The standard encoding is the \emph{binary encoding}, where chromosomes are encoded as
+strings of 1's and 0's. This encoding allows for simple mutation and crossover
+operators that work on the bit level. However, for many problem types this can
+result in invalid individuals. Other encodings have been developed to improve
+this.\\\\
 \noindent
 For example, suppose we want a genetic algorithm to work on the travelling
 salesman problem. In this problem, the salesman needs to find the shortest
 route through all cities. Each solution to this problem would be some
 travelling plan that enumerates cities in the order that the saleman should
 visit them \textit{(phenotype)}. This could be encoded as an ordered list of
-numbers, where each number represents a city \textit{(genotype)}.
-\subsection{Fitness function}
+numbers, where each number represents a city \textit{(genotype)}. This encoding
+is known as the integer or \emph{permutation encoding}. In the field of
+curriculum sequencing, the permutation encoding is also widely used
+\citep{AlMuhaideb2011}.
+\subsection{Candidate evaluation}
 Individuals, carrying a particular chromosome, are exposed to the environment.
 This environment determines the chance of survival of the individuals, and
 thereby of their chromosomes. In the peppered moth example, the bark of the
@@ -115,7 +111,13 @@ these values for an arbitrary individual.\\\\
 The example of the travelling salesmen has an obvious candidate. The fitness
 function could measure the distance travelled in the proposed travelling plan.
 Although in this particular example, you would want the distance to negatively
-correspond to the survival chance.
+correspond to the survival chance.\\\\
+\noindent
+The selection of individuals to evaluate is done uniformly in the basic
+implementation. In domains where the fitness function is deterministic, each
+individual is evaluated once. In more noisy domains there is a larger number of
+evaluations that can be divided over the individuals uniformly in each
+generation.
 \subsection{Population}
 A population of individuals goes through several generations. Each generation
 is a new step in the search for the optimal solution. The initialization of a
@@ -196,7 +198,8 @@ population does not hold the necessary variation. Therefore, most genetic algori
 implementations also include mutation. The mutation operator introduces random
 changes to chromosomes when passed through from parents to offspring. In the
 standard binary encoding of genes in a chromosome, the basic mutation operator
-flips a random bit.\\\\
+flips a random bit. The permutation encoding facilitates a swap mutation, where
+to random positions in the chromosome are swapped.\\\\
 \noindent
 Although mutations can be vital for performance, it is still a disruption. Too
 much mutation will prevent convergence. Mutation is therefore usually only
@@ -246,76 +249,69 @@ exchanged during each migration. For a more extensive analysis of the island mod
 %%%%
 % Representation/Domain modeling
 %%%
-\section{Representation of the domain}
-\label{sec:approach_representation}
-In this thesis, each OER is encoded as a single gene. A
-chromosome represents a particular sequence of resources. The order of the
-genes in the chromosome, determines the order in which the material is presented to
-the student. Each knowledge component and student group combination is represented
-by a separate population. The populations related to a single knowledge
-component are linked in an island model.
-Section~\ref{sec:approach_island_model} discusses this. There are no links
-between populations of different knowledge components. They evolve
-independently from each other.\\\\
-\noindent
-The length of the optimal sequence of OER is not known apriori. To cope with
-that, chromosomes have variable length. This length will be
-bounded to a lower and upper limit for practical reasons. The encoding of the
-sequence must support the variable length. To support this, a chromosome is
-encoded as a list of gene identifiers (i.e. integers).  There are two main
-arguments for choosing this encoding over the standard binary encoding.
-First, the mutation and crossover operations defined in Section~\ref{sec:approach_combination_operator}
-and Section~\ref{sec:approach_mutation_operator}
-take the educational resource as smallest unit. In applications that use the
-standard binary encoding it is common to operate on a bit level. The boundaries
-of each gene in the binary representation is often not respected. However, the
-number of OER is relatively low compared to the capacity of its binary
-encoding. As a consequence, many illegitimate chromosomes would be generated.
-Second, the application created in this thesis is web-based. Storing and
-manipulating chromosomes happens in a relational database. Encoding each
-chromosome as a list of gene identifiers is easier optimized for the
-implementation.
+\section{Modeling of the genetic algorithm}
+This section describes the way in which the task described in
+Chapter~\ref{ch:curriculum_sequencing} is modeled using genetic algorithms.
+Each section discusses an important aspect of the modeling: representation
+(Section~\ref{sec:approach_representation}), initialization
+(Section~\ref{sec:approach_initialization}), termination conditions
+(Section~\ref{sec:approach_termination}), fitness
+(Section~\ref{sec:approach_evaluation}) and parent selection, variation
+operators and survivor selection
+(Section~\ref{sec:approach_generation_switch}). The applied island model to
+support for related student groups is described in
+Section~\ref{sec:approach_island_model}.
 
+\subsection{Representation of the domain}
+\label{sec:approach_representation}
+The \emph{permutation encoding} is used to represent each
+sequence. However, unlike most curriculum sequencing approaches
+\citep{AlMuhaideb2011}, the chromosomes have variable length. The variable
+length is necessary because the OER sequences have variable length as well.
+Chromosomes can furthermore also be partial permutations, where not all OER are
+contained in the sequence.
 %%%
 % Initialization
 %%%
-\section{Initialization}
+\subsection{Population}
+\subsubsection{Initialization}
 \label{sec:approach_initialization}
-The first generation of the population is initialized with a fixed number of
-individuals. Each individual contains a chromosome with exactly one gene. The
-individuals are generated according to the following steps:
+The population is not initialized purely randomly. Instead, the first
+generation contains only sequences with exactly one gene. This is to introduce
+a bias towards smaller sequences. The individuals are generated according to
+the following steps:
 \begin{enumerate}
-	\item For all genes in pool:
+	\item For all resources in pool:
 		\begin{enumerate}
 			\item If population is full, stop
-			\item Else, add an individual with the chromosome that contains only that gene.
+			\item Else, add an individual with the chromosome that contains
+				only that resource.
 		\end{enumerate}
 	\item While there is room left in the population:
 		\begin{enumerate}
-			\item \label{init_sample_step}Select a gene according to some probability density function
+			\item \label{init_sample_step}Select a resource according to some probability density function
 			\item Add an individual with the chromosome that contains only that
-				gene
+				resource
 		\end{enumerate}
 \end{enumerate}
 The probability density function (PDF) refered to in
 step~\ref{init_sample_step} is a uniform distribution by default, but can also
-represent apriori values of resources as proposed in
-Chapter~\ref{ch:future_work}.
+represent apriori weights of resources.
 %%%
 % Termination
 %%%
-\section{Termination}
+\subsubsection{Termination}
 \label{sec:approach_termination}
 Given the inherent noise in the fitness values, the algorithm should not stop
 before the fitness of each possible\footnote{i.e. all possible sequences given
 the constraints on length and the uniqueness requirement} chromosome is determined
 with some certainty. That would seem to lead to a valid point of termination
-when all chromosomes are tried are evaluated with enough certainty. However,
-the pool of genes is assumed to grow (i.e. new educational resources are made
-available) and each time a new gene is introduced it theoretically needs to be
-tried out in every combination with the already existing genes before the valid
+when all chromosomes are evaluated with enough certainty. However,
+the pool of resources is assumed to grow (i.e. new educational resources are made
+available) and each time a new resource is introduced it theoretically needs to be
+tried out in every combination with the already existing resources before the valid
 termination point would be reached. This would mean that the algorithm would
-never terminate, as it should wait for new genes to arrive. If it is vital that
+never terminate, as it should wait for any new resources to arrive. If it is vital that
 the algorithm finishes, a practical approach could be to stop if the fitness of
 one or more individuals is within a small margin of the optimal value. Provided
 an optimal value can be defined.\\\\
@@ -333,12 +329,12 @@ moving towards convergence is important.
 %%%
 % Candidate evaluation
 %%%
-\section{Candidate evaluation}
+\subsection{Candidate evaluation}
 \label{sec:approach_evaluation}
 %%%
 % 	Fitness function
 %%%
-\subsection{Fitness function}
+\subsubsection{Fitness function}
 % From: A comprehensive survey of fitness approximation
 %  in evolutionary computation. By: Y. Jin (2005)
 % Chen J-H, Goldberg DE, Ho S-Y, Sastry K (2002) Fitness
@@ -384,23 +380,8 @@ was applied in this thesis, as described in Section~\ref{sec:approach_ucb}.
 %%%
 %   UCB-1 selection
 %%%
-\subsection{UCB Selection}
+\subsubsection{UCB Selection}
 \label{sec:approach_ucb}
-The consequence of having a fitness function that involves actual
-students is that the event of evaluating a suboptimal individual
-also causes damage to the learning process of the student. Something
-which is much less the case in a simulation environment.\\\\
-\noindent
-In the reinforcement learning paradigm this damage is expressed in regret, which
-is defined as the difference in performance with the choice made and the
-optimal choice. You do however need to evaluate all individuals to see if one
-scores better. You even need to evaluate each individual several times in order
-to deal with outliers and varience. However you don't want to evaluate an
-individual too often when you know it performs suboptimally, given the regret
-it will cause. This is a classic exploration vs. exploitation trade-off that is
-found in any one-armed bandit problem, where in this application the sequences
-of educational material are the one-armed bandits.\\\\
-\noindent
 In this thesis, the Upper Confidence Bound (UCB) selection algorithm is used to
 determine which of the individuals will be evaluated. In
 particular the UCB-1 \citep{Auer2002} algorithm is used. In UCB-1,
@@ -408,12 +389,11 @@ first every individual is evaluated once. After this has been done, the
 individual is evaluated for which equation~\eqref{eq:ucb1_value} is maximized,
 where $\overline{x_i}$ denotes the average fitness of the individual, $n_i$
 denotes the number of times the individual has been evaluated so far and $n$
-denotes the overal number of evaluations that occured.
-
+denotes the overal number of evaluations that occured.\\
 \begin{equation}
 	\overline{x_i} + \sqrt{\frac{2 \ln n}{n_i}}
 	\label{eq:ucb1_value}
-\end{equation}
+\end{equation}\\
 \noindent
 UCB-1 is proven in \citep{Auer2002} to logarithmically bound the
 regret, which ensures that a suboptimal individual is selected logarithmically
@@ -428,82 +408,21 @@ for reducing the regret.
 %%%
 % Generation switch
 %%%
-\section{Generation switch}
+\subsection{Evolution}
 \label{sec:approach_generation_switch}
-\begin{figure}[ht!]
-	\centering
-	\includegraphics[width=0.8\linewidth]{images/generation_switch.png}
-	\caption[Generation switch]{The operations and intermediate phases during a generation switch. Illustration was taken from \citep{Whitley1994}.}
-	\label{fig:generation_switch}
-\end{figure}
-This thesis implements generational replacement with elite preservation, which
-are commonly used strategies for survivor selection in the curriculum
-sequencing domain \citep{AlMuhaideb2011}.
-Elite preservation means that the best performing individuals from the current
-generation will transfered directly to the new generation, without any
-alteration. Elitism has the purpose of ensuring that cross-over or mutation
-operators cannot push the evolution away from what was most promising.
-Only when better candidates are found will the elite individual not necessarilly survive.
-
-Generational replacement refers to the strategy where the number of individuals
-in the new generation remains the same as in the current generation. The
-individuals in the new generation are different individuals\footnote{The new
-generation  could still contain the same chromosomes.} than those in the
-current generation, with the exception of the elite individuals.
-
-The individuals of the new generation are created in two steps, as is depicted
-by Figure~\ref{fig:generation_switch}. First surivors are selected from the
-current generation and put in an intermediate generation, which is described in
-Section~\ref{sec:approach_survivor_selection}. The survivors are then grouped
-into parent pairs, as discussed in
-Section~\ref{sec:approach_parent_selection}.
-Section~\ref{sec:approach_combination_operator} describes how these parents
-then produce offspring by combining the chromosomes of both parents. In
-Section~\ref{sec:approach_mutation_operator} the mutation operations that
-can occur are described.
-
-%%%
-% 	Survivor selection
-%%%
-\subsection{Survivor selection}
-\label{sec:approach_survivor_selection}
-In this thesis, survivors are selected from the current generation using the
-roulette wheel selection. In this selection strategy, each individual from the
-current generation is assigned a portion of a roulette wheel, proportionate to
-the normalized fitness of the individual in the current generation. A survivor
-is then sampled by uniformly picking a position on the wheel and selecting the
-the individual to who that spot on the wheel was assigned to. This is analogous
-to spinning the roulette wheel perfectly. The higher the fitness of the
-individual, the bigger the area on the roulette wheel and thereby also the more
-likely the individual will survive. A individual can be selected multiple
-times, with the consequence that some individuals might not survive.
-
-Due to the normalization of the fitness values, the roulette wheel selection
-is implemented in three steps. First, take a random number between zero and one.
-Second, loop through all individuals until the cumulative fitness is bigger
-than the random number. Third, the last individual in the loop is selected as
-survivor.
-
 %%%
 %  	Parent selection
 %%%
-\subsection{Parent selection}
+\subsubsection{Parent selection}
 \label{sec:approach_parent_selection}
-Pairs of individuals are taken from the list of survivors, excluding the elite
-individuals, from top to bottom. That means that parents are matched based on
-the order that they were selected in the roulette wheel selection described in
-Section~\ref{sec:approach_survivor_selection}. The pairing is also shown in
-Figure~\ref{fig:generation_switch}. Each parent pair results in offspring
-based on the crossover operations described in
-Section~\ref{sec:approach_combination_operator}. If the number of survivors is
-odd, there will be one suvivor remaining after all pairs have been formed.
-This remaining survivor's chromosome is added to the new generation
-as its own offspring.
-
+Parents are selected in pairs using \emph{roulette wheel selection}. If the number of
+individuals in the population is odd, there will be one parent remaining after
+all pairs have been formed. That parent's chromosome is then added to the new
+generation as its own offspring.
 %%%
 %  	Crossover operation
 %%%
-\subsection{Combination operator}
+\subsubsection{Combination operator}
 \label{sec:approach_combination_operator}
 When two parents are matched to create offspring, their chromosome's are
 combined using a crossover operation. The resulting chromosome is placed in a
@@ -517,8 +436,8 @@ thesis, however, can vary in length. That means that crossover points could be
 selected that do not exist in both parents. Naturally one could restrict the
 set of valid crossover points to be within the boundaries of both chromosomes.
 However, that would also limit valid chromosomes, even though they can be
-achieved by combining both parent chromosomes.
-
+achieved by combining both parent chromosomes.\\\\
+\noindent
 In this thesis, the one-point crossover operator is implemented differently.
 Instead of picking one point for both parents at once, one crossover point in
 each parent is randomly picked independent from the other. These two crossover
@@ -537,21 +456,14 @@ one parent after the other. The two ways to do this result in two children.
 %%%
 %  	Mutation operation
 %%%
-\subsection{Mutation operator}
+\subsubsection{Mutation operator}
 \label{sec:approach_mutation_operator}
-Most of the mechanism in genetic algorithms ensures that individuals in each
-generation are samples from increasingly smaller areas in the solution
-hyperspace. This has the effect that large parts of that hyperspace is never
-evaluated. To prevent that from limiting the genetic algorithm to local optima,
-the mutation operator is used. After the chromosomes in the offspring are
-determined using the crossover operation, each child's chromosome has a small
-chance of mutation. In this thesis three different mutation operators have been
+In this thesis three different mutation operators have been
 applied: \emph{swap mutation}, \emph{addition mutation}, \emph{deletion mutation}.
 
-\paragraph{Swap mutation} The swap mutation operation randomly picks two
-distinct genes in a chromosome that are swapped. The chromosome needs to
-contain at least two genes in order to be applied to this mutation. If this is
-not the case, a different mutation is attempted.
+\paragraph{Swap mutation} The standard swap mutation for permutations is used.
+The chromosome needs to contain at least two genes in order to be applied to
+this mutation. If this is not the case, a different mutation is attempted.
 
 \paragraph{Addition mutation} The chromosome applied to the addition mutation
 operator will be appended with a new gene from the gene pool. The gene that is
@@ -563,36 +475,37 @@ gene from the chromosome, resulting in a shift in position of the genes after
 it. The resulting chromosome must have at least one gene left. If this is not
 possible, a different mutation is attempted.
 
+\subsubsection{Survivor selection}
+\label{sec:approach_survivor_selection}
+This thesis implements generational replacement with elite preservation, which
+are commonly used strategies for survivor selection in the curriculum
+sequencing domain \citep{AlMuhaideb2011}.
+
 %%%
 % Island model
 %%%
-\section{Island model}
+\subsection{Island model}
 \label{sec:approach_island_model}
-As described in Section~\ref{sec:approach_representation}, the curriculum
-sequencing problem is done per knowledge component and per student group. These
-are represented as separate populations. However, the populations that
-represent the same knowledge component but different student groups actually
-co-evolve. The island model was used to model exchange of information between
-related populations. After each generation of a population, the best
-individuals from the other related populations can migrate towards this
-population, replacing the worst individual. The migrated individuals are
-copies, and do not change the occurrence of the migrated chromosomes in the
-originating populations.
-
+Section~\ref{sec:task_student_groups} described how the sequencing task is done
+per student group and per knowledge component. Each combination is represented
+as separate populations. However, the populations that represent the same
+knowledge component but different student groups co-evolve.\\\\
+\noindent
+The island model was used to model exchange of information between
+related populations. The migration scheme is set to migrate the best individual
+of the source population and replace the worst individual in the target
+population. This occurs at every new
+generation. The migrated individuals are copies, and do not change the
+occurrence of the migrated chromosomes in the source population. The topology
+links populations of the same knowledge component together. Only one individual
+is migrated per generation.\\\\
+\noindent
 Important to note is that all other actions of the genetic algorithm in each
 population are still independent, meaning that the populations can also evolve
-at different speeds. One reason for this would be that the distributions of
-students in each student group will not be uniform. That has the consequence
-that a population that evolves really slowly will continue to migrate the same
-individual towards the other population. Even if it turned out not to work
-well. To counter this, the immigrants compete with the worst individual in
-roulette selection. This means that if the immigrants are a lot worse than the
-worst individual of this population, the worst individual is likely to remain
-in the population.
-
-The idea behind applying the Island model on this task is that what seems to work
-extremely well for one student group, might also be close to a good solution in
-other student groups. If there are more student groups than two, there are more
-migration candidates than slots. In that case, the choice is made using
-roulette wheel selection based on the fitness values of each migration
-candidate.
+at different speeds. As a consequence, a population that evolves really slowly
+will continue to migrate the same individual towards the target population.
+Even if it turned out not to work well. To counter this, the migrating
+individual of the source population competes with the worst individual in the
+target population through roulette selection. If the fitness of the migrating
+individual is worse than the worst individual in the target population, the
+replacement is not likely to proceed.

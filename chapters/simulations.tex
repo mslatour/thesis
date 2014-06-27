@@ -6,87 +6,24 @@ parameter values to be set. These values can, together with modeling decisions,
 have an enormous impact on peformance. It is therefore important to gain more
 insight in the properties and effectiveness of the genetic algorithm approach
 under various parameter values. This chapter describes and analyses a series of
-simulations that explored this. The purpose of these simulations is first and
-foremost to provide a foundation for decisions on parameter values for the
-experiment. Additionally they provide some insight in the behavior and
-performance of the \emph{TutOER} system after a larger number of evaluations
-that would be possible in an experiment. The simulations are executed using the
-same software that is used for the experiment. However, for the
-sake of simplicity and speed the actual web interaction was left out of the
+simulations that explored this. The goal of the simulations is to find good
+parameter values for the experiment. Additionally they provide some insight in
+the behavior and performance of the \emph{TutOER} system after a larger number
+of evaluations that would be possible in an experiment. The simulations are
+executed using the same software that is used for the experiment. However, for
+the sake of simplicity and speed the actual web interaction was left out of the
 simulation. Sequences are therefore evaluated using a handcrafted model instead
 of using actual students. Each simulation is repeated ten times to deal with
 randomization artefacts.\\\\
 \noindent
-This chapter is organized as follows. Section~\ref{sec:simulations_setup}
-describes the general setup of each simulation.
-The parameters that are examined are described in
-Section~\ref{sec:simulations_parameters}.  The simulations that cover these
-parameters are enumerated in Section~\ref{sec:simulations_simulations}. In
-Section~\ref{sec:simulations_results} the simulation results are listed and
-an analysis presented of the findings.
+This chapter is organized as follows. The parameters that are examined are
+described in Section~\ref{sec:simulations_parameters}.  The simulations that
+cover these parameters are enumerated in
+Section~\ref{sec:simulations_simulations}. Section~\ref{sec:simulations_setup}
+describes the general setup of each simulation. In
+Section~\ref{sec:simulations_results} the simulation results are listed and an
+analysis presented of the findings.
 
-\section{General setup}
-\label{sec:simulations_setup}
-In order to compare the results from each simulation more easily, each
-simulation is terminated at the same point of 1000 evaluations. This will give
-a genetic algorithm time to complete 100 generations with 10 evaluations in
-each generation. Similarly, a genetic algorithm setup with 20 evaluations in
-each generation will only complete half as much generations. The comparison
-between the two might not seem fair when looking at the number of generations.
-However, the task at hand defines the evaluation to be a scarse resource that
-will require a new student each time. It is therefore more interesting to know
-what a particular parameter setup accomplishes in a limited amount of
-evaluations, rather than anything else. The number of generations that have
-been completed after this fixed amount of evaluations is thus a consequence of
-the parameter setup. Section~\ref{sec:simulations_parameters} describes the
-trade-off between number of generations and number of episodes that follows
-from this restriction.\\\\
-\noindent
-To aid in the analysis of each simulation result, three views are applied to
-the data: \emph{the cumulative regret curve}, \emph{the coverage curve} and
-\emph{the convergence plot}.
-\paragraph{Cumulative Regret Curve} Regret is defined as the difference in
-performance between the applied policy and the optimal policy. In the context
-of the educational domain, regret is roughly speaking the damage\footnote{Where
-damage could also refer to as a lack of improvement that could have been made.}
-done to the student's understanding by offering suboptimal educational
-material. The cumulative regret curve shows the built-up of regret after each
-evaluation. It provides insight in the handling of exploration versus
-exploitation of the system under a particular parameter setup.
-Normally, the use of the UCB-1 selection algorithm ensures that
-this curve decreases logarithmically over time. However, due to the
-combination with the genetic algorithm, the options from which the UCB-1
-algorithm can choose are limited. The interplay between the genetic algorithm
-and UCB-1 can either boost or reduce performance. This curve visualizes
-the amount to which the performance of UCB-1 is disrupted by this interplay.
-Each value of the curve is an average of the values of ten repetitions
-on the same point. At each point the maximum and minimum value are indicated
-using errorbars.
-\paragraph{Coverage curve}
-The coverage curve displays the percentage of sequences that have been
-evaluated after each evaluation. New sequences become part of a generation due
-to crossover, mutation and immigration. UCB-1 ensures that all sequences that
-are selectable will be evaluated at least once\footnote{Provided the number of
-episodes is not smaller than the number of individuals in each generation.}.
-Therefore, this curve provides an observation of the amount and timing of the
-introduction of new individuals in the population. Similar to the cumulative
-regret curve, each value is an average of the values of ten repetitions on the
-same point. At each point the maximum and minimum value are indicated using
-errorbars.
-\paragraph{Convergence plot}
-The \emph{TutOER} system is said to be converged when ten evaluations in a row
-regarded an optimal performing sequence. A sequence is optimal when its true
-fitness value is equal to the maximum. In the case of multiple optimal
-sequences, an evaluation of any of the optimal sequences counts as the same
-optimal evaluation. This could mean that the system is said to have converged
-after a series of ten evaluations of different optimal sequences. The
-flexibility in this definition is required, because otherwise the system could
-be alternating between two equally optimal sequences until termination without
-being said to converge. The number of evaluations needed to reach that
-convergence point in each repetition is plotted in a boxplot. The fact that
-only one datapoint derives from each repetition allows for this detailed look
-at the distribution. Parameter setups that ensure a quick convergence are
-desired when acquiring evaluations comes with a cost.
 \section{Parameters}
 \label{sec:simulations_parameters}
 The approach described in Chapter~\ref{ch:approach} requires several parameters
@@ -214,6 +151,70 @@ environment}.\\\\
 In all simulations the sequences are restricted in length. Each sequence must
 contain one, two or three resources. This restriction is the same as in the
 experiment described in Chapter~\ref{ch:experimental_setup}.
+\section{General setup}
+\label{sec:simulations_setup}
+In order to compare the results from simulations more easily, each
+simulation is terminated after 1000 evaluations. This will give
+a genetic algorithm time to complete 100 generations with 10 evaluations in
+each generation. Similarly, a genetic algorithm setup with 20 evaluations in
+each generation will only complete half as much generations. The comparison
+between the two might not seem fair when looking at the number of generations.
+However, the task at hand defines the evaluation to be a scarse resource that
+will require a new student each time. It is therefore more interesting to know
+what a particular parameter setup accomplishes in a limited amount of
+evaluations, rather than anything else. The number of generations that have
+been completed after this fixed amount of evaluations is thus a consequence of
+the parameter setup. Section~\ref{sec:simulations_parameters} describes the
+trade-off between number of generations and number of episodes that follows
+from this restriction.
+\subsection{Evaluation metrics}
+To aid in the analysis of each simulation result, three views are applied to
+the data: \emph{the cumulative regret curve}, \emph{the coverage curve} and
+\emph{the convergence plot}.
+% cumulative regret, number and curve
+\paragraph{Cumulative Regret Curve}
+Recall that regret is defined as the difference in received reward (i.e.
+learning gain) between the presented sequence and the optimal sequence.
+The cumulative regret curve shows the built-up of regret after each
+evaluation. It provides insight in the handling of exploration versus
+exploitation of the system under a particular parameter setup.
+Normally, the use of the UCB-1 selection algorithm ensures that
+this curve decreases logarithmically over time. However, due to the
+combination with the genetic algorithm, the options from which the UCB-1
+algorithm can choose are limited. The interplay between the genetic algorithm
+and UCB-1 can either boost or reduce performance. This curve visualizes
+the amount to which the performance of UCB-1 is disrupted by this interplay.
+Each value of the curve is an average of the values of ten repetitions
+on the same point. At each point the maximum and minimum value are indicated
+using errorbars.
+\paragraph{Coverage curve}
+The coverage of the system is defined as the percentage of all possible
+sequences that was evaluated at least once. The coverage curve shows how this
+percentage is built-up per evaluation. In other words, the coverage curve shows
+when an evaluation explored uncharted territory of the search space. New
+sequences become part of a generation due to crossover, mutation and
+immigration. UCB-1 ensures that all sequences that are selectable will be
+evaluated at least once\footnote{Provided the number of
+episodes is not smaller than the number of individuals in each generation.}.
+Therefore, this curve provides an observation of the amount and timing of the
+introduction of new individuals in the population. Similar to the cumulative
+regret curve, each value is an average of the values of ten repetitions on the
+same point. At each point the maximum and minimum value are indicated using
+errorbars.
+\paragraph{Convergence plot}
+The \emph{TutOER} system is said to be converged when ten evaluations in a row
+regarded an optimally performing sequence. A sequence is optimal when its true
+fitness value is equal to the maximum. In the case of multiple optimal
+sequences, an evaluation of any of the optimal sequences counts as the same
+optimal evaluation. This could mean that the system is said to have converged
+after a series of ten evaluations of different optimal sequences. The
+flexibility in this definition is required, because otherwise the system could
+be alternating between two equally optimal sequences until termination without
+being said to converge. The number of evaluations needed to reach that
+convergence point in each repetition is plotted in a boxplot. The fact that
+only one datapoint derives from each repetition allows for this detailed look
+at the distribution. Parameter setups that ensure a quick convergence are
+desired when acquiring evaluations comes with a cost.
 \section{Results}
 \label{sec:simulations_results}
 \subsection{Group 1 (Population size \& \# Episodes)}
