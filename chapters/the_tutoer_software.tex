@@ -2,20 +2,17 @@
 % Chapter: The TutOER Software %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 In order to test the approach described in Chapter~\ref{ch:approach} a
-web-based system called TutOER was built. The name is obviously a combination
-of the word \emph{tutor} and the abbreviation \emph{oer} for Open Educational
-Resources, which is exactly what the system is. TutOER is a web-based tutor
-that teaches a concept to students using OER as educational material. The
-software consists of connected modules, of which the two main ones are the
-Tutor Module and the Genetic Algorithm (GA) Module. The latter implements the genetic algorithm
-approach chosen in this thesis in order to assist the Tutor module in selecting
-educational material.
-
-The software is web-based for mainly two reasons. First, it will make
-it easier to have people interact with the system, which is important when
-one needs to collect large amounts of data. Second, given the inherit intention
-of OER to be distributable, most OER are created for a web environment. This
-chapter is structured as follows. Section~\ref{sec:software_interface} will
+web-based system called TutOER was built. TutOER is a web-based tutor
+that optimizes the sequence of OER to teach a concept to students.
+The two main software modules are the Tutor Module and the Genetic Algorithm
+(GA) Module. The latter implements the genetic algorithm approach chosen in
+this thesis in order to assist the Tutor module in selecting educational
+material. The software is web-based for mainly two reasons. First, it will make
+it easier to have people interact with the system, which is important when one
+needs to collect large amounts of data. Second, given the inherit intention of
+OER to be distributable, most OER are created for a web environment.\\\\
+\noindent
+This chapter is structured as follows. Section~\ref{sec:software_interface} will
 describe the interface of the TutOER system. The Tutor Module is covered in
 Section~\ref{sec:software_tutor_module}. In
 Section~\ref{sec:software_ga_module}, the implementation of the genetic
@@ -96,7 +93,7 @@ will either be sent to the introduction phase of the next knowledge component
 or, if this was the last knowledge component, move forward to the exam phase.
 \paragraph{Sequence} The student in the sequence phase is presented the
 sequence of educational material that has been selected by the
-system\footnote{See Section~\ref{sec:approach_ucb}.} Sequences can contain more
+system\footnote{See Section~\ref{sec:approach_ucb}}. Sequences can contain more
 than one educational resource. In that case, only one resource will be shown at
 a time, starting with the first of the sequence. A button is displayed which
 will bring the student to the next sequence, if there is one. If the student

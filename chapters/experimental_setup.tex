@@ -11,15 +11,15 @@ multiple-choice questions at the beginning and the end of each sequence. These
 questions assess the competency level of the student on the topic of the
 lesson.\\\\
 \noindent
-Section~\ref{sec:setup_params} enumerates the parameter values chosen for the
-genetic algorithm during this experiment. Section~\ref{sec:setup_groups} lists the
-groups to which the students will be assigned. The educational materials that
-were used in the course are described in Section~\ref{sec:setup_material}. The
-pre-test and post-test questions are listed in Section~\ref{sec:setup_tests}.
-Section~\ref{sec:setup_exam} describes the exam that is presented at the end of
-the course. The experiment is ended with a questionaire that is presented in
-Section~\ref{sec:setup_questionaire}. Section~\ref{sec:setup_dissemination} discusses
-how the participants were found.
+The educational materials that were used in the course are described in
+Section~\ref{sec:setup_material}. The pre-test and post-test questions are
+listed in Section~\ref{sec:setup_tests}. Section~\ref{sec:setup_exam} describes
+the exam that is presented at the end of the course. The experiment is ended
+with a questionaire that is presented in Section~\ref{sec:setup_questionaire}.
+Section~\ref{sec:setup_dissemination} discusses the participants.
+Section~\ref{sec:setup_groups} lists the groups to which the students will be
+assigned. Section~\ref{sec:setup_params} enumerates the parameter values chosen
+for the genetic algorithm during this experiment.
 \section{Experiment}
 \subsection{Open Educational Resources}
 \label{sec:setup_material}
@@ -159,7 +159,7 @@ a market place where a \emph{requester} can post a certain \emph{Human
 Intelligence Task} (HIT) that he or she wants to have crowdsourced for a
 certain price and where \emph{providers} choose which tasks they want to perform.
 The \emph{provider} chooses the time and place of the execution, as most if not
-all \emph{HIT}s are only bound to existance of an internet connnection. Only
+all \emph{HIT}s are only bound to existence of an internet connnection. Only
 when a \emph{provider} completes the \emph{HIT} to the approval of the
 \emph{provider} will he or she be paid the agreed amount. A \emph{provider} is
 not forced to finish a \emph{HIT} and can decide to give up participation at
@@ -185,7 +185,8 @@ experiment.
 \section{Genetic algorithm setup}
 \subsection{Populations}
 \label{sec:setup_groups}
-Recall that each student group is a separate population. In order to reduce the
+Recall that each student group is a separate population. 
+In order to reduce the
 number of required data points, the students were split up in only two
 different student groups per knowledge component. The splitting criteria was
 based on the achieved pre-test score. If a student scored more than 50\% then
@@ -225,6 +226,7 @@ following.\\\\
 \end{tabular}
 
 \section{Evaluation}
+\label{sec:setup_eval}
 The purpose of the experiment is to show that the approach taken in this thesis
 could work in a more realistic setting with actual students. To determine that,
 two types of success indicators are used. Furthermore several other views on
@@ -259,14 +261,14 @@ temporarily discard optimal sequences that have seem to perform poorly at the
 time, or whether the system is robust enough.\\\\
 \noindent
 If the approach works, the regret will decrease over time. As a result the
-the growth of the cumulative regret will, approximately, stop. The
-\emph{TutOER} system will always continue to try out sequences that appear to
-be suboptimal, but the intervals between these explorations will increase.
-Small peaks in regret are thus expected, but the trend of the line should be flat. The
+growth of the cumulative regret will, approximately, stop. The \emph{TutOER}
+system will always continue to try out sequences that appear to be suboptimal,
+but the intervals between these explorations will increase. Small peaks in
+regret are thus expected, but the trend of the line should be flat. The
 \textbf{cumulative regret curve} shows the development of the cumulative regret
 after each student.\\\\
 \noindent
-Furthermore, there are quantitative metrics that can be extracted from the
+Furthermore, there are quantitative metrics that can be extracted from
 the cumulative regret curve. The final cumulative regret value is not
 particularly interesting, since it doesn't capture the trend of the cumulative
 regret curve. However, the cumulative regret of the \textbf{first 20\%} and
@@ -282,13 +284,13 @@ answer about the trend.
 In general we want any learning algorithm to converge. The notion of
 convergence however needs some adjustment, because of the mentioned incidental
 exploration. The used definition of the point of convergence is the evaluation
-from which twenty-five consequtive evaluations targeted the same sequence.
+from which twenty-five consecutive evaluations targeted the same sequence.
 This metric does not indicate whether the system converged on presenting the
 optimal sequence, only that it converged on some sequence.
 \subsection{Insight in behavior}
 \subsubsection{Coverage curve}
 The coverage is defined as the percentage of sequences that was evaluated at
-leats once. This metric is identical to the one used for the simulation
+least once. This metric is identical to the one used for the simulation
 analysis. The total number of possible sequences is 40. That means each new
 encountered sequence adds 2.5\% to the coverage. There are limits to what
 percentages can theoretically be achieved in each generation. Each population
@@ -304,7 +306,7 @@ optimality are. When a larger area of the search space has been
 encountered, it is more likely that the found optimum is a global one.
 \subsubsection{Evaluation noise}
 The observed learning gain of each sequence is expected to vary per student. The
-amount of noise in this signal has an impact on the performance of the system.
+amount of noise in this learning gain has an impact on the performance of the system.
 The evaluation value for the best sequence of each population is plotted (in
 blue) for each student. Alongside, the running average is shown (in green),
 which is the estimate of the sequence's fitness after each evaluation.

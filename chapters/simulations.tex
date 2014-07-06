@@ -14,7 +14,7 @@ executed using the same software that is used for the experiment. However, for
 the sake of simplicity and speed the actual web interaction was left out of the
 simulation. Sequences are therefore evaluated using a handcrafted model instead
 of using actual students. Each simulation is repeated ten times to deal with
-randomization artefacts.\\\\
+the random components of the algorithm.\\\\
 \noindent
 This chapter is organized as follows. The parameters that are examined are
 described in Section~\ref{sec:simulations_parameters}.  The simulations that
@@ -58,7 +58,7 @@ elite members are maintained as is and are not replaced by their offspring.
 Moreover elite members are protected against mutation. A higher number of elite
 members reduces the influence of randomness on the population. However, elite
 members slow down the exploration. A high number of elite members will cause
-getting stuck in local optima.
+the algorithm to get stuck in local optima.
 \paragraph{Mutation rate} The \emph{mutation rate} determines the chance that a
 mutation occurs in the chromosome of a new individual. Mutation ensures that
 areas of the search space are explored, even when the genetic algorithm moved
@@ -105,7 +105,8 @@ The parameter setups are tested in two artificial environments. The first
 provides evaluation outcomes using the handcrafted model displayed in
 Table~\ref{tab:simulation_fitness_model}. The handcrafted model contains
 patterns that match to sequences, the explanation of these patterns can be
-found in Table~\ref{tab:simulation_fitness_model_explanation}.
+found in Table~\ref{tab:simulation_fitness_model_explanation}. Sequences that
+are not matched by any pattern get a fitness of 0.
 The model is based on the author's expectation of the true quality of the
 sequences containing resources about the intuition of the game. The first
 environment will be referred to as the \emph{normal environment}.\\
@@ -222,7 +223,7 @@ desired when acquiring evaluations comes with a cost.
 Figure~\ref{fig:cumul_handcrafted_container_group1} shows the cumulative
 regret built-up by the \emph{TutOER} system under the parameter setups of Group~1
 in the normal environment. Each simulation setup has
-been repeted ten times. Each individual plot shows the averaged cumulative
+been repeated ten times. Each individual plot shows the averaged cumulative
 regret after each evaluation, together with vertical error bars indicating the
 maximum and minimum value at every twenty evaluations. The \texttt{stephen} setup stands out with a
 much higher cumulative regret built-up than the others. Due to the number of episodes in the
@@ -495,7 +496,7 @@ population size and number of episodes are thus both 10.
 Figure~\ref{fig:cumul_handcrafted_container_group2} shows the cumulative regret
 of the \emph{TutOER} system under the parameter setups of Group~2. A clear
 distinction can be made between parameter setups with a low mutation rate and those
-with a high mutation rate. The \emph{TutOER} systems builts up less cumulative
+with a high mutation rate. The \emph{TutOER} systems builds up less cumulative
 regret under \texttt{robert}, \texttt{martijn} and \texttt{ria} parameters than
 under their counterparts with higher mutation rates. This can be explained by
 the fact that a higher mutation rate typically means more exploration.
