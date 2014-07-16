@@ -83,7 +83,7 @@ quality.
 \section{Automatic assessment of OER Quality}
 \label{sec:background_quality_assess}
 One approach focuses on the quality of the metadata of the learning
-object \citep{Ochoa2009b, Tani2013} , as a proxy for the quality of the object
+object \citep{Ochoa2009b, Tani2013}, as a proxy for the quality of the object
 itself. A problem with this approach is that metadata can be inaccurate
 \citep{Cechinel2009} and incomplete \citep{Sicilia2005}. A different approach is
 to automatically assess the quality of learning objects based on intrinsic
@@ -95,14 +95,14 @@ context-dependent and intrinsically subjective. As examples of context Duval
 mentions a.o. learning goal, available time and educational level. Duval
 proposes the context-dependent ranking algorithm LearnRank, in which learning
 objects that are used in many contexts receive a higher rank. In
-\citep{Ochoa2006} the “use of contextualized attention metadata for ranking and
-recommending learning objects” is proposed, where the attention given to a
+\citep{Ochoa2006} the ``use of contextualized attention metadata for ranking and
+recommending learning objects'' is proposed, where the attention given to a
 learning object by a student or a teacher within a certain context is
 considered to be a proxy for the usefulness of the object in that context.
-Duval however also mentions in \citep{Duval2006} that “In an ideal world, we
+Duval however also mentions in \citep{Duval2006} that ``In an ideal world, we
 would actually bootstrap and steer this process [of establishing the LearnRank]
 through empirical data on the learning effect that specific objects have
-actually caused (or helped to realise) in specific contexts. . . ”. According
+actually caused (or helped to realise) in specific contexts ...''. According
 to \citep{Kay2007} the effect of a learning object on ’actual learning’ is
 underrepresented in the research on learning objects.\\\\
 \noindent
@@ -128,14 +128,19 @@ is measured irrespective of the student's incoming competence \citep{Chi2010}.
 The NLG metric is calculated using formula \eqref{eq:nlg}, where $C^1$ and
 $C^2$ denote the pre-test and post-test scores respectively. The value $1$ is
 assumed to be the maximum score of an assessment. Table~\ref{tab:nlg_values}
-shows the NLG value for a variety of parameter values. Using the NLG metric,
-sequences of OER can be evaluated by comparison of the assessment score before
-and after presentation.
+shows the NLG value for a variety of parameter values. The normalized learning
+gain is essentially a normalized distance metric. Thus, any linear function
+expressing competence with a known maximum value is applicable to $C^1$ and
+$C^2$. The experiments performed for this thesis use the ratio of correct
+answers. Using the NLG metric, sequences of OER can be evaluated by
+comparison of the assessment score before and after presentation.
 \begin{equation}
 	nlg(C^1, C^2) = \frac{C^2-C^1}{1-C^1}
 	\label{eq:nlg}
 \end{equation}
 \begin{table}
+	\caption{Different NLG values}
+	\label{tab:nlg_values}
 	\begin{subtable}{0.25\linewidth}
 	\centering
 	\begin{tabular}{lll}\hline
@@ -168,8 +173,6 @@ and after presentation.
 		$^2/_3$	& 1			& 1\\
 	\end{tabular}
 	\end{subtable}
-	\caption{Different NLG values}
-	\label{tab:nlg_values}
 \end{table}
 \section{Curriculum Sequencing}
 \label{sec:background_curriculum_sequencing}
@@ -210,9 +213,9 @@ A recent example that was published after the review is \citep{Verbert2012}.
 of existing learning designs of peers. Furthermore, resources are recommended
 within these designs, based on students' usage data.\\\\
 \noindent
-A Markov Decision Processes are a branch of reinforcment learners that
+A Markov Decision Processes are a branch of reinforcement learners that
 indirectly generate sequences. \citep{Chi2010} presents a conversational
-Physics tutor that makes micro-decisions about whether to tell or elicit a
+physics tutor that makes micro-decisions about whether to tell or elicit a
 certain fact. Features from both the conversation and the student performance
 are used. As a result, a sequence of pedagogical actions is created.\\\\
 \noindent

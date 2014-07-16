@@ -1,22 +1,23 @@
 %%%%%%%%%%%%%%%%%%%%
 % Chapter: Results %
 %%%%%%%%%%%%%%%%%%%%
-In this chapter the result of the experiment are enumerated and discussed.
-Section~\ref{sec:results_short} summarize the important success indicators and
-answers the main question behind the experiment.
-Section~\ref{sec:results_analysis} presents a deeper analysis of the system's
-behavior in each population.
-
-%\begin{itemize}
-%	\item Add description of each visualisation and general statistics to main
-%		part and not in section?
-%\end{itemize}
-
-\section{In short}
-\label{sec:results_short}
-The main question that needed to be answered by this experiment is: does the
-system learn to pick sequences with more learning impact over those with less
-impact? Table~\ref{tab:pop_metrics} shows an overview of the important metric values
+The experiment described in Section~\ref{ch:experimental_setup} offers an
+online course consisting of four lessons. A participant's competence is
+assessed at the beginning and end of the lesson. The pre-test result determines
+the student group to which the participant is assigned. The \textbf{TutOER}
+system selects the sequence to be presented to the participant within that
+student group. The approach balances exploration and exploitation to maximize
+the expected learning gain while minimizing online regret. The purpose of the
+experiment is to answer the question: does the system learn to pick sequences
+with more learning impact over those with less impact? There are two metrics
+that answer this question. Firstly, we expect to see the slope of the
+cumulative regret to decrease. This is captured in the difference between the
+cumulative regret during the first and last 20\% of evaluations. Secondly, we
+expect the \textbf{TutOER} system to converge, as captured in the convergence
+point. In this chapter the result of the experiment are enumerated and discussed.
+\\\\
+\noindent
+Table~\ref{tab:pop_metrics} shows an overview of the important metric values
 for each population. In the populations \emph{Rules low}, \emph{Intuition low},
 \emph{Binary low} and \emph{Nim-sum low}, the system reduced and stabilized the
 growth of the regret. In those populations, the system converged to the best
@@ -32,12 +33,16 @@ The answer to the question is, yes in some populations it did. It is not known
 whether the sequences that appeared to be the best are actually the global
 optimum. The estimated fitness values of some of the best sequences are quite
 low, especially in the case of the \emph{Nim-sum low} population. It is not
-unlikely that the approach got stuck in a local optimum in this case. However,
-the estimated fitness of the best sequence in the \emph{Rules low} population
-is much more convincing. The populations in which the system did not seem to
-work had either too little data or were affected by a bug. However, it is of
-course not certain that the system would've been successful in those
-populations otherwise.
+unlikely that the approach got stuck in a local optimum in this case. Although
+it is also possible that none of the sequences would have been effective. The
+estimated fitness of the best sequence in the \emph{Rules low} population is
+however much more convincing. The populations in which the system did not seem
+to work had either too little data or were affected by a bug. However, it is of
+course not certain that the system would've been successful otherwise.\\\\
+\noindent
+To better understand what the effects were of the \textbf{TutOER} system, the
+results per lesson are described in more detail in the rest of this
+chapter.
 
 \begin{table}
 	\centering
@@ -85,9 +90,7 @@ sequences evaluated at least once.}
 	\end{tabular}
 \end{table}
 
-\section{Deeper analysis}
-\label{sec:results_analysis}
-\subsection{Lesson: Rules}
+\section{Lesson: Rules}
 \label{sec:results_rules}
 The \emph{Rules low} population completed 22 generations and received 
 223 evaluations by students. At the end of the experiment
@@ -104,12 +107,12 @@ Resource~1 dissapeared from the population after not being selected for the
 second generation. Resource~3 had the highest fitness of the first four
 generations \\\\
 \noindent
-Figure~\ref{fig:exp_cumul_rules_low} shows that after 40 evaluations, in the fifth generation, \emph{TutOER}
+Figure~\ref{fig:exp_cumul_rules_low} shows that after 40 evaluations, in the fifth generation, \textbf{TutOER}
 switches to the evaluation of \emph{Sequence~[3,1]}. This is only deviated from at
-two points. First, at the 81st evaluation, the \emph{TutOER} system tried out
-Resource~1 once more. Second, from evaluation 141 till 144 the \emph{TutOER}
+two points. First, at the 81st evaluation, the \textbf{TutOER} system tried out
+Resource~1 once more. Second, from evaluation 141 till 144 the \textbf{TutOER}
 system evaluated the mirrored version of \emph{Sequence~[3,1]} that ended with
-Resource~3. In both cases however, the \emph{TutOER} system returned to the
+Resource~3. In both cases however, the \textbf{TutOER} system returned to the
 optimal sequence.\\\\
 \noindent
 Figure~\ref{fig:exp_cover_rules_low} shows the \emph{Rules low} population
@@ -117,7 +120,7 @@ encountered a fifth of all sequences, namely eight out of 40. Although this was
 enough to find \emph{Sequence~[3,1]}, the large majority of sequences was not
 attempted. No sequences of three resources were attempted. These sequences
 filled 60\% of the total number of possible sequences in this experiment. When
-comparing to the possible sequences of two resources maximum, the \emph{TutOER}
+comparing to the possible sequences of two resources maximum, the \textbf{TutOER}
 system evaluated half.\\\\
 \noindent
 The \emph{Rules high} population encountered five out of 40 possible sequences.
@@ -169,7 +172,7 @@ was lower than the current best sequence.
 	\label{fig:exp_eval_rules}
 \end{figure}
 
-\subsection{Lesson: Intuition}
+\section{Lesson: Intuition}
 \label{sec:results_intuition}
 Figure~\ref{fig:exp_cumul_intuition_low} shows the cumulative regret of the
 \emph{Intuition low} population. During the experiment 108 evaluations were
@@ -181,14 +184,14 @@ and remained present throughout all eleven generations. The estimated fitness of
 \\\\
 \noindent
 In the second generation of the \emph{Intuition low} population, the
-\emph{TutOER} system tried out the sequence of Resource~5 and Resource~6
+\textbf{TutOER} system tried out the sequence of Resource~5 and Resource~6
 several times in both orderings. Both however scored lower than the best
 sequence in that generation. As a result, in the third generation almost all
 individuals contained \emph{Sequence~[6]}. This is also visualized in
 Table~\ref{tab:results_diversity} that shows the diversity of the
 \emph{Intuition low} population dropped to 29\%, which means there are two
 types of sequences in the generation. From the second generation onwards, the
-\emph{TutOER} system sticks to presenting \emph{Sequence~6}. The only exception
+\textbf{TutOER} system sticks to presenting \emph{Sequence~6}. The only exception
 is the 61st evaluation where \emph{Sequence~[6,8]}, coming from the
 \emph{Intuition high} population, is tried once. At the end of the experiment
 seven out of the 40 sequences were encountered, which is also shown in
@@ -196,7 +199,7 @@ Figure~\ref{fig:exp_cover_intuition_low}.\\\\
 \noindent
 The best sequence in the \emph{Intuition high}
 population at the end of the experiment is \emph{Sequence~[6,8]}. The estimated
-fitness value of this sequence is 0.5959. However, the \emph{TutOER} system did
+fitness value of this sequence is 0.5959. However, the \textbf{TutOER} system did
 not manage to hold on to this sequence. As a result, it was only evaluated ten
 times. Figure~\ref{fig:exp_eval_intuition_high_373} displays the observed
 fitness values. After the first generation, three consecutive generations were
@@ -209,7 +212,7 @@ diversity as a result. Figure~\ref{fig:exp_cover_intuition_high} shows that at
 the end of the experiment six out of the 40 sequences were encountered.\\\\
 \noindent
 In the fifth generation a mutation on \emph{Sequence~[6]} resulted in
-\emph{Sequence~[6,8]}. The \emph{TutOER} system lost the sequence in the
+\emph{Sequence~[6,8]}. The \textbf{TutOER} system lost the sequence in the
 transition to the seventh generation. This is likely due to a bug in the
 software related to sequences that migrated. As a consequence the aggregated
 fitness value of those sequences was altered by both populations in which it
@@ -255,7 +258,7 @@ in this report are not affected by this bug.
 	\label{fig:exp_eval_intuition}
 \end{figure}
 
-\subsection{Lesson: Binary}
+\section{Lesson: Binary}
 \label{sec:results_binary}
 The \emph{Binary low} population received 132 evaluations by students.
 \emph{Sequence~[9]} turned out to be the best with an estimated fitness of
@@ -269,7 +272,7 @@ eight populations.\\\\
 \noindent
 Figure~\ref{fig:exp_cumul_binary_low} shows the cumulative regret in the
 \emph{Binary low} population. The best sequence, \emph{Sequence~[9]}, is
-already present in the first generation. From the 40th evaluation, the \emph{TutOER}
+already present in the first generation. From the 40th evaluation, the \textbf{TutOER}
 system sticks to \emph{Sequence~[9]}. In the seventh generation, a few
 evaluations were assigned to \emph{Sequence~[9,11]}. However, with an estimated
 fitness of 0.4676 this sequence did not outperform \emph{Sequence~[9]}.\\\\
@@ -295,7 +298,7 @@ diversity in three generations.\\\\
 \noindent
 After 27 evaluations, the best sequence in \emph{Binary high} is
 \emph{Sequence~[10]} with an estimated fitness of 0.3265. However,
-Figure~\ref{fig:exp_cumul_binary_high} shows the \emph{TutOER} system does
+Figure~\ref{fig:exp_cumul_binary_high} shows the \textbf{TutOER} system does
 not hold on to the best sequence. The bug relating to immigrated chromosomes
 that was discussed in Section~\ref{sec:results_intuition} is likely the cause
 of that. \emph{Sequence~[9]} that immigrated from \emph{Binary low} appeared to
@@ -339,10 +342,10 @@ evaluations it is hard to say whether \emph{Sequence~[10]} was actually good.
 	\label{fig:exp_eval_binary}
 \end{figure}
 
-\subsection{Lesson: Nim-sum}
+\section{Lesson: Nim-sum}
 \label{sec:results_nimsum}
 The \emph{Nim-sum low} population gathered 166 evaluations by students at the
-end of the experiment. From the 15th evaluation onwards, the \emph{TutOER}
+end of the experiment. From the 15th evaluation onwards, the \textbf{TutOER}
 system mainly stuck to evaluating \emph{Sequence~[16]}. This is also reflected
 in the cumulative regret curves shown in Figure~\ref{fig:exp_cumul_nimsum_low}.
 With an estimated fitness of 0.2557, \emph{Sequence~[16]} turned out to be the
@@ -366,24 +369,19 @@ fitness of all other learning materials shows that one evaluation provides very
 little information.
 
 \begin{figure}[ht]
-	\centering
-	\begin{subfigure}{0.6\linewidth}
-	\centering
+	\begin{subfigure}{0.9\linewidth}
 	\includegraphics[width=\linewidth]{images/results/plot_exp_eval_nimsum_low_28_16.png}
 	\caption{Sequence~[16] in the \emph{Nim-sum low} population}
 	\label{fig:exp_eval_nimsum_low_28}
-	\end{subfigure}
-	\hfill
-	\begin{subfigure}{0.39\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/revised/plot_exp_cumul_nimsum_low.png}
+	\end{subfigure}\\
+	\begin{subfigure}{0.45\linewidth}
+	\includegraphics[width=0.9\linewidth]{images/results/revised/plot_exp_cumul_nimsum_low.png}
 	\caption{Nim-sum low}
 	\label{fig:exp_cumul_nimsum_low}
-	\end{subfigure}\\
+	\end{subfigure}
 	\hfill
-	\begin{subfigure}{0.39\linewidth}
-	\centering
-	\includegraphics[width=\linewidth]{images/results/revised/plot_exp_cumul_nimsum_high.png}
+	\begin{subfigure}{0.45\linewidth}
+	\includegraphics[width=0.9\linewidth]{images/results/revised/plot_exp_cumul_nimsum_high.png}
 	\caption{Nim-sum high}
 	\label{fig:exp_cumul_nimsum_high}
 	\end{subfigure}

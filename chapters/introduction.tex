@@ -27,17 +27,15 @@ automatically evaluated the quality of metadata \citep{Ochoa2009b, Tani2013}.
 learning objects based on intrinsic metrics (e.g. number of links in a
 document). \citet{Duval2006} proposed the context-dependent ranking algorithm
 LearnRank, where learning objects that are used in many contexts receive a
-higher rank. In \citep{Ochoa2006} the attention given to an OER is taken as a
-proxy for its usefullness.\\\\
-\noindent
+higher rank. \citet{Ochoa2006} take the attention given to an OER as a
+proxy for its usefullness.
 A recent report from the European Commission on the quality issue of OER
 identified one of the challenges to be that educational resources of high
 quality are fragmented with no particular way of distinguishing them from the
 other available learning objects \citep{Camilleri2014}. \citet{Duval2006}
 states that in an ideal case empirical data of the learning effect caused by a
 particular OER bootstraps its ranking. \citet{Camilleri2014} refers to impact
-as one of the five important aspects of OER quality.\\\\
-\noindent
+as one of the five important aspects of OER quality.
 However, in the proposed automatic mechanisms to assess OER quality, the impact
 a particular OER has on learning has thusfar been mostly neglected
 \citep{Kay2007}. This is an undesirable situation as the sole purpose of any
@@ -65,21 +63,21 @@ new OER. The collection of possible sequences of OER will therefore continue to
 grow during a quality assessment process. This is known as the \emph{open
 corpus} problem \citep{Brusilovsky2007}.\\\\
 \noindent
-This thesis introduces and evaluates \emph{TutOER}, a novel approach to
-automatic assessment of OER quality. \emph{TutOER} estimates the impact of a
+This thesis introduces and evaluates \textbf{TutOER}, a novel approach to
+automatic assessment of OER quality. \textbf{TutOER} estimates the impact of a
 sequence of OER by measuring the knowledge level of a student before and after the
 sequence is presented to the student. Figure~\ref{fig:assessment_of_sequences}
 depicts the situation. The curriculum sequencing task is executed by a genetic
 algorithm with generational replacement and elite preservation. Sequences of
 OER are evolved by crossover and mutation in order to consider better sequences
 over time. The survival chance of an OER sequence is proportional to its
-measured impact. The genetic algorithm was extended with UCB-1 selection
-\citep{Auer2002} for better cost boundaries.\\\\
+measured impact. An additional confidence-based selection mechanism was added
+to the genetic algorithm for better cost boundaries.\\\\
 \noindent
-The \emph{TutOER} system was evaluated in a newly created online course around
+The \textbf{TutOER} system was evaluated in a newly created online course around
 the mathematical game Nim. The course contained four lessons through which a
 participant was instructed about the game and its winning strategy. Each lesson
-contained a sequence of OER that was selected by the \emph{TutOER} system to be
+contained a sequence of OER that was selected by the \textbf{TutOER} system to be
 evaluated. Additionally a series of simulations were executed to explore
 the behavior of the system in several theoretical situations.\\
 \begin{figure}[h!]
@@ -89,7 +87,7 @@ the behavior of the system in several theoretical situations.\\
 	\caption[Setup of assessments of impact OER]{The impact of an OER sequence
 		is measured by a knowledge test before and after the
 	sequence was presented to the student. The sequence is selected by the
-	\emph{TutOER} system.}
+	\textbf{TutOER} system.}
 	\label{fig:assessment_of_sequences}
 	\end{framed}
 \end{figure}\\

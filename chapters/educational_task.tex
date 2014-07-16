@@ -1,6 +1,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Chapter: Problem Domain %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
+The impact a sequence of OER has on learning is not known within OER repositories. Any
+system that would want to present the optimal sequence to a learner would have
+to empirically discover this impact. In the process of this discovery,
+suboptimal sequences are presented to a learner, which could reduce learning.
+The goal of this thesis is to find the optimal sequence of OER
+while minimizing the negative consequences of the search process. The rest of
+this chapter discusses this in more detail.
 \section{Educational context}
 \label{sec:task_context}
 % TODO: Lesson or knowledge component?
@@ -14,7 +21,7 @@ to make a selection. The result of this selection is an ordered sequence of
 educational resources that are consecutively presented. At the beginning and at
 the end of each lesson there is an assessment, refered to as the pre-test and
 post-test respectively. These assessments measure the relevant competence level
-befor and after the presented sequence. The situation is depicted in
+before and after the presented sequence. The situation is depicted in
 Figure~\ref{fig:course_lesson_diagram}. The task central to this thesis is to
 find the optimal sequence of resources.\\
 \begin{figure}[ht]
@@ -39,7 +46,7 @@ the impact it has on learning. The impact is defined as the measured normalized
 learning gain between the pre-test and the post-test, as given by
 Equation~\eqref{eq:nlg}. A sequence is optimal when the measured normalized
 learning gain is maximized. The search task is thus straightforward. Namely
-finding the sequence with maximum impact out of all possible sequences.
+finding the sequence with maximum expected impact out of all possible sequences.
 Equation~\eqref{eq:optimality} describes this mathematically, where $R$
 denotes the set of all educational resources available for that lesson, $C^1$
 and $C^2$ denote the normalized pre-test and post-test scores respectively, $a$
@@ -47,7 +54,7 @@ and $b$ denote the minimum and maximum length of a sequence respectively and
 $S$ denotes the set of all possible sequences for that lesson.
 \begin{equation}
 	\label{eq:optimality}
-	\argmax_{s \in S} \left[ nlg(C^1, C^2_s) \right],
+	\argmax_{s \in S} \left[\,\operatorname{E}[\,nlg(C^1, C^2_s)\,]\,\right],
 	\quad S = \bigcup_{k = a}^{b} R^k
 \end{equation}
 \subsection{Solution space}

@@ -31,15 +31,15 @@
 % Required for rotated tables
 \usepackage{rotating}
 
-% Required for subtables
-\usepackage{caption}
+% Required for subtables and italic captions
+\usepackage[font={it}]{caption}
 \usepackage{subcaption}
 
 %Alternative margins
 \usepackage[hmargin=3cm, vmargin=3cm]{geometry}
 
 % Required for different BibTeX citations
-\usepackage[square]{natbib}
+\usepackage[square, numbers]{natbib}
 
 % Required for clickable citations
 \usepackage{hyperref}
@@ -91,7 +91,7 @@
   }
   \renewcommand*{\chaptitlefont}{\normalfont\sffamily\Huge\bfseries}
   \renewcommand*{\printchaptertitle}[1]{
-	\flushleft\chaptitlefont##1\\[\baselineskip]
+	\flushleft\chaptitlefont##1
   }
   \renewcommand\afterchapternum{%
     \par\nobreak\vskip\midchapskip\hrule\vskip\midchapskip
@@ -110,7 +110,8 @@
 %\input{frontpage.tex}
 %\def\MainTitle{Towards the evolution of Open Educational Resources}
 %\def\MainTitle{Survival of the fittest in the jungle of Open~Educational~Resources}
-\def\SubTitle{Curriculum sequencing using genetic algorithms with an increasing gene pool}
+%\def\SubTitle{Curriculum sequencing using genetic algorithms with an increasing gene pool}
+\def\SubTitle{Online curriculum sequencing using genetic algorithms\\based on measured learning gain.}
 %\def\SubTitle{Genetic curriculum sequencing from an open gene pool}
 %\def\FrontPageImage{images/evolution.jpeg}
 \def\Author{Martin Sander Latour}

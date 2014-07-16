@@ -2,11 +2,11 @@
 % Chapter: Experimental setup %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 This chapter describes the experiment that has been performed to test the
-\emph{TutOER} system. The purpose of the experiment was to verify whether the
+\textbf{TutOER} system. The purpose of the experiment was to verify whether the
 presented apporach would also work in a more realistic environment. The
 experiment took the form of an online course. In this course, sequences of OER
 are presented to a student in four different lessons. The sequences are
-selected by the \emph{TutOER} system. Students are requested to answer a few
+selected by the \textbf{TutOER} system. Students are requested to answer a few
 multiple-choice questions at the beginning and the end of each sequence. These
 questions assess the competency level of the student on the topic of the
 lesson.\\\\
@@ -25,15 +25,15 @@ for the genetic algorithm during this experiment.
 \label{sec:setup_material}
 % TODO: Describe initial page of curriculum with explanation of the experiment
 Participants in the experiment went through a curriculum about the game of Nim.
-Nim is a mathematical game where two players alternate turns in taking away at
-least one object from exactly one of stacks of objects on the table. The
-experiment only looks at the normal version of the Nim game, where the person
-that takes the last object of the table wins. In the mis\`{e}re version of the
-game, this person would have lost. Nim is a zero-sum game and is part of a
-large collection of related games which have mathematically grounded
+Nim \citep{Bouton1901} is a mathematical game where two players alternate turns
+in taking away at least one object from exactly one of stacks of objects on the
+table. The experiment only looks at the normal version of the Nim game, where
+the person that takes the last object of the table wins. In the mis\`{e}re
+version of the game, this person would have lost. Nim is a zero-sum game and is
+part of a large collection of related games which have mathematically grounded
 strategies. Nim's winning strategy, provided you are in a winnable position,
-involves applying the nim-sum operator. % Explain the nim-sum operator
-
+involves applying the nim-sum operator.\\\\
+\noindent
 The Nim curriculum is divided into four knowledge components. First, the rules
 of the game are explained. Second, some intuition about good strategies is formed.
 Third, binary numbers are covered. Fourth, the binary nim-sum operation is
@@ -98,6 +98,7 @@ are listed in Appendix~\ref{ax_questions}.
     \caption{Screenshot of the exam setup with five nim game scenarios}
     \label{fig:screen_exam}
 \end{figure}
+\noindent
 After having completed all knowledge components, a student is presented a final
 exam. The purpose of this exam is to have an opportunity to compare students at
 the beginning of the experiment with those at the end. The exam questions are
@@ -210,7 +211,7 @@ Chapter~\ref{ch:simulations} analyzed what the optimal parameter values were
 for the genetic algorithm using evaluations based on the handcrafted model.
 These parameter values will be used for the experiment as well, apart from one
 exception. The number of individuals in the population was set back from ten
-(as it was in the \texttt{erik} setup) to seven. This was out of precaution to
+(as it was in the \texttt{pop10ep10} setup) to seven. This was out of precaution to
 avoid the situation where a too large diversity would require more students to
 show signs of convergence than would be available to the experiment. This set
 the parameter values of the genetic algorithm in the experiment to the
@@ -256,12 +257,12 @@ that. Furthermore from the simulations performed in this thesis it appears that
 the algorithm is properly implemented. What the experiment is intended to find
 out is whether the task of OER quality assessment by curriculum sequencing is
 feasible in a realistic scenario with noise due to real students. For that
-purpose it is more interesting to see whether the \emph{TutOER} system would
+purpose it is more interesting to see whether the \textbf{TutOER} system would
 temporarily discard optimal sequences that have seem to perform poorly at the
 time, or whether the system is robust enough.\\\\
 \noindent
 If the approach works, the regret will decrease over time. As a result the
-growth of the cumulative regret will, approximately, stop. The \emph{TutOER}
+growth of the cumulative regret will, approximately, stop. The \textbf{TutOER}
 system will always continue to try out sequences that appear to be suboptimal,
 but the intervals between these explorations will increase. Small peaks in
 regret are thus expected, but the trend of the line should be flat. The
