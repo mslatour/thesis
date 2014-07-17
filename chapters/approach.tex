@@ -1,8 +1,17 @@
 %%%%%%%%%%%%%%%%%%%%%
 % Chapter: Approach %
 %%%%%%%%%%%%%%%%%%%%%
+As described in Chapter~\ref{ch:curriculum_sequencing}, the goal of this thesis
+is to find the optimal sequence of OER while minimizing online regret. The
+\textbf{TutOER} system needs to select a sequence for each student within a
+lesson. This chapter describes how the system does this. The approach uses a
+genetic algorithm to search more structured through the space of possible
+sequences. The genetic algorithm paradigm is introduced in
+Section~\ref{sec:approach_intro}. Section~\ref{sec:approach_application}
+discusses how this paradigm is applied to this thesis.
 
 \section{The Genetic Algorithm}
+\label{sec:approach_intro}
 This section provides a brief introduction into genetic algoritms. The purpose
 of this section is to establish a shared understanding of the standard setup. For a more
 in-depth introduction, the reader is referred to \citep{Eiben2007}.\\\\
@@ -249,7 +258,8 @@ exchanged during each migration. For a more extensive analysis of the island mod
 %%%%
 % Representation/Domain modeling
 %%%
-\section{Modeling of the genetic algorithm}
+\section{Applying the genetic algorithm}
+\label{sec:approach_application}
 This section describes the way in which the task described in
 Chapter~\ref{ch:curriculum_sequencing} is modeled using genetic algorithms.
 Each section discusses an important aspect of the modeling: representation
