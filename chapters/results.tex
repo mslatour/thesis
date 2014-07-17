@@ -8,7 +8,7 @@ the student group to which the participant is assigned. The \textbf{TutOER}
 system selects the sequence to be presented to the participant within that
 student group. The approach balances exploration and exploitation to maximize
 the expected learning gain while minimizing online regret. The purpose of the
-experiment is to answer the question: does the system learn to pick sequences
+experiment is to answer the central question: does the system learn to pick sequences
 with more learning impact over those with less impact? There are two metrics
 that answer this question. Firstly, we expect to see the slope of the
 cumulative regret to decrease. This is captured in the difference between the
@@ -29,7 +29,17 @@ was not successful in stabilizing the regret. This is likely due to a bug,
 which is discussed in more detail in Section~\ref{sec:results_intuition}. The
 same has occured in population \emph{Binary high}.\\\\
 \noindent
-The answer to the question is, yes in some populations it did. It is not known
+The participants that made it to the end of the experiment also completed the
+final exam, where they played five consecutive Nim games.
+Table~\ref{tab:results_exam} shows the frequency of exam scores for the first,
+second, third and last 25\% of those participants. The average score is
+slightly higher in the last 25\% compared to the first. However, there is not a
+clear trend upwards. The experiment has thus not convincingly shown a clear
+improvement in participants' understanding of how to play the Nim game. In
+other words, the sequences presented in each lesson did not improve over time
+enough to cause a clear effect on the displayed Nim competence.\\\\
+\noindent
+The answer to the central question is, yes in some populations it did. It is not known
 whether the sequences that appeared to be the best are actually the global
 optimum. The estimated fitness values of some of the best sequences are quite
 low, especially in the case of the \emph{Nim-sum low} population. It is not
@@ -55,8 +65,8 @@ last 20\% of the evaluations. The coverage indicates the percentage of
 sequences evaluated at least once.}
 	\label{tab:pop_metrics}
 	\begin{tabular}{llllll}\hline
-		\textbf{Population} & \textbf{Convergence} & \textbf{Best} &
-		\textbf{First 20\%} & \textbf{Last 20\%} & \textbf{Coverage} \\\hline
+		Population & Convergence & Best &
+		First 20\% & Last 20\% & Coverage \\\hline
 		Rules low & 14 & 0.7634  & 12.115 & 0.000 & $^{8}/_{40}$ \\
 		Rules high & No & 0.4388 & 2.286 & 0.514 & $^{5}/_{40}$ \\
 		Intuition low & 20 & 0.4576 & 7.043 & 0.000 & $^{7}/_{40}$ \\
@@ -87,6 +97,22 @@ sequences evaluated at least once.}
 		Intuition & 85 &  23 & 71 & 30 & 81 \\
 		Binary & 106 & 26 & 16 & 11 & 117 \\
 		Nim-sum & 154 & 12 & 13 & 9 & 6 \\
+	\end{tabular}
+\end{table}
+
+\begin{table}
+	\centering
+	\caption[Frequency of exam scores for different participant segments]{Frequency of exam scores for the first, second, third and last 25\% of the
+	participants. Exam scores are defined as the number of Nim games won.}
+	\label{tab:results_exam}
+	\begin{tabular}{l|lllllll}\hline
+		\multicolumn{1}{l}{} & \multicolumn{6}{c}{Frequency of number of games won} & \\
+		\multicolumn{1}{l}{Participants} & 0 wins & 1 win & 2 wins & 3 wins & 4
+		wins & 5 wins & Average win\\\hline
+		First 25\% & 9 & 19 & 9 & 1 & 2 & 0 & 1.2 games \\
+		Second 25\% & 7 & 13 & 9 & 5 & 2 & 5 & 1.9 games \\
+		Third 25\% & 9 & 17 & 9 & 2 & 2 & 2 & 1.4 games \\
+		Last 25\% & 6 & 13 & 13 & 0 & 5 & 4 & 1.9 games \\
 	\end{tabular}
 \end{table}
 
