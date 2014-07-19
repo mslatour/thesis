@@ -3,7 +3,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%
 Apart from a modeling of the domain, genetic algorithms also require several
 parameter values to be set. These values can, together with modeling decisions,
-have an enormous impact on peformance. It is therefore important to gain more
+have an enormous impact on performance. It is therefore important to gain more
 insight in the properties and effectiveness of the genetic algorithm approach
 under various parameter values. This chapter describes and analyses a series of
 simulations that explored this. The goal of the simulations is to find good
@@ -37,7 +37,7 @@ end of the generation, fitness-based selection chooses individuals to produce
 offspring using crossover operations. The resulting offspring is then
 potentially mutated. The amount of crossover and mutation operations are
 influenced by the \emph{population size}. A larger value allows for more
-diversity in the population, althouh it is not a guarantee. Diversity is
+diversity in the population, although it is not a guarantee. Diversity is
 important when dealing with the possibility of local optima. However, a smaller
 value allows for a more directed search towards an optimal solution.
 \paragraph{Number of episodes} The number of evaluations that will be assigned
@@ -75,7 +75,7 @@ specific parameter setups is done per group. Group~1 contains the first six
 parameter setups and covers the interplay between \emph{population size} and
 the \emph{number of episodes}. Group~2 contains the second six parameter setups
 and covers the interplay between the \emph{number of elite} and the
-\emph{mutation rate}. Each parameter setup is labelled with a firstname for
+\emph{mutation rate}. Each parameter setup is labelled with a systematic name for
 later reference.\\
 \begin{table}[h!]
 	\centering
@@ -238,7 +238,7 @@ UCB-1 has very few individuals to choose from (namely five) and relatively many
 evaluations to assign (namely twenty). This will allow the \textbf{TutOER} system
 to aquire fitness estimates with much more confidence. However, when none of
 the five individuals performs optimal, the \textbf{TutOER} system is forced to
-to built-up regret until the end of the generation before the genetic algorithm
+built-up regret until the end of the generation before the genetic algorithm
 can continue its search. This is true for all paramater setups, but
 because the number of individuals in each generation is relatively low compared
 to the number of episodes in the \texttt{pop5ep20} setup, it is more likely to
@@ -367,7 +367,7 @@ overall best.
 	\label{fig:cumul_handcrafted_overview_group1}
 	\end{subfigure}
 	\caption[Cumulative regret in normal simulated environment for group 1]{Plot with error bars of the cumulative regret of the \textbf{TutOER}
-	system using specific parameter setups in the normal environment.
+	system using Group 1 parameter setups in the normal environment.
 	Plot~\ref{fig:cumul_handcrafted_overview_group1} shows the
 	different parameter setups in one graph.}
 	\label{fig:cumul_handcrafted_container_group1}
@@ -429,7 +429,7 @@ overall best.
 	\label{fig:cumul_handcrafted_noise_overview_group1}
 	\end{subfigure}
 	\caption[Cumulative regret in noisy simulated environment for group 1]{Plot with error bars of the cumulative regret of the \textbf{TutOER}
-	system using specific parameter setups in the noisy environment.
+	system using Group 1 parameter setups in the noisy environment.
 	Plot~\ref{fig:cumul_handcrafted_noise_overview_group1} shows the
 	different parameter setups in one graph.}
 	\label{fig:cumul_handcrafted_noise_container_group1}
@@ -484,7 +484,7 @@ overall best.
 	\label{fig:cover_handcrafted_overview_group1}
 	\end{subfigure}
 	\caption[Percentage seen in normal simulated environment for group 1]{Plot with error bars of the percentage of chromosomes seen by the \textbf{TutOER}
-	system using specific parameter setups in the normal environment
+	system using Group 1 parameter setups in the normal environment
 	Plot~\ref{fig:cover_handcrafted_overview_group1} shows the
 	different parameter setups in one graph.}
 	\label{fig:cover_handcrafted_container_group1}
@@ -605,7 +605,7 @@ rest. Albeit with varying margins.
 	\label{fig:cumul_handcrafted_overview_group2}
 	\end{subfigure}
 	\caption[Cumulative regret in normal simulated environment for group 2]{Plot with error bars of the cumulative regret of the \textbf{TutOER}
-	system using specific parameter setups in the normal environment.
+	system using Group 2 parameter setups in the normal environment.
 	Plot~\ref{fig:cumul_handcrafted_overview_group2} shows the
 	different parameter setups in one graph.}
 	\label{fig:cumul_handcrafted_container_group2}
@@ -660,7 +660,7 @@ rest. Albeit with varying margins.
 	\label{fig:cumul_handcrafted_noise_overview_group2}
 	\end{subfigure}
 	\caption[Cumulative regret in noisy simulated environment for group 2]{Plot with error bars of the cumulative regret of the \textbf{TutOER}
-	system using specific parameter setups in the noisy environment.
+	system using Group 2 parameter setups in the noisy environment.
 	Plot~\ref{fig:cumul_handcrafted_noise_overview_group2} shows the
 	different parameter setups in one graph.}
 	\label{fig:cumul_handcrafted_noise_container_group2}
@@ -691,14 +691,14 @@ rest. Albeit with varying margins.
 	\begin{subfigure}{0.48\linewidth}
 	% origin: simulation_2014-05-28-1622
 	\includegraphics[width=\linewidth]{images/results/revised/plot_sim_conv_joined_robert_saskia_ellen_martijn_nicolai_ria_handcrafted_systematic.png}
-	\caption{Convergence plot}
+	\caption{Group 2 parameter setups}
 	\label{fig:conv_group2_handcrafted}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.48\linewidth}
 	% origin: simulation_2014-05-28-2118
 	\includegraphics[width=\linewidth]{images/results/revised/plot_sim_conv_joined_robert_saskia_ellen_martijn_nicolai_ria_handcrafted_noise_systematic.png}
-	\caption{Convergence plot with noise}
+	\caption{Group 2 parameter setups, with noise}
 	\label{fig:conv_group2_handcrafted_noise}
 	\end{subfigure}
 	\caption{Convergence plots}
@@ -747,8 +747,8 @@ rest. Albeit with varying margins.
 	\end{subfigure}
 	\caption[Percentage chromosomes seen in normal simulated environment for
 	group 1]{Plot with error bars of the percentage of chromosomes seen by the \textbf{TutOER}
-	system using specific parameter setups in the normal environment.
-	Plot~\ref{fig:cover_handcrafted_overview_group1} shows the
+	system using Group 2 parameter setups in the normal environment.
+	Plot~\ref{fig:cover_handcrafted_overview_group2} shows the
 	different parameter setups in one graph.}
 	\label{fig:cover_handcrafted_container_group2}
 \end{figure}
@@ -795,7 +795,7 @@ rest. Albeit with varying margins.
 	\end{subfigure}
 	\caption[Percentage of chromosomes seen in noisy simulated environment for
 	group 1]{Plot with error bars of the percentage of chromosomes seen by the \textbf{TutOER}
-	system using specific parameter setups in the noisy environment.
+	system using Group 1 parameter setups in the noisy environment.
 	Plot~\ref{fig:cover_handcrafted_noise_overview_group1} shows the
 	different parameter setups in one graph.}
 	\label{fig:cover_handcrafted_noise_container_group1}
@@ -843,7 +843,7 @@ rest. Albeit with varying margins.
 	\end{subfigure}
 	\caption[Percentage chromosomes seen in noisy simulated environment for
 	group 1]{Plot with error bars of the percentage of chromosomes seen by the \textbf{TutOER}
-	system using specific parameter setups in the noisy environment.
+	system using Group 2 parameter setups in the noisy environment.
 	Plot~\ref{fig:cover_handcrafted_noise_overview_group1} shows the
 	different parameter setups in one graph.}
 	\label{fig:cover_handcrafted_noise_container_group2}

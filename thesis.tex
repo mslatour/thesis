@@ -17,7 +17,11 @@
 % Required for pseudo algorithm listings
 \usepackage{algpseudocode}
 
-\usepackage{pdflscape}
+% Required for landscape pages in pdflatex
+%\usepackage{pdflscape}
+% Required for landscape pages for printers
+\usepackage{lscape}
+
 
 % Required for mathematical extensions
 \usepackage{amsmath}
@@ -130,6 +134,7 @@
 
 %\frontpage{\MainTitle}{\SubTitle}{\Author} % include title
 \newpage
+\thispagestyle{empty}
 \scientifictitle
 \newpage
 

@@ -10,8 +10,8 @@ while minimizing the negative consequences of the search process. The rest of
 this chapter discusses this in more detail.
 \section{Educational context}
 \label{sec:task_context}
-% TODO: Lesson or knowledge component?
-We consider OER sequencing within a lesson of an online course. The course
+	% TODO: Lesson or knowledge component?
+	We consider OER sequencing within a lesson of an online course. The course
 focuses on a particular topic and is split up into various lessons that cover a
 concept or knowledge area that is required for understanding the
 course topic. The lesson is taught by an automatic tutor through a sequence of
@@ -131,7 +131,9 @@ Within the scope of this thesis, the sequences are not optimized for every
 individual student. Instead, each student is assigned to a student group, for
 which the sequence of educational material is optimized. Students are assigned
 to the student group based on their normalized pre-test score. The score is
-descretized in a low and high value.  The optimal sequence of education
+descretized in a low and high value. Specifically, students who have less than
+half the questions correct are assigned to the low student group and the
+others are assigned to the high student group. The optimal sequence of education
 material must be found for each student group. In order words, students
 who know little about the topic might receive different material than students
 who know a lot. This results in a new situation, which is depicted by
@@ -192,7 +194,7 @@ needed for accurate estimates. This results in two objectives, namely
 better estimates and minimizing online regret.\\\\
 \noindent
 This situation is familiar to many fields and is known as the exploration vs.
-exploitation trade- off \citep{Holland1992}. An often used example is the
+exploitation trade-off \citep{Holland1992}. An often used example is the
 n-armed bandit problem \citep{Sutton1998} where a casino offers n different
 slot machines (a.k.a. one-armed bandits) to play. A player would want to
 optimize the total amount of money earned and is therefore looking for the slot

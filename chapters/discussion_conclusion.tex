@@ -1,7 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Chapter: Discussion/Conclusion %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 In this thesis a novel approach to automatic assessment of OER quality has been
 presented and evaluated. Measurements of the impact of OER on learning as
 component of the OER quality was largely missing in the literature. The
@@ -36,16 +35,17 @@ could be explained by the fact that students in the same group had different
 learning experiences in previous lessons.\\\\
 \noindent
 Despite the varying fitness observations, the \textbf{TutOER} was capable of
-finding the best sequence in at least one student group for each lesson in the
-experiment. The best sequences had on average a better fitness than the other
-sequences. In some cases the best sequence appears promising enough to be close
+finding the \emph{best}\footnote{The best relative to what \textbf{TutOER} has
+seen.} sequence in at least one student group for each lesson in the
+experiment. The \emph{best} sequences had on average a higher fitness than the other
+sequences. In some cases the \emph{best} sequence appears promising enough to be close
 to a global optimum. For example, the sequence found in the \emph{Rules low}
 population had a high fitness of 0.7634. Furthermore, 103 out of 178 students
 got all post-test question correct after seeing this sequence. Many more
 students at least improved their score.\\\\
 \noindent
-However, in some other cases the best sequence is less convincing. For example,
-the best sequence in the \emph{Nim-sum low} population had a low fitness of
+In some other cases the \emph{best} sequence is less convincing. For example,
+the \emph{best} sequence in the \emph{Nim-sum low} population had a low fitness of
 0.2557. More than half of the students had an equal or even lower post-test
 score compared to their pre-test. In these cases it is not a stretch to imagine
 that a better sequence might have existed. Even though on average this sequence
@@ -53,33 +53,81 @@ was better than the rest on decisive moments. Due to the chosen parameter
 values of the genetic algorithm, decisions are made on relatively few
 evaluations. Furthermore, the order in which the students participate is
 approximately random. Given that most if not all OER sequences will perform bad
-with a few students. It could happen that by chance a sequence would get those
+with at least a few students. It could happen that by chance a sequence would get those
 few students at the beginning. A different sequence might get those few
 students at the end, and will perform better on average at the beginning in
 comparison. Due to the directed search of the genetic algorithm, it might take
 some time before a sequence is granted enough opportunities to correct the
 quality estimate.\\\\
 \noindent
-This is of course true for a normal teacher evaluating educational material as
-well. In fact, it is true for every one-armed bandid situation where there is a
-exploration vs exploitation trade-off in a noisy environment. The solution
-appears straightforward, but it comes with a cost. The solution is to evaluate
-sequences more often before making a selection. The parameter that influences
-that directly is the number of episodes. That parameter was set to a low value
-for the experiment, which also becomes clear from the results. Raising it would
-however also inevitably raise the regret built-up from sequences that turn out
-to be bad. A more indirect parameter is the number of individuals in the
-population. A larger population would increase the chance of any individual to
-be selected. Although in this thesis, sequences that caused a negative normalized
-learning gain had a zero chance of being selected. More diversity in the
+The parameters of the genetic algorithm were set to stimulate quick
+convergence. The underlying argument was that it was unclear how many
+participants would be available to support the \textbf{TutOER} system in
+showing the desired effect. As a result, the populations very quickly only
+contained very few unique sequences. This severly limited the exploration
+opportunities. In part, the parameters setting the population size and number
+of episodes were responsible for this. However, an additional factor was the
+implementation of parent selection. The roulette wheel requires the fitness
+values to be normalized between 0 and 1. Normalization was done using a
+straightforward approach of dividing each fitness value by the maximum fitness
+value in the selection. Negative fitness values were set to zero and thus had
+no chance of being selected. It seemed like a sensible idea at the time to only
+select from sequences that actually caused some improvement. However, based on
+the observed variance of the fitness values, this might have been responsible
+for the elimination of good candidates.\\\\
+\noindent
+The problem of premature elimination is of course also an issue for a normal
+teacher evaluating educational material. In fact, this is true for every
+one-armed bandid situation where there is a trade-off between exploration and
+exploitation in a noisy environment. The solution appears straightforward, but
+it comes with a cost. The solution is to evaluate sequences more often before
+making a selection. The parameter that influences that directly is the number
+of episodes. That parameter was set to a low value for the experiment, which
+also becomes clear from the results. Raising it would however also inevitably
+raise the regret built-up from sequences that turn out to be bad. A more
+indirect parameter is the number of individuals in the population. A larger
+population would increase the chance of any individual to be selected.
+In particular if that would be combined with a different approach to parent
+selection that deals with negative fitness differently. More diversity in the
 population would slow down the convergence of the genetic algorithm. However,
 due to UCB-1 selection, the exploration versus exploitation trade-off would be
 better managed.\\\\
 \noindent
-The results do show that it is possible to take into account the impact that
-OER has on learning. Even when that impact is unknown at the beginning. In the
-future, a feedback loop could be introduced from a learning environment where
-the OER is deployed back to learning object repository. Gathering data from
-many students will allow for more specific student categories. The exploration
-towards new materials could be handled by recommender systems and intelligent
-tutors. In a way similar to the work presented in this thesis.
+From the data collected in this thesis, it is not possible to know if the
+\textbf{TutOER} system did indeed find the optimal sequences. In other words,
+it is unknown how bad the fitness estimates are. The author proposes an
+additional benchmarking experiment to retrieve that information. A simple
+approach would be to evaluate all sequences a certain number of times. Based on
+the large variance in the observed fitness values, each sequence would need to
+be evaluated at least fifty times. That would however require 2000 participants
+for both the low and high student group. Lowering the variance could perhaps be
+done with a more elaborate set of questions for the benchmark, which would at
+least be less sensitive to random mistakes of participants. Unfortunately, the main
+source of the variance is likely to be the heterogeneous collection of
+participants in one student group. Ultimately, students should be
+differentiated into more different groups as to create more homogeneous
+collections of participants. However, that would require to redo the experiment
+described in this thesis with the new student groups.\\\\
+\noindent
+Apart from comparison with an extensive benchmark, it is also interesting to
+compare this approach with one that only uses UCB. The genetic algorithm now
+serves as a ``smart'' filter for UCB with the purpose of speeding up the
+search. The rationale behind this is that unlike UCB, the genetic algorithm
+generalizes implicitly by selection and cross-over. In particular because a
+sequence can be represented by chromosome in a natural manner, which would
+allow for meaningful direction of the search. As a result some areas of the
+search space do not need to be explored. This is of course only beneficial if
+the genetic algorithm is effective. It therefore makes sense to run the same
+experiment with a setup where only UCB selection is used to pick sequences. The
+regret will in the beginning almost certainly be much higher, but it may prove
+to be more effective afterwards.\\\\
+\noindent
+In conclusion, this thesis presented and tested a possible approach to the
+incorperation of learning impact in assessment of OER quality. Although many lessons can be learned, the
+results of the simulation and the experiment show that the principle works, in
+spite of a limited and mostly diverse collection of participants. The author
+recommends the field concerning OER quality to search for improvements of and
+alternatives for this approach. It is essential for the feasibillity of truly
+open collections of OER to take into account the impact an OER has on learning.
+After all, that is why we want to have open educational resources in the first
+place.

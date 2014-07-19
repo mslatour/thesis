@@ -5,7 +5,7 @@ As described in Chapter~\ref{ch:curriculum_sequencing}, the goal of this thesis
 is to find the optimal sequence of OER while minimizing online regret. The
 \textbf{TutOER} system needs to select a sequence for each student within a
 lesson. This chapter describes how the system does this. The approach uses a
-genetic algorithm to search more structured through the space of possible
+genetic algorithm to search in a more structured manner through the space of possible
 sequences. The genetic algorithm paradigm is introduced in
 Section~\ref{sec:approach_intro}. Section~\ref{sec:approach_application}
 discusses how this paradigm is applied to this thesis.
@@ -18,7 +18,7 @@ in-depth introduction, the reader is referred to \citep{Eiben2007}.\\\\
 \noindent
 The \emph{genetic algorithm} \citep{Holland1992} is a part of a family of
 search algorithms called \emph{evolutionary computing}. The technique draws
-inspiration from Darwinian evolution and naturual selection. In genetic
+inspiration from Darwinian evolution and natural selection. In genetic
 algorithms, a population of individuals evolves over multiple generations to
 better perform on some metric. These individuals all have a set of traits that
 influence their performance. For example, a bird could have traits like a long
@@ -278,7 +278,7 @@ The \emph{permutation encoding} is used to represent each
 sequence. However, unlike most curriculum sequencing approaches
 \citep{AlMuhaideb2011}, the chromosomes have variable length. The variable
 length is necessary because the OER sequences have variable length as well.
-Chromosomes can furthermore also be partial permutations, where not all OER are
+Chromosomes can thus also be partial permutations, where not all OER are
 contained in the sequence.
 %%%
 % Initialization
@@ -363,7 +363,7 @@ that the order is a matter of pedagogy and not knowledge engineering.
 And even if we were able to fully specify the right pedagogical order
 for each type of student perfectly. We would still not have the
 required information about these learning objects, or the information
-might be wrong. In conclusion, we are learning a sequence of black
+might be wrong. Thus, we are learning a sequence of black
 boxes of which we only know that they attempt to teach a particular
 knowledge component.\\\\
 \noindent

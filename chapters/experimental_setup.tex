@@ -67,7 +67,7 @@ in a state where the nim-sum of the stacks is zero. The nim-sum operator is in
 fact the \emph{exclusive or} (XOR) operator, which describes the sum of two
 binary numbers neglecting all carries between digits. A different way to put
 this is that the XOR operator outputs a `one' when exactly one of the two
-inputs contains a `one', and 'zero' in any other case. In a winnable situation,
+inputs contains a `one', and 'zero' in the other case. In a winnable situation,
 the nim-sum is not equal to zero at the beginning of your turn. You then remove a
 number of objects from a single stack, such that the nim-sum becomes zero.
 The nim-sum operator can not only be used to determine whether the nim-sum will
@@ -103,7 +103,7 @@ After having completed all knowledge components, a student is presented a final
 exam. The purpose of this exam is to have an opportunity to compare students at
 the beginning of the experiment with those at the end. The exam questions are
 nim game scenarios that the student has to play. The game interface is
-described in Section~\ref{sec:apx_nimjs}. If the student wins, the
+described in Appendix~\ref{sec:apx_nimjs}. If the student wins, the
 question is answered correctly. If the computer wins, the question is counted
 as wrong. The exam grade is calculated as the percentage of won games. The result
 of each game is displayed in a progress bar, as can be seen in
@@ -251,7 +251,7 @@ and the highest known estimated fitness, within the same population.\\\\
 The estimates used in the regret calculation are the estimated values at the
 end of the experiment. The reason is that comparing with the estimated values
 at the moment of the decision is less interesting. Theoretical results from the
-literature about genetic algorithm and UCB already tell us how they will deal
+literature about genetic algorithms and UCB already tell us how they will deal
 with exploration versus exploitation and the regret that would be caused by
 that. Furthermore from the simulations performed in this thesis it appears that
 the algorithm is properly implemented. What the experiment is intended to find
